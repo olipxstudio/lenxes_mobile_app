@@ -1,15 +1,20 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { View, Text } from 'react-native';
-import {useTailwind} from 'tailwind-rn';
+import { View, Text, Button, SafeAreaView } from 'react-native';
 
-const Home = () => {
-    const tw = useTailwind();
+const Home = ({ navigation }) => {
     
     return (
-        <View style={tw('flex-1 bg-black justify-center items-center')}>
-            <Text style={tw('text-red-600')}>Open up App.js to start working on your app!</Text>
-        </View>
+        <SafeAreaView>
+            <View style={{marginTop:100}}>
+                <Text>Open up App.js to start working on your app!</Text>
+                <Button
+                    title="Go to Register"
+                    onPress={() => navigation.navigate('Register')}
+                />
+            </View>
+            
+        </SafeAreaView>
     );
 }
 
