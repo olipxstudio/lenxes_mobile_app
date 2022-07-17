@@ -3,10 +3,10 @@ import { Text, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
 
 const { width } = Dimensions.get('window');
 
-const AuthButton = ({ text }) => {
+const AuthButton = ({ text, press }) => {
     
     return (
-        <TouchableOpacity style={styles.btn}>
+        <TouchableOpacity style={styles.btn} onPress={()=>press()}>
             <Text style={styles.btn_text}>{text}</Text>
         </TouchableOpacity>
     );
@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         marginLeft: (width / 2) - 117, // Half button width plus margin left of 30
-        marginTop: 10
+        marginTop: 20
     },
     btn_text: {
         color: '#fff',

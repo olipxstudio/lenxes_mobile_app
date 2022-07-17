@@ -3,6 +3,8 @@ import { View, Text, TouchableOpacity, SafeAreaView, Image, TextInput, StyleShee
 import { LinearGradient } from 'expo-linear-gradient';
 import AuthButton from '../../components/AuthButton';
 import RNPickerSelect from "react-native-picker-select";
+import { useFonts } from 'expo-font';
+import Colors from '../../components/Colors';
 
 const { width } = Dimensions.get('window');
 
@@ -12,6 +14,14 @@ const Register = ({ navigation }) => {
     const [phone, setPhone] = useState('');
     const [category, setCategory] = useState('');
     
+    const [fontsLoaded] = useFonts({
+        millik: require('../../assets/fonts/Millik.otf')
+    });
+    
+    if(!fontsLoaded){
+        return null;
+    }
+      
     return (
         <LinearGradient
             colors={['#EFE9D9', '#ffffff']}
@@ -25,32 +35,29 @@ const Register = ({ navigation }) => {
                         <View style={styles.container}>
                             <Image source={require('../../assets/logo/lenxes_logo_bg_millik_black.png')} style={{width:110,height:26.6}} />
                             <View style={styles.t_b_space}>
-                                <Text style={styles.title}>Sign up and start earning</Text>
+                                <Text style={[styles.title, {fontFamily:'millik'}]}>Sign up and start earning</Text>
                             </View>
                             <View>
                                 <TextInput onChangeText={(text) => setFullname(text)} style={styles.input} placeholder="Full Name" />
                                 <TextInput onChangeText={(text) => setEmail(text)} style={styles.input} placeholder="Email" />
                                 <TextInput onChangeText={(text) => setPhone(text)} style={styles.input} placeholder="Phone" />
-                                <TextInput onChangeText={(text) => setCategory(text)} style={styles.input} placeholder="I sell" />
                                 
                                 <View style={styles.select_container}>
                                     <Text style={styles.select_label}>What do you do?</Text>
                                     <RNPickerSelect
                                         style={pickerSelectStyles}
-                                        placeholder={{ label: "Select you favourite language", value: null }}
-                                        onValueChange={(value) => console.log(value)}
+                                        placeholder={{ label: "Select what you do", value: null }}
+                                        onValueChange={(value) => setCategory(value)}
                                         items={[
-                                            { label: "JavaScript", value: "JavaScript" },
-                                            { label: "TypeScript", value: "TypeScript" },
-                                            { label: "Python", value: "Python" },
-                                            { label: "Java", value: "Java" },
-                                            { label: "C++", value: "C++" },
-                                            { label: "C", value: "C" },
+                                            { label: "Sell Items / Products", value: "sell" },
+                                            { label: "Render Services", value: "services" },
+                                            { label: "I'm Employed", value: "employed" },
+                                            { label: "I'm an Employer", value: "employer" }
                                         ]}
                                     />
                                 </View>
                                 
-                                <AuthButton text="Sign Up" />
+                                <AuthButton text="Sign Up" press={() => navigation.navigate('SignupSecurity')} />
                             </View>
                             <View style={styles.alt_action}>
                                 <Text style={styles.alt_action_text}>Already have an account?</Text>
@@ -72,7 +79,7 @@ const pickerSelectStyles = StyleSheet.create({
         paddingVertical: 12,
         paddingHorizontal: 10,
         borderBottomWidth: 0.5,
-        borderBottomColor: '#ccc',
+        borderBottomColor: Colors.grayNine,
         color: 'black',
         paddingRight: 30 // to ensure the text is never behind the icon
     },
@@ -81,7 +88,7 @@ const pickerSelectStyles = StyleSheet.create({
         paddingHorizontal: 10,
         paddingVertical: 12,
         borderBottomWidth: 0.5,
-        borderBottomColor: '#ccc',
+        borderBottomColor: Colors.grayNine,
         color: 'black',
         paddingRight: 30 // to ensure the text is never behind the icon
     }
@@ -92,7 +99,7 @@ const styles = StyleSheet.create({
         width: '100%',
         height: 40,
         borderBottomWidth: 0.5,
-        borderBottomColor: '#ccc',
+        borderBottomColor: Colors.grayNine,
         marginBottom: 30
     },
     select_container: {
@@ -116,12 +123,12 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 36,
-        fontWeight: '800',
+        lineHeight: 40,
         paddingRight: 50
     },
     alt_action: {
         flexDirection: 'row',
-        marginTop: 30
+        marginTop: 45
     },
     alt_action_text: {
         fontSize: 13

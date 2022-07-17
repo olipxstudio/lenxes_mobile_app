@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, SafeAreaView, KeyboardAvoidingView, ScrollView, Image, TextInput, Pressable, StyleSheet } from 'react-native';
+import { View, Text, SafeAreaView, KeyboardAvoidingView, ScrollView, Image, TextInput, StyleSheet } from 'react-native';
 import AuthButton from '../../components/AuthButton';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useFonts } from 'expo-font';
 import Colors from '../../components/Colors';
 
-const Login = ({ navigation }) => {
-    const [email_username, setEmail_username] = useState('');
+const SignupSecurity = ({ navigation }) => {
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [repassword, setRePassword] = useState('');
     
     const [fontsLoaded] = useFonts({
         millik: require('../../assets/fonts/Millik.otf')
@@ -30,19 +31,17 @@ const Login = ({ navigation }) => {
                         <View style={styles.container}>
                             <Image source={require('../../assets/logo/lenxes_logo_bg_millik_black.png')} style={{width:110,height:26.6}} />
                             <View style={styles.t_b_space}>
-                                <Text style={[styles.title, {fontFamily:'millik'}]}>Welcome Back</Text>
+                                <Text style={[styles.title, {fontFamily:'millik'}]}>Account Security</Text>
                             </View>
                             <View>
-                                <TextInput onChangeText={(text) => setEmail_username(text)} style={styles.input} placeholder="Email or Username" />
+                                <TextInput onChangeText={(text) => setUsername(text)} style={styles.input} placeholder="Email or Username" />
                                 <TextInput onChangeText={(text) => setPassword(text)} style={styles.input} placeholder="Password" secureTextEntry={true} />
+                                <TextInput onChangeText={(text) => setRePassword(text)} style={styles.input} placeholder="Confirm Password" secureTextEntry={true} />
                                 
-                                <AuthButton text="Sign In" />
+                                <AuthButton text="Continue" press={() => navigation.navigate('SignupAddress')} />
                             </View>
                             <View style={styles.alt_action}>
-                                <Text style={styles.alt_action_text}>Don't have an account?</Text>
-                                <Pressable onPress={() => navigation.navigate('Register')} style={styles.alt_action_btn}>
-                                    <Text style={styles.alt_action_btn_text}>Sign Up</Text>
-                                </Pressable>
+                                <Text style={styles.alt_action_text}>By clicking “Continue” you consent to the collection and processing of your personal data in line with data regulations as described in the Lenxes Privacy Policy and you agree to Lenxes’ terms of acceptable use.</Text>
                             </View>
                         </View>
                     </ScrollView>
@@ -78,16 +77,11 @@ const styles = StyleSheet.create({
         marginTop: 45
     },
     alt_action_text: {
-        fontSize: 13
-    },
-    alt_action_btn: {
-        marginLeft: 5
-    },
-    alt_action_btn_text: {
-        fontWeight: '700',
-        fontSize: 13
+        fontSize: 13,
+        color: Colors.grayTwelve,
+        lineHeight:18
     },
 })
 
 
-export default Login;
+export default SignupSecurity;
