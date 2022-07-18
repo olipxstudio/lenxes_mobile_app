@@ -136,7 +136,7 @@ const SignupProfileDetails = ({ navigation }) => {
                                     />
                                 </View>
                                 
-                                <AuthButton text="Continue" press={() => navigation.navigate('SignupFollow')} />
+                                <AuthButton text="Continue" status={false} press={() => navigation.navigate('SignupFollow')} />
                             </View>
                         </View>
                     </ScrollView>

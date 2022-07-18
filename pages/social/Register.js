@@ -57,7 +57,7 @@ const Register = ({ navigation }) => {
                                     />
                                 </View>
                                 
-                                <AuthButton text="Sign Up" press={() => navigation.navigate('SignupSecurity')} />
+                                <AuthButton text="Sign Up" status={false} press={() => navigation.navigate('SignupSecurity')} />
                             </View>
                             <View style={styles.alt_action}>
                                 <Text style={styles.alt_action_text}>Already have an account?</Text>

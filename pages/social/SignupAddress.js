@@ -71,7 +71,7 @@ const SignupAddress = ({ navigation }) => {
                                 <TextInput onChangeText={(text) => setCity(text)} style={styles.input} placeholder="City" />
                                 <TextInput onChangeText={(text) => setStreet(text)} style={styles.input} placeholder="Street Address" />
                                 
-                                <AuthButton text="Continue" press={() => navigation.navigate('SignupProfileDetails')} />
+                                <AuthButton text="Continue" status={false} press={() => navigation.navigate('SignupProfileDetails')} />
                             </View>
                         </View>
                     </ScrollView>

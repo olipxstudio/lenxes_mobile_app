@@ -11,10 +11,15 @@ const SignupAbout = ({ navigation }) => {
     const [state, setState] = useState('');
     const [city, setCity] = useState('');
     const [street, setStreet] = useState('');
+    const [waiting, setWaiting] = useState(true);
     
     const [fontsLoaded] = useFonts({
         millik: require('../../assets/fonts/Millik.otf')
     });
+    
+    setTimeout(()=>{
+        setWaiting(false)
+    },10000)
     
     if(!fontsLoaded){
         return null;
@@ -42,11 +47,15 @@ const SignupAbout = ({ navigation }) => {
                             
                         </View>
                         <View>
-                            <View style={{flexDirection:'row',justifyContent:'center'}}>
-                                <ActivityIndicator size="small" color={Colors.grayTen} />
-                                <Text style={{marginLeft:7,color:Colors.grayTen,fontSize:12}}>we are getting your profile ready</Text>
-                            </View>
-                            <AuthButton text="Proceed" press={() => navigation.navigate('SignupProfileDetails')} />
+                            {
+                                waiting ?
+                                <View style={{flexDirection:'row',justifyContent:'center'}}>
+                                    <ActivityIndicator size="small" color={Colors.grayTen} />
+                                    <Text style={{marginLeft:7,color:Colors.grayTen,fontSize:12}}>we are getting your profile ready</Text>
+                                </View>
+                                : null
+                            }
+                            <AuthButton text="Done" status={waiting} press={() => navigation.navigate('SocialAccountsStacks')} />
                         </View>
                     </View>
                 </ScrollView>

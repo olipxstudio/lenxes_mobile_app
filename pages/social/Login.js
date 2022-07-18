@@ -36,7 +36,7 @@ const Login = ({ navigation }) => {
                                 <TextInput onChangeText={(text) => setEmail_username(text)} style={styles.input} placeholder="Email or Username" />
                                 <TextInput onChangeText={(text) => setPassword(text)} style={styles.input} placeholder="Password" secureTextEntry={true} />
                                 
-                                <AuthButton text="Sign In" />
+                                <AuthButton text="Sign In" status={false} press={()=>navigation.navigate("SocialAccountsStacks")} />
                             </View>
                             <View style={styles.alt_action}>
                                 <Text style={styles.alt_action_text}>Don't have an account?</Text>

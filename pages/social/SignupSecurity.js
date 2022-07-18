@@ -38,7 +38,7 @@ const SignupSecurity = ({ navigation }) => {
                                 <TextInput onChangeText={(text) => setPassword(text)} style={styles.input} placeholder="Password" secureTextEntry={true} />
                                 <TextInput onChangeText={(text) => setRePassword(text)} style={styles.input} placeholder="Confirm Password" secureTextEntry={true} />
                                 
-                                <AuthButton text="Continue" press={() => navigation.navigate('SignupAddress')} />
+                                <AuthButton text="Continue" status={false} press={() => navigation.navigate('SignupAddress')} />
                             </View>
                             <View style={styles.alt_action}>
                                 <Text style={styles.alt_action_text}>By clicking “Continue” you consent to the collection and processing of your personal data in line with data regulations as described in the Lenxes Privacy Policy and you agree to Lenxes’ terms of acceptable use.</Text>

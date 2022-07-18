@@ -9,6 +9,7 @@ import SignupProfileDetails from './pages/social/SignupProfileDetails';
 import SignupFollow from './pages/social/SignupFollow';
 import SignupAbout from './pages/social/SignupAbout';
 import Home from './Home';
+import SocialAccountsStacks from './SocialAccountsStacks';
 
 import { TransitionPresets } from '@react-navigation/stack';
 
@@ -32,7 +33,7 @@ const Stacks = () => {
             <Stack.Screen name="SignupProfileDetails" component={SignupProfileDetails} />
             <Stack.Screen name="SignupFollow" component={SignupFollow} />
             <Stack.Screen name="SignupAbout" component={SignupAbout} />
-            {/* <Stack.Screen name="Account_stack" component={Account_stack} /> */}
+            <Stack.Screen name="SocialAccountsStacks" component={SocialAccountsStacks} />
         </Stack.Navigator>
     )
 }
