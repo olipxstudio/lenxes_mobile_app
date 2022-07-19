@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, SafeAreaView, ScrollView, Image, StyleSheet, Pressable, Platform, Dimensions } from 'react-native';
+import { View, Text, SafeAreaView, ScrollView, Image, StyleSheet, Pressable, Platform, Dimensions, Modal, Alert } from 'react-native';
 import Button from '../../components/Button';
 import Colors from '../../components/Colors';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import PostBody from '../../components/PostBody';
 
 const {width} = Dimensions.get('window');
 
@@ -12,6 +13,7 @@ const Profile = ({ navigation }) => {
     const [img_uri, set_img_uri] = useState('');
     const [siteType, setSiteType] = useState('Store');
     const [active, setActive] = useState('grid'); // grid, tag, play, bookmark
+    const [modalVisible, setModalVisible] = useState(false);
     
     return (
         <View style={styles.container}>
@@ -117,6 +119,27 @@ const Profile = ({ navigation }) => {
                         </View>
                     </View>
                 </View>
+                
+                <Modal
+                animationType="slide"
+                statusBarTranslucent={true}
+                transparent={true}
+                visible={modalVisible}
+                // onShow={()=>alert('shown')}
+                onRequestClose={() => {
+                    Alert.alert('Modal has been closed.');
+                    setModalVisible(!modalVisible);
+                }}>
+                    <View style={styles.ModalView}>
+                        <View style={styles.ModalCenterView}>
+                            <View style={styles.modalCloseBarHD}><Pressable style={styles.modalCloseBar} onPress={()=>setModalVisible(!modalVisible)}></Pressable></View>
+                            <View style={styles.modalHead}>
+                                <Ionicons onPress={()=>setModalVisible(!modalVisible)} name="chevron-back" size={24} color={Colors.black} style={{marginLeft:-7}} />
+                            </View>
+                            <PostBody press={()=>alert('Okay')} />
+                        </View>
+                    </View>
+                </Modal>
             </SafeAreaView>
         </View>
     );
@@ -124,6 +147,44 @@ const Profile = ({ navigation }) => {
 
 
 const styles = StyleSheet.create({
+    ModalView: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'flex-end',
+        backgroundColor: '#00000099',
+        position: 'relative'
+    },
+    ModalCenterView: {
+        backgroundColor: '#fff',
+        width: '100%',
+        height: '90%',
+        borderTopLeftRadius: 25,
+        borderTopRightRadius: 25,
+        paddingHorizontal: 15,
+    },
+    modalCloseBarHD: {
+        width: '100%',
+        // position: 'absolute',
+        // top: 0,
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingVertical:5,
+    },
+    modalCloseBar: {
+        width: 50,
+        height: 6,
+        borderRadius: 12,
+        backgroundColor: Colors.grayNine,
+    },
+    modalHead: {
+        width: '100%',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        paddingVertical: 10
+    },
+    
     container:{
         width: '100%',
         flex: 1,

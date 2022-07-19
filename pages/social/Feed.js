@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, SafeAreaView, ScrollView, Image, StyleSheet, Pressable, Platform, Dimensions } from 'react-native';
+import { View, Text, SafeAreaView, ScrollView, Image, StyleSheet, Pressable, Platform, Dimensions, TouchableOpacity } from 'react-native';
 import Button from '../../components/Button';
 import Colors from '../../components/Colors';
 import Ionicons from '@expo/vector-icons/Ionicons';
@@ -28,22 +28,25 @@ const Feed = ({ navigation }) => {
                         <Ionicons onPress={()=>alert('good')} name="play" size={24} color={Colors.black} style={styles.hdJiveBtn} />
                     </View>
                 </View>
+                <ScrollView>
+                    <View style={styles.main}>
+                        <ScrollView showsHorizontalScrollIndicator={false} style={styles.discuss} horizontal>
+                            <DiscussClip text="Discover" press={()=>alert('Okay')} img="" num="12" />
+                            <DiscussClip text="Discover" press={()=>alert('Okay')} img="" num="24" />
+                            <DiscussClip text="Discover" press={()=>alert('Okay')} img="" num="6" />
+                            <DiscussClip text="Discover" press={()=>alert('Okay')} img="" num="33" />
+                            <DiscussClip text="Discover" press={()=>alert('Okay')} img="" num="8" />
+                            <DiscussClip text="Discover" press={()=>alert('Okay')} img="" num="17" />
+                            <DiscussClip text="Discover" press={()=>alert('Okay')} img="" num="4" />
+                            <DiscussClip text="Discover" press={()=>alert('Okay')} img="" num="28" />
+                            <DiscussClip text="Discover" press={()=>alert('Okay')} img="" num="14" />
+                        </ScrollView>
+                        
+                        <PostBody press={()=>alert('Okay')} />
+                        <PostBody press={()=>alert('Okay')} />
+                    </View>
+                </ScrollView>
                 
-                <View style={styles.main}>
-                    <ScrollView showsHorizontalScrollIndicator={false} style={styles.discuss} horizontal>
-                        <DiscussClip text="Discover" press={()=>alert('Okay')} img="" num="12" />
-                        <DiscussClip text="Discover" press={()=>alert('Okay')} img="" num="24" />
-                        <DiscussClip text="Discover" press={()=>alert('Okay')} img="" num="6" />
-                        <DiscussClip text="Discover" press={()=>alert('Okay')} img="" num="33" />
-                        <DiscussClip text="Discover" press={()=>alert('Okay')} img="" num="8" />
-                        <DiscussClip text="Discover" press={()=>alert('Okay')} img="" num="17" />
-                        <DiscussClip text="Discover" press={()=>alert('Okay')} img="" num="4" />
-                        <DiscussClip text="Discover" press={()=>alert('Okay')} img="" num="28" />
-                        <DiscussClip text="Discover" press={()=>alert('Okay')} img="" num="14" />
-                    </ScrollView>
-                    
-                    <PostBody press={()=>alert('Okay')} />
-                </View>
             </SafeAreaView>
         </View>
     );
@@ -79,7 +82,6 @@ const styles = StyleSheet.create({
         marginTop: 10,
         marginBottom: 25
     },
-    
 })
 
 

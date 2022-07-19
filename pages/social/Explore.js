@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, SafeAreaView, ScrollView, Image, StyleSheet, Pressable, Platform, Dimensions } from 'react-native';
+import { View, Text, SafeAreaView, Modal, Image, StyleSheet, Pressable, Platform, Dimensions, Alert } from 'react-native';
 import Button from '../../components/Button';
 import Colors from '../../components/Colors';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import * as Device from 'expo-device';
+import PostBody from '../../components/PostBody';
 
 const {width} = Dimensions.get('window');
 
@@ -11,8 +12,13 @@ const Explore = ({ navigation }) => {
     const [country, setCountry] = useState('');
     const [img_filled, set_img_filled] = useState(false);
     const [img_uri, set_img_uri] = useState('');
-    const [siteType, setSiteType] = useState('Store');
+    const [modalVisible, setModalVisible] = useState(false);
     const [active, setActive] = useState('post'); // post, product
+    
+    const switchTabs = (tab) => {
+        setActive(tab)
+        
+    }
     
     return (
         <View style={styles.container}>
@@ -31,10 +37,10 @@ const Explore = ({ navigation }) => {
                 
                 <View style={styles.main}>
                     <View style={styles.ex_tab_bar}>
-                        <Pressable style={[styles.exTabBtn, active==='post' && styles.active]}>
+                        <Pressable onPress={()=>switchTabs('post')} style={[styles.exTabBtn, active==='post' && styles.active]}>
                             <Text style={[styles.exTabBtnText, active==='post' && styles.active_text]}>Posts</Text>
                         </Pressable>
-                        <Pressable style={[styles.exTabBtn, active==='product' && styles.active]}>
+                        <Pressable onPress={()=>switchTabs('product')} style={[styles.exTabBtn, active==='product' && styles.active]}>
                             <Text style={[styles.exTabBtnText, active==='product' && styles.active_text]}>Products</Text>
                         </Pressable>
                     </View>
@@ -67,10 +73,10 @@ const Explore = ({ navigation }) => {
                         </View>
                     </Pressable>
                     <View style={styles.postsHolder}>
-                        <View style={styles.post}>
+                        <Pressable style={styles.post} onPress={()=>setModalVisible(!modalVisible)}>
                             {/* <Image source={{ uri: img_uri }} resizeMode='contain' style={styles.postPhoto} /> */}
                             <Ionicons name="play" size={18} color={Colors.primary} style={styles.vidTag} />
-                        </View>
+                        </Pressable>
                         <View style={styles.post}>
                             <Text style={{color:Colors.grayNine,margin:15}}>{Device.brand}, {Device.deviceName}, {Device.modelName}</Text>
                         </View>
@@ -82,6 +88,27 @@ const Explore = ({ navigation }) => {
                         </View>
                     </View>
                 </View>
+                
+                <Modal
+                animationType="slide"
+                statusBarTranslucent={true}
+                transparent={true}
+                visible={modalVisible}
+                // onShow={()=>alert('shown')}
+                onRequestClose={() => {
+                    Alert.alert('Modal has been closed.');
+                    setModalVisible(!modalVisible);
+                }}>
+                    <View style={styles.ModalView}>
+                        <View style={styles.ModalCenterView}>
+                            <View style={styles.modalCloseBarHD}><Pressable style={styles.modalCloseBar} onPress={()=>setModalVisible(!modalVisible)}></Pressable></View>
+                            <View style={styles.modalHead}>
+                                <Ionicons onPress={()=>setModalVisible(!modalVisible)} name="chevron-back" size={24} color={Colors.black} style={{marginLeft:-7}} />
+                            </View>
+                            <PostBody press={()=>alert('Okay')} />
+                        </View>
+                    </View>
+                </Modal>
             </SafeAreaView>
         </View>
     );
@@ -89,6 +116,47 @@ const Explore = ({ navigation }) => {
 
 
 const styles = StyleSheet.create({
+    ModalView: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'flex-end',
+        backgroundColor: '#00000099',
+        position: 'relative'
+    },
+    ModalCenterView: {
+        backgroundColor: '#fff',
+        width: '100%',
+        height: '90%',
+        borderTopLeftRadius: 25,
+        borderTopRightRadius: 25,
+        paddingHorizontal: 15,
+    },
+    modalCloseBarHD: {
+        width: '100%',
+        // position: 'absolute',
+        // top: 0,
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingVertical:5,
+    },
+    modalCloseBar: {
+        width: 50,
+        height: 6,
+        borderRadius: 12,
+        backgroundColor: Colors.grayNine,
+    },
+    modalHead: {
+        width: '100%',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        paddingVertical: 10
+    },
+    
+    
+    
+    
     container:{
         width: '100%',
         flex: 1,
@@ -261,7 +329,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         bottom: 10,
         right: 10,
-    },
+    }, 
 })
 
 
