@@ -1,37 +1,64 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, SafeAreaView, ScrollView, Image, StyleSheet, Pressable, Platform, Dimensions, Modal, Alert } from 'react-native';
+import React, { useState, useEffect, useMemo } from 'react';
+import { View, Text, SafeAreaView, ScrollView, Image, StyleSheet, Pressable, Platform, Dimensions, Modal, Alert, FlatList } from 'react-native';
 import Button from '../../components/Button';
 import Colors from '../../components/Colors';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import PostBody from '../../components/PostBody';
+import ProfileChecklist from '../../components/ProfileChecklist';
+import MasonryList from '@react-native-seoul/masonry-list';
 
 const {width} = Dimensions.get('window');
 
+const RemoteImage = ({ uri, desiredWidth }) => {
+    const [desiredHeight, setDesiredHeight] = React.useState(0)
+
+    Image.getSize(uri, (width, height) => {
+        setDesiredHeight(desiredWidth / width * height)
+    })
+
+    return (
+        <Image
+            source={{ uri }}
+            style={{
+                width: desiredWidth,
+                height: desiredHeight
+            }}
+        />
+    )
+}
+
 const Profile = ({ navigation }) => {
-    const [country, setCountry] = useState('');
+    const [data, setData] = useState([{'name':'one','height':'https://i.pinimg.com/originals/12/78/87/12788757389604aae46006a1b7e3500b.jpg'},{'name':'two','height':'https://wallpaper.dog/large/522253.jpg'},{'name':'three','height':'https://thumbs.dreamstime.com/b/aster-flowers-art-design-26968847.jpg'},{'name':'four','height':'https://www.azflowerpictures.com/wp-content/uploads/2020/09/Pink-Flowers-1.jpg'},{'name':'five','height':'https://static.onecms.io/wp-content/uploads/sites/37/2020/04/10/premixed-bouquet-flower-0e49a64c.jpg'},{'name':'six','height':'https://www.expressflowersandevents.com/assets/1/14/MainFCKEditorDimension/179418xlx1.jpg'}]); //{'one':'good'},{'two':'fine'}
+    const [loading, setLoading] = useState(false);
+    const [profileDone, setProfileDone] = useState('');
     const [img_filled, set_img_filled] = useState(false);
     const [img_uri, set_img_uri] = useState('');
     const [siteType, setSiteType] = useState('Store');
     const [active, setActive] = useState('grid'); // grid, tag, play, bookmark
     const [modalVisible, setModalVisible] = useState(false);
+    const [checklistVisible, setChecklistVisible] = useState(false);
+    
     
     return (
         <View style={styles.container}>
-            <SafeAreaView>
+            <SafeAreaView style={{flex:1}}>
                 <View style={{ backgroundColor: '#fff', height: Platform.OS === 'android' ? 50 : 0 }} />
                 <View style={styles.header_cont}>
                     <View style={styles.pf_hd_username}>
                         <Text style={styles.pf_hd_username_text}>olipxstudio</Text>
                     </View>
                     <View style={styles.pf_hd_options}>
-                        <Button
-                            text="Follow"
-                            press={()=>navigation.navigate("---")}
-                            status={false}
-                            size="small"
-                            bac={Colors.primary}
-                            colour={Colors.white}
-                        />
+                        {
+                            profileDone == '' &&
+                            <Button
+                                text="Complete"
+                                press={()=>navigation.navigate("---")}
+                                status={false}
+                                size="small"
+                                bac={Colors.primary}
+                                colour={Colors.white}
+                            />
+                        }
                         <Pressable style={styles.pf_option_btn}>
                             <Ionicons name="ellipsis-horizontal-sharp" size={24} color="black" />
                         </Pressable>
@@ -39,86 +66,167 @@ const Profile = ({ navigation }) => {
                 </View>
                 
                 <View style={styles.main}>
-                    <View style={styles.pf_details}>
-                        <View style={styles.pf_pt}>
-                            <Pressable onPress={() => changePhoto()} style={styles.pf_pt_inner}>
-                                {
-                                    img_filled ?
-                                        <Image source={{ uri: img_uri }} resizeMode='contain' style={styles.photo_inp_img} />
-                                        :
+                    
+                    <MasonryList
+                        data={data}
+                        showsVerticalScrollIndicator={false}
+                        // getItemLayout={(data, index) => getItemLayout(data, index)}
+                        // ref={(ref) => setListRef(ref)}
+                        // onMomentumScrollEnd={(nativeEvent) => handleScrollTop(nativeEvent)}
+                        removeClippedSubviews={true}
+                        initialNumToRender={10}
+                        // onEndReached={() => loadMoreFeed(user_id)}
+                        // onEndReachedThreshold={7}
+                        ListHeaderComponent={
+                            <>
+                            <View style={styles.pf_details}>
+                                <View style={styles.pf_pt}>
+                                    <Pressable onPress={() => changePhoto()} style={styles.pf_pt_inner}>
+                                        {
+                                            img_filled ?
+                                                <Image source={{ uri: img_uri }} resizeMode='contain' style={styles.photo_inp_img} />
+                                                :
+                                                <View>
+                                                    <Ionicons name="add-outline" size={40} color="#ccc" />
+                                                </View>
+                                        }
+                                    </Pressable>
+                                </View>
+                                <View style={styles.pf_det_info}>
+                                    <View style={styles.pf_det_tits}>
+                                        <Text style={styles.pfd_tit}>Olipx Studio</Text>
+                                        <Text style={styles.pfd_subtit}>Web Designer</Text>
+                                    </View>
+                                    <View style={styles.pf_det_stats}>
                                         <View>
-                                            <Ionicons name="add-outline" size={40} color="#ccc" />
+                                            <Text style={styles.pfs_num}>340</Text>
+                                            <Text style={styles.pfd_subtit}>Followers</Text>
                                         </View>
-                                }
-                            </Pressable>
-                        </View>
-                        <View style={styles.pf_det_info}>
-                            <View style={styles.pf_det_tits}>
-                                <Text style={styles.pfd_tit}>Olipx Studio</Text>
-                                <Text style={styles.pfd_subtit}>Web Designer</Text>
-                            </View>
-                            <View style={styles.pf_det_stats}>
-                                <View>
-                                    <Text style={styles.pfs_num}>340</Text>
-                                    <Text style={styles.pfd_subtit}>Followers</Text>
-                                </View>
-                                <View>
-                                    <Text style={styles.pfs_num}>20.4k</Text>
-                                    <Text style={styles.pfd_subtit}>Following</Text>
-                                </View>
-                                <View>
-                                    <Text style={styles.pfs_num}>204</Text>
-                                    <Text style={styles.pfd_subtit}>Posts</Text>
+                                        <View>
+                                            <Text style={styles.pfs_num}>20.4k</Text>
+                                            <Text style={styles.pfd_subtit}>Following</Text>
+                                        </View>
+                                        <View>
+                                            <Text style={styles.pfs_num}>204</Text>
+                                            <Text style={styles.pfd_subtit}>Posts</Text>
+                                        </View>
+                                    </View>
                                 </View>
                             </View>
-                        </View>
-                    </View>
-                    <View style={styles.bio}>
-                        <Text style={styles.bio_text}>UI designer a Product Designer | Product Manager Available | also good at football</Text>
-                        <Text style={styles.bio_url}>olipxstudio.com</Text>
-                    </View>
-                    <View style={styles.pf_action_bar}>
-                        <Pressable style={[styles.pfActionBtn, {backgroundColor:Colors.graySeven}]}>
-                            <Text style={styles.pfActionBtnText}>Edit Profile</Text>
-                        </Pressable>
-                        <Pressable style={[styles.pfActionBtn, {backgroundColor:Colors.primary}]}>
-                            <Text style={[styles.pfActionBtnText, {color:Colors.white}]}>Create {siteType}</Text>
-                        </Pressable>
-                    </View>
-                    <View style={styles.tabBar}>
-                        <View>
-                            <Ionicons name="ios-grid-outline" size={24} color={Colors.grayEleven} style={{display:active==='grid'?'none':'flex'}} />
-                            <Ionicons name="ios-grid" size={24} color={Colors.grayTwelve} style={{display:active==='grid'?'flex':'none'}} />
-                        </View>
-                        <View>
-                            <Ionicons name="pricetags-outline" size={24} color={Colors.grayEleven} style={{display:active==='tag'?'none':'flex'}} />
-                            <Ionicons name="pricetags" size={24} color={Colors.grayTwelve} style={{display:active==='tag'?'flex':'none'}} />
-                        </View>
-                        <View>
-                            <Ionicons name="play-outline" size={24} color={Colors.grayEleven} style={{display:active==='play'?'none':'flex'}} />
-                            <Ionicons name="play" size={24} color={Colors.grayTwelve} style={{display:active==='play'?'flex':'none'}} />
-                        </View>
-                        <View>
-                            <Ionicons name="bookmark-outline" size={24} color={Colors.grayEleven} style={{display:active==='bookmark'?'none':'flex'}} />
-                            <Ionicons name="bookmark" size={24} color={Colors.grayTwelve} style={{display:active==='bookmark'?'flex':'none'}} />
-                        </View>
-                    </View>
-                    <View style={styles.postsHolder}>
-                        <View style={styles.post}>
-                            {/* <Image source={{ uri: img_uri }} resizeMode='contain' style={styles.postPhoto} /> */}
-                            <Ionicons name="play" size={18} color={Colors.primary} style={styles.vidTag} />
-                        </View>
-                        <View style={styles.post}>
-                            
-                        </View>
-                        <View style={styles.post}>
-                            
-                        </View>
-                        <View style={styles.post}>
-                            <Ionicons name="ios-pricetag" size={18} color={Colors.white} style={styles.productTag} />
-                        </View>
-                    </View>
+                            <View style={styles.bio}>
+                                <Text style={styles.bio_text}>UI designer a Product Designer | Product Manager Available | also good at football</Text>
+                                <Text style={styles.bio_url}>olipxstudio.com</Text>
+                            </View>
+                            {
+                                data == '' ?
+                                <>
+                                <View style={styles.emptyHD}>
+                                    <View style={styles.empLine}></View>
+                                    <View style={styles.empDetails}>
+                                        <Text style={styles.empTit}>Let's get your Profile ready</Text>
+                                        <Text style={styles.empSub}>We make it easy and quick, follow this simple checklist.</Text>
+                                        <Button
+                                            text="Open Checklist"
+                                            press={()=>setChecklistVisible(!checklistVisible)}
+                                            status={false}
+                                            size="large"
+                                            bac={Colors.primary}
+                                            colour={Colors.white}
+                                        />
+                                    </View>
+                                </View>
+                                <Modal
+                                animationType="slide"
+                                statusBarTranslucent={true}
+                                transparent={true}
+                                visible={checklistVisible}
+                                // onShow={()=>alert('shown')}
+                                onRequestClose={() => {
+                                    setChecklistVisible(!checklistVisible);
+                                }}>
+                                    <View style={styles.ModalView}>
+                                        <View style={styles.ModalCenterView}>
+                                            <View style={styles.modalCloseBarHD}><Pressable style={styles.modalCloseBar} onPress={()=>setChecklistVisible(!checklistVisible)}></Pressable></View>
+                                            <View style={styles.modalHead}>
+                                                <Ionicons onPress={()=>setChecklistVisible(!checklistVisible)} name="close-circle-outline" size={24} color={Colors.black} style={{marginLeft:-7}} />
+                                            </View>
+                                            <ProfileChecklist />
+                                        </View>
+                                    </View>
+                                </Modal>
+                                </>
+                                :
+                                <>
+                                <View style={styles.pf_action_bar}>
+                                    <Pressable style={[styles.pfActionBtn, {backgroundColor:Colors.graySeven}]}>
+                                        <Text style={styles.pfActionBtnText}>Edit Profile</Text>
+                                    </Pressable>
+                                    <Pressable style={[styles.pfActionBtn, {backgroundColor:Colors.primary}]}>
+                                        <Text style={[styles.pfActionBtnText, {color:Colors.white}]}>Create {siteType}</Text>
+                                    </Pressable>
+                                </View>
+                                <View style={styles.tabBar}>
+                                    <View>
+                                        <Ionicons name="ios-grid-outline" size={24} color={Colors.grayEleven} style={{display:active==='grid'?'none':'flex'}} />
+                                        <Ionicons name="ios-grid" size={24} color={Colors.grayTwelve} style={{display:active==='grid'?'flex':'none'}} />
+                                    </View>
+                                    <View>
+                                        <Ionicons name="pricetags-outline" size={24} color={Colors.grayEleven} style={{display:active==='tag'?'none':'flex'}} />
+                                        <Ionicons name="pricetags" size={24} color={Colors.grayTwelve} style={{display:active==='tag'?'flex':'none'}} />
+                                    </View>
+                                    <View>
+                                        <Ionicons name="play-outline" size={24} color={Colors.grayEleven} style={{display:active==='play'?'none':'flex'}} />
+                                        <Ionicons name="play" size={24} color={Colors.grayTwelve} style={{display:active==='play'?'flex':'none'}} />
+                                    </View>
+                                    <View>
+                                        <Ionicons name="bookmark-outline" size={24} color={Colors.grayEleven} style={{display:active==='bookmark'?'none':'flex'}} />
+                                        <Ionicons name="bookmark" size={24} color={Colors.grayTwelve} style={{display:active==='bookmark'?'flex':'none'}} />
+                                    </View>
+                                </View>
+                                </>
+                            }
+                            </>
+                        }
+                        numColumns={2}
+                        keyExtractor={(item) => item.name}
+                        // onRefresh={() => getItems(owner_id)}
+                        // refreshing={loading}
+                        style={{justifyContent: 'space-between'}}
+                        renderItem={({ item, index }) => {
+                            return (
+                                <View key={index} style={styles.post}>
+                                    <Ionicons name="ios-pricetag" size={18} color={Colors.white} style={styles.productTag} />
+                                    {/* <Image source={imageMap[item.name]} resizeMode='contain' /> */}
+                                    <RemoteImage uri={item.height} desiredWidth={(width - 40) / 2} />
+                                </View>
+                            )
+                        }}
+                        ListFooterComponent={
+                            <View style={styles.scrollTop}>
+                                <View style={styles.scrollTopInner}>
+                                    <Ionicons name="arrow-up" size={18} color={Colors.black_600} />
+                                </View>
+                            </View>
+                        }
+                    />
+                    
                 </View>
+                
+                {/* <View style={styles.postsHolder}>
+                    <View style={styles.post}>
+                        <Ionicons name="play" size={18} color={Colors.primary} style={styles.vidTag} />
+                    </View>
+                    <View style={[styles.post, styles.textPost]}>
+                        <View style={styles.textPostBar}></View>
+                        <Text style={styles.textPostText} numberOfLines={8}>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</Text>
+                    </View>
+                    <View style={styles.post}>
+                        
+                    </View>
+                    <View style={styles.post}>
+                        <Ionicons name="ios-pricetag" size={18} color={Colors.white} style={styles.productTag} />
+                    </View>
+                </View> */}
                 
                 <Modal
                 animationType="slide"
@@ -198,6 +306,7 @@ const styles = StyleSheet.create({
         paddingBottom: 15
     },
     main:{
+        flex: 1,
         width: '100%',
         paddingHorizontal: 15,
         boxSizing: 'border-box'
@@ -279,12 +388,35 @@ const styles = StyleSheet.create({
     },
     bio_text: {
         fontSize: 14,
-        lineHeight: 20
+        lineHeight: 21,
+        color: Colors.black_800
     },
     bio_url: {
         fontSize: 14,
         color: Colors.secondary,
         marginTop: 5
+    },
+    emptyHD: {
+        marginTop: 30,
+    },
+    empLine: {
+        width: '100%',
+        height: 1,
+        backgroundColor: Colors.grayEight
+    },
+    empDetails: {
+        width: '50%',
+        paddingTop: 50
+    },
+    empTit: {
+        fontSize: 22,
+        lineHeight: 30
+    },
+    empSub: {
+        fontSize: 16,
+        marginVertical: 15,
+        lineHeight: 23,
+        color: Colors.black_800
     },
     pf_action_bar: {
         flexDirection: 'row',
@@ -306,18 +438,36 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
         marginVertical: 15
     },
-    postsHolder: {
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        justifyContent: 'space-between'
-    },
     post: {
         width: (width / 2) - 20,
-        borderRadius: 22,
-        height: 200,
+        borderRadius: 8,
         backgroundColor: Colors.grayEight,
         marginBottom: 10,
-        position: 'relative'
+        position: 'relative',
+        overflow: 'hidden'
+    },
+    textPost: {
+        paddingVertical: 10,
+        paddingRight: 10,
+        paddingLeft: 20,
+        backgroundColor: Colors.white,
+        borderWidth: 1,
+        borderColor: Colors.graySix
+    },
+    textPostBar: {
+        position: 'absolute',
+        width: 6,
+        height: '80%',
+        left: 0,
+        top: '20%',
+        backgroundColor: Colors.secondaryLight,
+        borderTopRightRadius: 16,
+        borderBottomRightRadius: 16
+    },
+    textPostText: {
+        fontSize: 14,
+        lineHeight: 21,
+        color: Colors.black_800
     },
     vidTag: {
         position: 'absolute',
@@ -328,7 +478,23 @@ const styles = StyleSheet.create({
         position: 'absolute',
         bottom: 10,
         right: 10,
+        zIndex: 10
     },
+    scrollTop: {
+        width: '100%',
+        height: 50,
+        marginBottom:15,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    scrollTopInner: {
+        width: 30,
+        height: 30,
+        backgroundColor: Colors.black_025,
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderRadius: 50
+    }
 })
 
 

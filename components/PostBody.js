@@ -3,25 +3,10 @@ import { View, Image, Text, TouchableOpacity, StyleSheet, Pressable } from 'reac
 import Colors from './Colors';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { Entypo } from '@expo/vector-icons';
-import { useFonts } from 'expo-font';
 import TaggedPost from './TaggedPost';
 
 const PostBody = ({ text, press, img, num }) => {
     const [showTaggedProduct, setShowTaggedProduct] = useState(false)
-    
-    const [fontsLoaded] = useFonts({
-        // nunitoExtraLight: require('../assets/fonts/NunitoSans-ExtraLight.ttf'),
-        // nunitoLight: require('../assets/fonts/NunitoSans-Light.ttf'),
-        // nunitoRegular: require('../assets/fonts/NunitoSans-Regular.ttf'),
-        nunitoSemiBold: require('../assets/fonts/NunitoSans-SemiBold.ttf'),
-        // nunitoBold: require('../assets/fonts/NunitoSans-Bold.ttf'),
-        // nunitoExtraBold: require('../assets/fonts/NunitoSans-ExtraBold.ttf'),
-        // nunitoBlack: require('../assets/fonts/NunitoSans-Black.ttf'),
-    });
-    
-    if(!fontsLoaded){
-        return null;
-    }
     
     return (
         <View style={styles.fdPostHolder}>
@@ -67,9 +52,9 @@ const PostBody = ({ text, press, img, num }) => {
                     </View>
                 </View>
                 <View style={styles.postCaption}>
-                    <Text style={[styles.postCaptionText, {fontFamily:'nunitoSemiBold'}]}>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</Text>
+                    <Text style={styles.postCaptionText}>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</Text>
                     <Pressable style={styles.postCaptionCommentStats}>
-                        <Text style={[styles.postCaptionCommentStatsText, {fontFamily:'nunitoSemiBold'}]}>View all 430 comments</Text>
+                        <Text style={styles.postCaptionCommentStatsText}>View all 430 comments</Text>
                     </Pressable>
                 </View>
             </TouchableOpacity>
@@ -161,10 +146,10 @@ const styles = StyleSheet.create({
         marginBottom: 10
     },
     postCaptionText:{
-        lineHeight: 19,
+        lineHeight: 21,
         marginBottom: 10,
         fontSize: 14.5,
-        color: '#333'
+        color: Colors.black_800
     },
     postCaptionCommentStats:{
         

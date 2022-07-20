@@ -1,16 +1,18 @@
 import React from 'react';
-import { Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { Text, TouchableOpacity, StyleSheet, View } from 'react-native';
 
 const Button = ({ text, press, status, size, bac, colour }) => {
     
     return (
-        <TouchableOpacity
-            style={[status ? styles.disabled : styles.btn, {padding: size === 'small' ? 7 : 13, backgroundColor: bac}]}
-            onPress={()=>press()}
-            disabled={status}
-        >
-            <Text style={[size === 'small' ? styles.btn_text_small : styles.btn_text_big, {color: colour}]}>{text}</Text>
-        </TouchableOpacity>
+        <View style={{flexDirection: 'row'}}>
+            <TouchableOpacity
+                style={[status ? styles.disabled : styles.btn, {padding: size === 'small' ? 7 : 10, backgroundColor: bac}]}
+                onPress={()=>press()}
+                disabled={status}
+            >
+                <Text style={[size === 'small' ? styles.btn_text_small : styles.btn_text_big, {color: colour}]}>{text}</Text>
+            </TouchableOpacity>
+        </View>
     );
 }
 
@@ -32,7 +34,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 7
     },
     btn_text_big: {
-        fontSize: 16,
+        fontSize: 14,
         fontWeight: '600',
         marginHorizontal: 12
     },

@@ -5,6 +5,7 @@ import Colors from '../../components/Colors';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import * as Device from 'expo-device';
 import PostBody from '../../components/PostBody';
+import { useFonts } from 'expo-font';
 
 const {width} = Dimensions.get('window');
 
@@ -15,11 +16,18 @@ const Explore = ({ navigation }) => {
     const [modalVisible, setModalVisible] = useState(false);
     const [active, setActive] = useState('post'); // post, product
     
+    const [fontsLoaded] = useFonts({
+        nunitoSemiBold: require('../../assets/fonts/NunitoSans-SemiBold.ttf')
+    });
+    
     const switchTabs = (tab) => {
         setActive(tab)
         
     }
     
+    if(!fontsLoaded){
+        return null;
+    }
     return (
         <View style={styles.container}>
             <SafeAreaView>
@@ -80,8 +88,9 @@ const Explore = ({ navigation }) => {
                         <View style={styles.post}>
                             <Text style={{color:Colors.grayNine,margin:15}}>{Device.brand}, {Device.deviceName}, {Device.modelName}</Text>
                         </View>
-                        <View style={styles.post}>
-                            
+                        <View style={[styles.post, styles.textPost]}>
+                            <View style={styles.textPostBar}></View>
+                            <Text style={[styles.textPostText, {fontFamily: 'nunitoSemiBold'}]} numberOfLines={8}>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</Text>
                         </View>
                         <View style={styles.post}>
                             <Ionicons name="ios-pricetag" size={18} color={Colors.white} style={styles.productTag} />
@@ -319,6 +328,29 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.grayEight,
         marginBottom: 10,
         position: 'relative'
+    },
+    textPost: {
+        paddingVertical: 10,
+        paddingRight: 10,
+        paddingLeft: 20,
+        backgroundColor: Colors.white,
+        borderWidth: 1,
+        borderColor: Colors.graySix
+    },
+    textPostBar: {
+        position: 'absolute',
+        width: 6,
+        height: '80%',
+        left: 0,
+        top: '20%',
+        backgroundColor: Colors.secondaryLight,
+        borderTopRightRadius: 16,
+        borderBottomRightRadius: 16
+    },
+    textPostText: {
+        fontSize: 15,
+        lineHeight: 22,
+        color: '#333'
     },
     vidTag: {
         position: 'absolute',
