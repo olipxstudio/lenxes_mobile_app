@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
-import { View, Image, Text, TouchableOpacity, StyleSheet, Pressable } from 'react-native';
+import { View, Image, Text, TouchableOpacity, StyleSheet, Pressable, ScrollView } from 'react-native';
 import Colors from './Colors';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { Entypo } from '@expo/vector-icons';
 import TaggedPost from './TaggedPost';
 
-const PostBody = ({ text, press, img, num }) => {
+const PostBody = ({ text, press, img, type }) => {
     const [showTaggedProduct, setShowTaggedProduct] = useState(false)
     
     return (
@@ -23,14 +23,23 @@ const PostBody = ({ text, press, img, num }) => {
                     </Pressable>
                     <Ionicons onPress={()=>alert('options')} name="ellipsis-horizontal-sharp" size={20} color={Colors.grayTwelve} />
                 </View>
-                <View style={styles.postPhoto}>
-                    {/* <Image  style={styles.postPhotoImg} /> */}
-                    <View style={styles.vidPlay}>
-                        <TouchableOpacity style={styles.vidPlayBtn} onPress={()=>alert('good')}>
-                            <Ionicons name="play" size={18} color={Colors.white} />
-                        </TouchableOpacity>
+                {
+                    type == 'text' ?
+                    <View style={styles.textPost}>
+                        <View style={styles.textPostBar}></View>
+                        <Text style={styles.textPostText}>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate.</Text>
                     </View>
-                </View>
+                    :
+                    <View style={styles.postPhoto}>
+                        {/* PHOTO AND VIDEO */}
+                        <Image source={img} style={styles.postPhotoImg} />
+                        <View style={styles.vidPlay}>
+                            <TouchableOpacity style={styles.vidPlayBtn} onPress={()=>alert('good')}>
+                                <Ionicons name="play" size={18} color={Colors.white} />
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                }
                 <View style={styles.postActionHolder}>
                     <View style={styles.postActionBtnGrp}>
                         <Pressable style={styles.postAction}>
@@ -52,7 +61,12 @@ const PostBody = ({ text, press, img, num }) => {
                     </View>
                 </View>
                 <View style={styles.postCaption}>
-                    <Text style={styles.postCaptionText}>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</Text>
+                    {
+                        type != 'text' ?
+                        <Text style={styles.postCaptionText}>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim consectetur.</Text>
+                        :
+                        <View style={{height:Colors.space_12}}></View>
+                    }
                     <Pressable style={styles.postCaptionCommentStats}>
                         <Text style={styles.postCaptionCommentStatsText}>View all 430 comments</Text>
                     </Pressable>
@@ -109,17 +123,37 @@ const styles = StyleSheet.create({
     },
     postPhoto: {
         width: '100%',
-        height: 300,
+        height: 350, // 500 With Sample Image
         backgroundColor: Colors.grayEight,
-        borderRadius: 12,
+        borderRadius: 16,
         marginVertical: 10,
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        overflow: 'hidden'
     },
     postPhotoImg: {
         width: '100%',
         height: '100%',
         resizeMode: 'cover'
+    },
+    textPost: {
+        marginVertical: 15,
+        position: 'relative'
+    },
+    textPostBar: {
+        position: 'absolute',
+        left: 0,
+        top: 0,
+        width: 5,
+        height: '100%',
+        backgroundColor: Colors.secondaryLight,
+        borderRadius: 1
+    },
+    textPostText: {
+        lineHeight: 21,
+        fontSize: 14.5,
+        color: Colors.black_800,
+        marginLeft: 20
     },
     postActionHolder: {
         flexDirection: 'row',
@@ -187,7 +221,8 @@ const styles = StyleSheet.create({
         borderRadius: 50,
         backgroundColor: 'rgba(255, 255, 255, 0.4)',
         justifyContent: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        display: 'none'
     },
     vidPlayBtn: {
         width: 28,

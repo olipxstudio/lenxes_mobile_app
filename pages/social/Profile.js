@@ -28,7 +28,21 @@ const RemoteImage = ({ uri, desiredWidth }) => {
 }
 
 const Profile = ({ navigation }) => {
-    const [data, setData] = useState([{'name':'one','height':'https://i.pinimg.com/originals/12/78/87/12788757389604aae46006a1b7e3500b.jpg'},{'name':'two','height':'https://wallpaper.dog/large/522253.jpg'},{'name':'three','height':'https://thumbs.dreamstime.com/b/aster-flowers-art-design-26968847.jpg'},{'name':'four','height':'https://www.azflowerpictures.com/wp-content/uploads/2020/09/Pink-Flowers-1.jpg'},{'name':'five','height':'https://static.onecms.io/wp-content/uploads/sites/37/2020/04/10/premixed-bouquet-flower-0e49a64c.jpg'},{'name':'six','height':'https://www.expressflowersandevents.com/assets/1/14/MainFCKEditorDimension/179418xlx1.jpg'}]); //{'one':'good'},{'two':'fine'}
+    const [data, setData] = useState([
+        {'name':'one','height':130,'img':'https://i.pinimg.com/originals/12/78/87/12788757389604aae46006a1b7e3500b.jpg'},{'name':'two','height':230,'img':'https://wallpaper.dog/large/522253.jpg'},
+        {'name':'three','height':190,'img':'https://thumbs.dreamstime.com/b/aster-flowers-art-design-26968847.jpg'},{'name':'four','height':130,'img':'https://www.azflowerpictures.com/wp-content/uploads/2020/09/Pink-Flowers-1.jpg'},
+        {'name':'five','height':200,'img':'https://static.onecms.io/wp-content/uploads/sites/37/2020/04/10/premixed-bouquet-flower-0e49a64c.jpg'},
+        {'name':'six','height':110,'img':'https://www.expressflowersandevents.com/assets/1/14/MainFCKEditorDimension/179418xlx1.jpg'},
+        {'name':'seven','height':200,'img':'https://www.expressflowersandevents.com/assets/1/14/MainFCKEditorDimension/179418xlx1.jpg'},
+        {'name':'eight','height':240,'img':'https://www.expressflowersandevents.com/assets/1/14/MainFCKEditorDimension/179418xlx1.jpg'},
+        {'name':'nine','height':160,'img':'https://www.expressflowersandevents.com/assets/1/14/MainFCKEditorDimension/179418xlx1.jpg'},
+        {'name':'ten','height':240,'img':'https://www.expressflowersandevents.com/assets/1/14/MainFCKEditorDimension/179418xlx1.jpg'},
+        {'name':'eleven','height':160,'img':'https://www.expressflowersandevents.com/assets/1/14/MainFCKEditorDimension/179418xlx1.jpg'},
+        {'name':'twelve','height':230,'img':'https://www.expressflowersandevents.com/assets/1/14/MainFCKEditorDimension/179418xlx1.jpg'},
+        {'name':'thirteen','height':200,'img':'https://www.expressflowersandevents.com/assets/1/14/MainFCKEditorDimension/179418xlx1.jpg'},
+        {'name':'fourteen','height':200,'img':'https://www.expressflowersandevents.com/assets/1/14/MainFCKEditorDimension/179418xlx1.jpg'},
+        {'name':'fifteen','height':100,'img':'https://www.expressflowersandevents.com/assets/1/14/MainFCKEditorDimension/179418xlx1.jpg'}
+    ]); //{'one':'good'},{'two':'fine'}
     const [loading, setLoading] = useState(false);
     const [profileDone, setProfileDone] = useState('');
     const [img_filled, set_img_filled] = useState(false);
@@ -38,6 +52,23 @@ const Profile = ({ navigation }) => {
     const [modalVisible, setModalVisible] = useState(false);
     const [checklistVisible, setChecklistVisible] = useState(false);
     
+    const imageMap = {
+        one: require('../../assets/img/one.jpg'),
+        two: require('../../assets/img/two.jpg'),
+        three: require('../../assets/img/three.jpg'),
+        four: require('../../assets/img/four.jpg'),
+        five: require('../../assets/img/five.jpg'),
+        six: require('../../assets/img/six.jpg'),
+        seven: require('../../assets/img/seven.jpg'),
+        eight: require('../../assets/img/eight.jpg'),
+        nine: require('../../assets/img/nine.jpg'),
+        ten: require('../../assets/img/ten.jpg'),
+        eleven: require('../../assets/img/eleven.jpg'),
+        twelve: require('../../assets/img/twelve.jpg'),
+        thirteen: require('../../assets/img/thirteen.jpg'),
+        fourteen: require('../../assets/img/fourteen.jpg'),
+        fifteen: require('../../assets/img/fifteen.jpg')
+    }
     
     return (
         <View style={styles.container}>
@@ -77,6 +108,8 @@ const Profile = ({ navigation }) => {
                         initialNumToRender={10}
                         // onEndReached={() => loadMoreFeed(user_id)}
                         // onEndReachedThreshold={7}
+                        // onRefresh={() => getItems(owner_id)}
+                        // refreshing={loading}
                         ListHeaderComponent={
                             <>
                             <View style={styles.pf_details}>
@@ -189,16 +222,14 @@ const Profile = ({ navigation }) => {
                         }
                         numColumns={2}
                         keyExtractor={(item) => item.name}
-                        // onRefresh={() => getItems(owner_id)}
-                        // refreshing={loading}
                         style={{justifyContent: 'space-between'}}
                         renderItem={({ item, index }) => {
                             return (
-                                <View key={index} style={styles.post}>
-                                    <Ionicons name="ios-pricetag" size={18} color={Colors.white} style={styles.productTag} />
-                                    {/* <Image source={imageMap[item.name]} resizeMode='contain' /> */}
-                                    <RemoteImage uri={item.height} desiredWidth={(width - 40) / 2} />
-                                </View>
+                                <Pressable onPress={()=>setModalVisible(!modalVisible)} key={index} style={[styles.post, {height: item.height }]}>
+                                    {/* <Ionicons name="ios-pricetag" size={18} color={Colors.white} style={styles.productTag} /> */}
+                                    <Image source={imageMap[item.name]} resizeMode='cover' style={{width:'100%',height:'100%'}} />
+                                    {/* <RemoteImage uri={item.img} desiredWidth={(width - 30) / 2} /> */}
+                                </Pressable>
                             )
                         }}
                         ListFooterComponent={
@@ -244,7 +275,9 @@ const Profile = ({ navigation }) => {
                             <View style={styles.modalHead}>
                                 <Ionicons onPress={()=>setModalVisible(!modalVisible)} name="chevron-back" size={24} color={Colors.black} style={{marginLeft:-7}} />
                             </View>
-                            <PostBody press={()=>alert('Okay')} />
+                            <ScrollView showsVerticalScrollIndicator={false} style={{marginBottom:30}}>
+                                <PostBody press={()=>alert('Okay')} img={imageMap['two']} type="photo" />
+                            </ScrollView>
                         </View>
                     </View>
                 </Modal>
@@ -439,10 +472,10 @@ const styles = StyleSheet.create({
         marginVertical: 15
     },
     post: {
-        width: (width / 2) - 20,
-        borderRadius: 8,
+        width: (width / 2) - 18,
+        borderRadius: 16,
         backgroundColor: Colors.grayEight,
-        marginBottom: 10,
+        marginBottom: 5,
         position: 'relative',
         overflow: 'hidden'
     },

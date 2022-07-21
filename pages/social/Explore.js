@@ -114,7 +114,7 @@ const Explore = ({ navigation }) => {
                             <View style={styles.modalHead}>
                                 <Ionicons onPress={()=>setModalVisible(!modalVisible)} name="chevron-back" size={24} color={Colors.black} style={{marginLeft:-7}} />
                             </View>
-                            <PostBody press={()=>alert('Okay')} />
+                            <PostBody press={()=>alert('Okay')} type="photo" />
                         </View>
                     </View>
                 </Modal>
