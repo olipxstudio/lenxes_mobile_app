@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, SafeAreaView, ScrollView, Image, StyleSheet, Pressable, Platform, Dimensions, FlatList } from 'react-native';
+import { View, Text, SafeAreaView, ScrollView, Image, StyleSheet, TouchableOpacity, Platform, Dimensions, FlatList } from 'react-native';
 import Button from '../../components/Button';
 import Colors from '../../components/Colors';
 import Ionicons from '@expo/vector-icons/Ionicons';
@@ -7,6 +7,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import DiscussClip from '../../components/DiscussClip';
 import PostBody from '../../components/PostBody';
 import FeedPeople from '../../components/FeedPeople';
+import FeedProductBody from '../../components/FeedProductBody';
 
 const {width} = Dimensions.get('window');
 
@@ -29,6 +30,10 @@ const Feed = ({ navigation }) => {
         },
         {
             'name':'peace',
+            'type':'img'
+        },
+        {
+            'name':'peter',
             'type':'img'
         }
     ]
@@ -107,8 +112,24 @@ const Feed = ({ navigation }) => {
                         numColumns={1}
                         keyExtractor={(item) => item.name}
                         renderItem={({ item, index }) => {
+                            if(index == 2){
+                                return (
+                                    <>
+                                        <ScrollView showsHorizontalScrollIndicator={false} contentContainerStyle={styles.productHD} horizontal>
+                                            <FeedProductBody type="scroll" />
+                                            <FeedProductBody type="scroll" />
+                                            <FeedProductBody type="scroll" />
+                                            <TouchableOpacity style={styles.allProductsBtn}>
+                                                <Text style={styles.allProductsBtnText}>View all</Text>
+                                                <Ionicons name="chevron-forward" size={18} color={Colors.black_600} />
+                                            </TouchableOpacity>
+                                        </ScrollView>
+                                        <PostBody key={index} press={()=>alert('Okay')} position={index} type={item.type} />
+                                    </>
+                                )
+                            }
                             return (
-                                <PostBody key={index} press={()=>alert('Okay')} type={item.type} />
+                                <PostBody key={index} press={()=>alert('Okay')} position={index} type={item.type} />
                             )
                         }}
                         ListFooterComponent={
@@ -205,6 +226,22 @@ const styles = StyleSheet.create({
         height: 1,
         backgroundColor: Colors.grayEight,
         marginLeft: 15
+    },
+    productHD: {
+        marginBottom: 20,
+        alignItems: 'center'
+    },
+    allProductsBtn: {
+        flexDirection: 'row',
+        backgroundColor: Colors.black_050,
+        paddingHorizontal: 12,
+        paddingVertical: 7,
+        borderRadius: 30,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    allProductsBtnText: {
+        fontSize: 13
     },
 })
 

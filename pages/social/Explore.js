@@ -5,7 +5,8 @@ import Colors from '../../components/Colors';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import * as Device from 'expo-device';
 import PostBody from '../../components/PostBody';
-import { useFonts } from 'expo-font';
+import MasonryList from '@react-native-seoul/masonry-list';
+import FeedProductBody from '../../components/FeedProductBody';
 
 const {width} = Dimensions.get('window');
 
@@ -16,21 +17,33 @@ const Explore = ({ navigation }) => {
     const [modalVisible, setModalVisible] = useState(false);
     const [active, setActive] = useState('post'); // post, product
     
-    const [fontsLoaded] = useFonts({
-        nunitoSemiBold: require('../../assets/fonts/NunitoSans-SemiBold.ttf')
-    });
+    const fakeData = [
+        {
+            'name':'oke',
+            'type':'img'
+        },
+        {
+            'name':'pius',
+            'type':'text'
+        },
+        {
+            'name':'peace',
+            'type':'img'
+        },
+        {
+            'name':'peter',
+            'type':'img'
+        }
+    ]
     
     const switchTabs = (tab) => {
         setActive(tab)
-        
     }
     
-    if(!fontsLoaded){
-        return null;
-    }
+    
     return (
         <View style={styles.container}>
-            <SafeAreaView>
+            <SafeAreaView style={{flex: 1}}>
                 <View style={{ backgroundColor: '#fff', height: Platform.OS === 'android' ? 50 : 0 }} />
                 <View style={styles.header_cont}>
                     <View style={styles.pf_hd_username}>
@@ -52,51 +65,104 @@ const Explore = ({ navigation }) => {
                             <Text style={[styles.exTabBtnText, active==='product' && styles.active_text]}>Products</Text>
                         </Pressable>
                     </View>
-                    <Pressable onPress={() => navigation.navigate("Priority_feed")} style={styles.ptz_hd}>
-                        <View style={styles.ptz_det}>
-                            <Text style={styles.ptz_det_txt}>These people are in your line of industry.</Text>
-                        </View>
-                        <View style={styles.ptz_imgs_cont}>
-                            <View style={[styles.ptz_img_hd, styles.num1]}>
-                                {/* <Image style={styles.ptz_img} source={{ uri: Url.profile_photo + 'no-photo-available.jpg' }} /> */}
-                            </View>
-                            <View style={[styles.ptz_img_hd, styles.num2]}>
-                                {/* <Image style={styles.ptz_img} source={{ uri: Url.profile_photo + 'no-photo-available.jpg' }} /> */}
-                            </View>
-                            <View style={[styles.ptz_img_hd, styles.num3]}>
-                                {/* <Image style={styles.ptz_img} source={{ uri: Url.profile_photo + 'no-photo-available.jpg' }} /> */}
-                            </View>
-                            <View style={[styles.ptz_img_hd, styles.num4]}>
-                                {/* <Image style={styles.ptz_img} source={{ uri: Url.profile_photo + 'no-photo-available.jpg' }} /> */}
-                            </View>
-                            <View style={[styles.ptz_img_hd, styles.num5]}>
-                                {/* <Image style={styles.ptz_img} source={{ uri: Url.profile_photo + 'no-photo-available.jpg' }} /> */}
-                            </View>
-                            <View style={[styles.ptz_img_hd, styles.num6]}>
-                                {/* <Image style={styles.ptz_img} source={{ uri: Url.profile_photo + 'no-photo-available.jpg' }} /> */}
-                            </View>
-                            <View style={[styles.ptz_img_hd, styles.num7]}>
-                                {/* <Image style={styles.ptz_img} source={{ uri: Url.profile_photo + 'no-photo-available.jpg' }} /> */}
-                            </View>
-                        </View>
-                    </Pressable>
-                    <View style={styles.postsHolder}>
-                        <Pressable style={styles.post} onPress={()=>setModalVisible(!modalVisible)}>
-                            {/* <Image source={{ uri: img_uri }} resizeMode='contain' style={styles.postPhoto} /> */}
-                            <Ionicons name="play" size={18} color={Colors.primary} style={styles.vidTag} />
-                        </Pressable>
-                        <View style={styles.post}>
-                            <Text style={{color:Colors.grayNine,margin:15}}>{Device.brand}, {Device.deviceName}, {Device.modelName}</Text>
-                        </View>
-                        <View style={[styles.post, styles.textPost]}>
-                            <View style={styles.textPostBar}></View>
-                            <Text style={[styles.textPostText, {fontFamily: 'nunitoSemiBold'}]} numberOfLines={8}>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</Text>
-                        </View>
-                        <View style={styles.post}>
-                            <Ionicons name="ios-pricetag" size={18} color={Colors.white} style={styles.productTag} />
-                        </View>
+                    <View style={[styles.postsContainer, {display: active == 'post' ? 'flex' : 'none' }]}>
+                        <MasonryList
+                            data={fakeData}
+                            showsVerticalScrollIndicator={false}
+                            // getItemLayout={(data, index) => getItemLayout(data, index)}
+                            // ref={(ref) => setListRef(ref)}
+                            // onMomentumScrollEnd={(nativeEvent) => handleScrollTop(nativeEvent)}
+                            removeClippedSubviews={true}
+                            initialNumToRender={10}
+                            // onEndReached={() => loadMoreFeed(user_id)}
+                            // onEndReachedThreshold={7}
+                            // onRefresh={() => getItems(owner_id)}
+                            // refreshing={loading}
+                            ListHeaderComponent={
+                                <Pressable onPress={() => alert("NA")} style={styles.ptz_hd}>
+                                    <View style={styles.ptz_det}>
+                                        <Text style={styles.ptz_det_txt}>These people are in your line of industry.</Text>
+                                    </View>
+                                    <View style={styles.ptz_imgs_cont}>
+                                        <View style={[styles.ptz_img_hd, styles.num1]}>
+                                            {/* <Image style={styles.ptz_img} source={{ uri: Url.profile_photo + 'no-photo-available.jpg' }} /> */}
+                                        </View>
+                                        <View style={[styles.ptz_img_hd, styles.num2]}>
+                                            {/* <Image style={styles.ptz_img} source={{ uri: Url.profile_photo + 'no-photo-available.jpg' }} /> */}
+                                        </View>
+                                        <View style={[styles.ptz_img_hd, styles.num3]}>
+                                            {/* <Image style={styles.ptz_img} source={{ uri: Url.profile_photo + 'no-photo-available.jpg' }} /> */}
+                                        </View>
+                                        <View style={[styles.ptz_img_hd, styles.num4]}>
+                                            {/* <Image style={styles.ptz_img} source={{ uri: Url.profile_photo + 'no-photo-available.jpg' }} /> */}
+                                        </View>
+                                        <View style={[styles.ptz_img_hd, styles.num5]}>
+                                            {/* <Image style={styles.ptz_img} source={{ uri: Url.profile_photo + 'no-photo-available.jpg' }} /> */}
+                                        </View>
+                                        <View style={[styles.ptz_img_hd, styles.num6]}>
+                                            {/* <Image style={styles.ptz_img} source={{ uri: Url.profile_photo + 'no-photo-available.jpg' }} /> */}
+                                        </View>
+                                        <View style={[styles.ptz_img_hd, styles.num7]}>
+                                            {/* <Image style={styles.ptz_img} source={{ uri: Url.profile_photo + 'no-photo-available.jpg' }} /> */}
+                                        </View>
+                                    </View>
+                                </Pressable>
+                            }
+                            numColumns={2}
+                            keyExtractor={(item) => item.name}
+                            style={{justifyContent: 'space-between'}}
+                            renderItem={({ item, index }) => {
+                                return (
+                                    <Pressable key={index} style={styles.post} onPress={()=>setModalVisible(!modalVisible)}>
+                                        {/* <Image source={{ uri: img_uri }} resizeMode='contain' style={styles.postPhoto} /> */}
+                                        <Text style={{color:Colors.grayNine,margin:15}}>{Device.brand}, {Device.deviceName}, {Device.modelName}</Text>
+                                        <Ionicons name="play" size={18} color={Colors.primary} style={styles.vidTag} />
+                                    </Pressable>
+                                )
+                            }}
+                        />
+                    </View>
+                    {/* <View style={[styles.post, styles.textPost]}>
+                        <View style={styles.textPostBar}></View>
+                        <Text style={styles.textPostText} numberOfLines={8}>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</Text>
+                    </View> */}
+                    
+                    {/* ------------------- PRODUCT CONTAINER ------------------------ */}
+                    
+                    {/* ------------------- PRODUCT CONTAINER ------------------------ */}
+                    
+                    {/* ------------------- PRODUCT CONTAINER ------------------------ */}
+                    
+                    <View style={[styles.productsContainer, {display: active == 'product' ? 'flex' : 'none' }]}>
+                        <MasonryList
+                            data={fakeData}
+                            showsVerticalScrollIndicator={false}
+                            // getItemLayout={(data, index) => getItemLayout(data, index)}
+                            // ref={(ref) => setListRef(ref)}
+                            // onMomentumScrollEnd={(nativeEvent) => handleScrollTop(nativeEvent)}
+                            removeClippedSubviews={true}
+                            initialNumToRender={10}
+                            // onEndReached={() => loadMoreFeed(user_id)}
+                            // onEndReachedThreshold={7}
+                            // onRefresh={() => getItems(owner_id)}
+                            // refreshing={loading}
+                            ListHeaderComponent={
+                                <Pressable onPress={() => alert("NA")} style={{marginBottom: 15, width: width}}>
+                                    <Text>Sorting & Location</Text>
+                                </Pressable>
+                            }
+                            numColumns={2}
+                            keyExtractor={(item) => item.name}
+                            contentContainerStyle={{flexDirection: 'row', justifyContent: 'space-between', flexWrap: 'wrap'}}
+                            renderItem={({ item, index }) => {
+                                return (
+                                    <FeedProductBody key={index} type="fit" />
+                                )
+                            }}
+                        />
                     </View>
                 </View>
+                
                 
                 <Modal
                 animationType="slide"
@@ -181,7 +247,8 @@ const styles = StyleSheet.create({
     main:{
         width: '100%',
         paddingHorizontal: 15,
-        boxSizing: 'border-box'
+        boxSizing: 'border-box',
+        flex: 1
     },
     pf_hd_options:{
         flexDirection:'row',
@@ -223,6 +290,12 @@ const styles = StyleSheet.create({
     },
     active_text: {
         color: Colors.black
+    },
+    postsContainer: {
+        flex: 1
+    },
+    productsContainer: {
+        flex: 1
     },
     // SUGGESTED PEOPLE STYLES
     ptz_hd: {
@@ -316,11 +389,6 @@ const styles = StyleSheet.create({
         overflow: 'hidden'
     },
     // POST BODY STYLES
-    postsHolder: {
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        justifyContent: 'space-between'
-    },
     post: {
         width: (width / 2) - 20,
         borderRadius: 22,
@@ -332,25 +400,25 @@ const styles = StyleSheet.create({
     textPost: {
         paddingVertical: 10,
         paddingRight: 10,
-        paddingLeft: 20,
+        paddingLeft: 18,
         backgroundColor: Colors.white,
         borderWidth: 1,
         borderColor: Colors.graySix
     },
     textPostBar: {
         position: 'absolute',
-        width: 6,
+        width: 5,
         height: '80%',
         left: 0,
-        top: '20%',
+        top: '15%',
         backgroundColor: Colors.secondaryLight,
         borderTopRightRadius: 16,
         borderBottomRightRadius: 16
     },
     textPostText: {
-        fontSize: 15,
-        lineHeight: 22,
-        color: '#333'
+        fontSize: 14,
+        lineHeight: 21,
+        color: Colors.black_800
     },
     vidTag: {
         position: 'absolute',

@@ -482,17 +482,17 @@ const styles = StyleSheet.create({
     textPost: {
         paddingVertical: 10,
         paddingRight: 10,
-        paddingLeft: 20,
+        paddingLeft: 18,
         backgroundColor: Colors.white,
         borderWidth: 1,
         borderColor: Colors.graySix
     },
     textPostBar: {
         position: 'absolute',
-        width: 6,
+        width: 5,
         height: '80%',
         left: 0,
-        top: '20%',
+        top: '15%',
         backgroundColor: Colors.secondaryLight,
         borderTopRightRadius: 16,
         borderBottomRightRadius: 16

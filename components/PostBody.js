@@ -5,8 +5,9 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import { Entypo } from '@expo/vector-icons';
 import TaggedPost from './TaggedPost';
 
-const PostBody = ({ text, press, img, type }) => {
+const PostBody = ({ position, text, press, img, type }) => {
     const [showTaggedProduct, setShowTaggedProduct] = useState(false)
+    
     
     return (
         <View style={styles.fdPostHolder}>
