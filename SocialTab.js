@@ -4,7 +4,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { View, Text, Platform, StyleSheet } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import Colors from './components/Colors';
-import Profile from './pages/social/Profile';
+import ProfileStacks from './ProfileStack';
 import Explore from './pages/social/Explore';
 import Feed from './pages/social/Feed';
 import Post from './pages/social/Post';
@@ -24,7 +24,7 @@ const Tab = createBottomTabNavigator();
 const SocialTab = ({ route }) => {
     return (
         <Tab.Navigator
-            initialRouteName="Profile"
+            initialRouteName="ProfileStacks"
             barStyle={{ backgroundColor: '#ffffff' }}
             screenOptions={{
                 headerShown: false,
@@ -53,7 +53,7 @@ const SocialTab = ({ route }) => {
                     <Icon foc={focused} img="mail-unread-outline" text="Activity" />
                 ),
             }} />
-            <Tab.Screen name="Profile" component={Profile} options={{
+            <Tab.Screen name="ProfileStacks" component={ProfileStacks} options={{
                 tabBarIcon: ({ focused }) => (
                     <Icon foc={focused} img="person-circle-outline" text="Profile" />
                 ),

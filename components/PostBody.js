@@ -1,9 +1,31 @@
 import React, {useState} from 'react';
-import { View, Image, Text, TouchableOpacity, StyleSheet, Pressable, ScrollView } from 'react-native';
+import { View, Image, Text, TouchableOpacity, StyleSheet, Pressable, ScrollView, Dimensions } from 'react-native';
 import Colors from './Colors';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { Entypo } from '@expo/vector-icons';
 import TaggedPost from './TaggedPost';
+
+const RemoteImage = ({ uri, desiredWidth }) => {
+    const [desiredHeight, setDesiredHeight] = React.useState(0)
+
+    Image.getSize(uri, (width, height) => {
+        setDesiredHeight(desiredWidth / width * height)
+    })
+
+    return (
+        <Image
+            source={{ uri }}
+            // source={ uri }
+            style={{
+                width: desiredWidth,
+                height: desiredHeight,
+                resizeMode: 'cover'
+            }}
+        />
+    )
+}
+
+const {width} = Dimensions.get('window');
 
 const PostBody = ({ position, text, press, img, type }) => {
     const [showTaggedProduct, setShowTaggedProduct] = useState(false)
@@ -33,6 +55,13 @@ const PostBody = ({ position, text, press, img, type }) => {
                     :
                     <View style={styles.postPhoto}>
                         {/* PHOTO AND VIDEO */}
+                        {/* <RemoteImage uri={'https://images.pexels.com/photos/12987587/pexels-photo-12987587.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'} desiredWidth={width - 30} /> */}
+                        {/* 9476187 */}
+                        {/* 9476188 */}
+                        {/* 12987587 */}
+                        {/* 6129989 */}
+                        {/* 6129992 */}
+                        {/* 4946918 */}
                         <Image source={img} style={styles.postPhotoImg} />
                         <View style={styles.vidPlay}>
                             <TouchableOpacity style={styles.vidPlayBtn} onPress={()=>alert('good')}>
@@ -124,8 +153,8 @@ const styles = StyleSheet.create({
     },
     postPhoto: {
         width: '100%',
-        height: 350, // 500 With Sample Image
-        backgroundColor: Colors.grayEight,
+        // height: 350, // 500 With Sample Image
+        // backgroundColor: Colors.grayEight,
         borderRadius: 16,
         marginVertical: 10,
         justifyContent: 'center',

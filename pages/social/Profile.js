@@ -225,7 +225,7 @@ const Profile = ({ navigation }) => {
                         style={{justifyContent: 'space-between'}}
                         renderItem={({ item, index }) => {
                             return (
-                                <Pressable onPress={()=>setModalVisible(!modalVisible)} key={index} style={[styles.post, {height: item.height }]}>
+                                <Pressable onPress={()=>navigation.navigate("SingleProfilePost")} key={index} style={[styles.post, {height: item.height }]}>
                                     {/* <Ionicons name="ios-pricetag" size={18} color={Colors.white} style={styles.productTag} /> */}
                                     <Image source={imageMap[item.name]} resizeMode='cover' style={{width:'100%',height:'100%'}} />
                                     {/* <RemoteImage uri={item.img} desiredWidth={(width - 30) / 2} /> */}
@@ -299,7 +299,7 @@ const styles = StyleSheet.create({
     ModalCenterView: {
         backgroundColor: '#fff',
         width: '100%',
-        height: '90%',
+        height: '95%',
         borderTopLeftRadius: 25,
         borderTopRightRadius: 25,
         paddingHorizontal: 15,
