@@ -16,10 +16,10 @@ export default function App() {
     changeBar() // Change android Navigation bar
     
     return (
-        <AppProvider>
-            <NavigationContainer>
+        <NavigationContainer>
+            <AppProvider>
                 <Stacks />
-            </NavigationContainer>
-        </AppProvider>
+            </AppProvider>
+        </NavigationContainer>
     );
 }

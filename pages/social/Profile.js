@@ -6,6 +6,7 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import PostBody from '../../components/PostBody';
 import ProfileChecklist from '../../components/ProfileChecklist';
 import MasonryList from '@react-native-seoul/masonry-list';
+import NewPost from '../../components/NewPost';
 
 const {width} = Dimensions.get('window');
 
@@ -234,9 +235,12 @@ const Profile = ({ navigation }) => {
                         }}
                         ListFooterComponent={
                             <View style={styles.scrollTop}>
-                                <View style={styles.scrollTopInner}>
-                                    <Ionicons name="arrow-up" size={18} color={Colors.black_600} />
-                                </View>
+                                {
+                                    data != '' &&
+                                    <View style={styles.scrollTopInner}>
+                                        <Ionicons name="arrow-up" size={18} color={Colors.black_600} />
+                                    </View>
+                                }
                             </View>
                         }
                     />
@@ -281,6 +285,9 @@ const Profile = ({ navigation }) => {
                         </View>
                     </View>
                 </Modal>
+                
+                
+                <NewPost />
             </SafeAreaView>
         </View>
     );

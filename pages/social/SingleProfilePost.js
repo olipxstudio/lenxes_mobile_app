@@ -257,9 +257,13 @@ const SingleProfilePost = ({ navigation }) => {
                                         <Text style={{color:Colors.secondary}}>View more comments</Text>
                                     </Pressable>
                                 </View>
-                                <View>
-                                    <Text>This post is linked to *Wedding* posts</Text>
-                                    <Ionicons name="ios-information-circle-outline" size={20} color={Colors.grayTwelve} style={[styles.cmIcon, styles.cmIconFlip]} />
+                                <View style={styles.linkerHd}>
+                                    <View style={{flexDirection:'row'}}>
+                                        <Text>This post is linked to </Text>
+                                        <Text style={{fontWeight:'bold'}}>*Wedding*</Text>
+                                        <Text> posts</Text>
+                                    </View>
+                                    <Ionicons name="ios-information-circle-outline" size={20} color={Colors.grayTwelve} />
                                 </View>
                             </>
                         }
@@ -590,6 +594,20 @@ const styles = StyleSheet.create({
     cmBtnTxt: {
         fontSize: 11,
         color: Colors.black_500
+    },
+    linkerHd: {
+        paddingVertical: 20,
+        borderBottomWidth: 1,
+        borderTopWidth: 1,
+        borderColor: Colors.grayEight,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginTop: 5,
+        marginBottom: 20
+    },
+    linkerText: {
+        
     },
 })
 

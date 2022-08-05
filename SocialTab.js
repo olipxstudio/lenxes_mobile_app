@@ -38,19 +38,20 @@ const SocialTab = ({ route }) => {
             }} />
             <Tab.Screen name="Explore" component={Explore} options={{
                 tabBarIcon: ({ focused }) => (
-                    <Icon foc={focused} img="ios-search" text="Explore" />
+                    <Icon foc={focused} img="ios-search-outline" text="Explore" />
                 ),
             }} />
             <Tab.Screen name="Post" component={Post} options={{
                 tabBarIcon: ({ focused }) => (
-                    <View style={styles.post}>
-                        <Ionicons name="ios-add-circle-outline" size={35} color={focused ? Colors.primary : '#999'} />
-                    </View>
+                    // <View style={styles.post}>
+                    //     <Ionicons name="ios-cart-outline" size={25} color={focused ? Colors.primary : '#999'} />
+                    // </View>
+                    <Icon foc={focused} img="ios-cart-outline" text="Shopping" />
                 ),
             }} />
             <Tab.Screen name="Activities" component={Activities} options={{
                 tabBarIcon: ({ focused }) => (
-                    <Icon foc={focused} img="mail-unread-outline" text="Activity" />
+                    <Icon foc={focused} img="chatbubbles-outline" text="Activity" />
                 ),
             }} />
             <Tab.Screen name="ProfileStacks" component={ProfileStacks} options={{

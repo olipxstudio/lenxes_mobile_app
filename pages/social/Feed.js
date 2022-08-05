@@ -8,6 +8,7 @@ import DiscussClip from '../../components/DiscussClip';
 import PostBody from '../../components/PostBody';
 import FeedPeople from '../../components/FeedPeople';
 import FeedProductBody from '../../components/FeedProductBody';
+import NewPost from '../../components/NewPost';
 
 const {width} = Dimensions.get('window');
 
@@ -142,6 +143,7 @@ const Feed = ({ navigation }) => {
                     />
                 </View>
                 
+                <NewPost />
             </SafeAreaView>
         </View>
     );

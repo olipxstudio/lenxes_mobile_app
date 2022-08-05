@@ -98,7 +98,7 @@ const PostBody = ({ position, text, press, img, type }) => {
                         <View style={{height:Colors.space_12}}></View>
                     }
                     <Pressable style={styles.postCaptionCommentStats}>
-                        <Text style={styles.postCaptionCommentStatsText}>View all 430 comments</Text>
+                        <Text style={styles.postCaptionCommentStatsText}>View comments</Text>
                     </Pressable>
                 </View>
             </TouchableOpacity>
@@ -153,8 +153,8 @@ const styles = StyleSheet.create({
     },
     postPhoto: {
         width: '100%',
-        // height: 350, // 500 With Sample Image
-        // backgroundColor: Colors.grayEight,
+        height: 350, // 500 With Sample Image
+        backgroundColor: Colors.grayEight,
         borderRadius: 16,
         marginVertical: 10,
         justifyContent: 'center',
@@ -216,7 +216,7 @@ const styles = StyleSheet.create({
         color: Colors.black_800
     },
     postCaptionCommentStats:{
-        
+        height: 15,
     },
     postCaptionCommentStatsText: {
         color: '#787878',
@@ -228,18 +228,18 @@ const styles = StyleSheet.create({
     },
     fdPh_PtBbl: {
         position: 'absolute',
-        bottom: -5,
+        bottom: 0,
         right: 0,
-        width: 45,
-        height: 45,
+        width: 40,
+        height: 40,
         borderRadius: 50,
         backgroundColor: Colors.grayTwo,
         justifyContent: 'center',
         alignItems: 'center',
     },
     fdPh_PtCont: {
-        width: 32,
-        height: 32,
+        width: 30,
+        height: 30,
         borderRadius: 50,
         backgroundColor: Colors.grayEight,
         justifyContent: 'center',
