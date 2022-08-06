@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, SafeAreaView, ScrollView, Image, StyleSheet, TouchableOpacity, Platform, Dimensions, FlatList } from 'react-native';
+import { View, Text, SafeAreaView, ScrollView, Image, StyleSheet, TouchableOpacity, Platform, Dimensions, FlatList, Modal, Pressable } from 'react-native';
 import Button from '../../components/Button';
 import Colors from '../../components/Colors';
 import Ionicons from '@expo/vector-icons/Ionicons';
@@ -9,6 +9,7 @@ import PostBody from '../../components/PostBody';
 import FeedPeople from '../../components/FeedPeople';
 import FeedProductBody from '../../components/FeedProductBody';
 import NewPost from '../../components/NewPost';
+import DiscussPeopleList from '../../components/DiscussPeopleList';
 
 const {width} = Dimensions.get('window');
 
@@ -19,6 +20,9 @@ const Feed = ({ navigation }) => {
     const [img_uri, set_img_uri] = useState('');
     const [siteType, setSiteType] = useState('Store');
     const [active, setActive] = useState('post'); // post, product
+    const [discussModal, setDiscussModal] = useState(false);
+    
+    
     
     const fakeData = [
         {
@@ -39,6 +43,14 @@ const Feed = ({ navigation }) => {
         }
     ]
     
+    const startDiscuss = (post_id) => {
+        setDiscussModal(true)
+    }
+    const goToDiscussRoom = () => {
+        setDiscussModal(!discussModal);
+        navigation.navigate("DiscussRoom");
+    }
+    
     return (
         <View style={styles.container}>
             <SafeAreaView style={{flex:1}}>
@@ -49,8 +61,8 @@ const Feed = ({ navigation }) => {
                     </View>
                     <View style={styles.hd_head_options}>
                         {/* <Ionicons onPress={()=>alert('good')} name="play" size={24} color={Colors.black} style={styles.hdJiveBtn} /> */}
-                        <MaterialCommunityIcons onPress={()=>alert('good')} name="bullseye-arrow" size={24} color={Colors.black} />
-                        <Ionicons onPress={()=>alert('good')} name="ios-cart" size={24} color={Colors.black} style={styles.hdJiveBtn} />
+                        <MaterialCommunityIcons onPress={()=>navigation.navigate('Niche')} name="bullseye-arrow" size={24} color={Colors.black} />
+                        <Ionicons onPress={()=>alert('good')} name="notifications-outline" size={24} color={Colors.black} style={styles.hdJiveBtn} />
                     </View>
                 </View>
                 
@@ -69,15 +81,15 @@ const Feed = ({ navigation }) => {
                         // refreshing={loading}
                         ListHeaderComponent={
                             <ScrollView showsHorizontalScrollIndicator={false} style={styles.discuss} horizontal>
-                                <DiscussClip text="Discover" press={()=>alert('Okay')} img="" num="12" />
-                                <DiscussClip text="Discover" press={()=>alert('Okay')} img="" num="24" />
-                                <DiscussClip text="Discover" press={()=>alert('Okay')} img="" num="6" />
-                                <DiscussClip text="Discover" press={()=>alert('Okay')} img="" num="33" />
-                                <DiscussClip text="Discover" press={()=>alert('Okay')} img="" num="8" />
-                                <DiscussClip text="Discover" press={()=>alert('Okay')} img="" num="17" />
-                                <DiscussClip text="Discover" press={()=>alert('Okay')} img="" num="4" />
-                                <DiscussClip text="Discover" press={()=>alert('Okay')} img="" num="28" />
-                                <DiscussClip text="Discover" press={()=>alert('Okay')} img="" num="14" />
+                                <DiscussClip text="Discover" press={()=>alert('Okay')} img="" size="sm" num="12" />
+                                <DiscussClip text="Discover" press={()=>alert('Okay')} img="" size="sm" num="24" />
+                                <DiscussClip text="Discover" press={()=>alert('Okay')} img="" size="sm" num="6" />
+                                <DiscussClip text="Discover" press={()=>alert('Okay')} img="" size="sm" num="33" />
+                                <DiscussClip text="Discover" press={()=>alert('Okay')} img="" size="sm" num="8" />
+                                <DiscussClip text="Discover" press={()=>alert('Okay')} img="" size="sm" num="17" />
+                                <DiscussClip text="Discover" press={()=>alert('Okay')} img="" size="sm" num="4" />
+                                <DiscussClip text="Discover" press={()=>alert('Okay')} img="" size="sm" num="28" />
+                                <DiscussClip text="Discover" press={()=>alert('Okay')} img="" size="sm" num="14" />
                             </ScrollView>
                         }
                         ListEmptyComponent={
@@ -125,12 +137,12 @@ const Feed = ({ navigation }) => {
                                                 <Ionicons name="chevron-forward" size={18} color={Colors.black_600} />
                                             </TouchableOpacity>
                                         </ScrollView>
-                                        <PostBody key={index} press={()=>alert('Okay')} position={index} type={item.type} />
+                                        <PostBody key={index} start_discuss={()=>startDiscuss(item.name)} press={()=>alert('Okay')} position={index} type={item.type} />
                                     </>
                                 )
                             }
                             return (
-                                <PostBody key={index} press={()=>alert('Okay')} position={index} type={item.type} />
+                                <PostBody key={index} start_discuss={()=>startDiscuss(item.name)} press={()=>alert('Okay')} position={index} type={item.type} />
                             )
                         }}
                         ListFooterComponent={
@@ -144,6 +156,53 @@ const Feed = ({ navigation }) => {
                 </View>
                 
                 <NewPost />
+                
+                <Modal
+                animationType="slide"
+                statusBarTranslucent={true}
+                transparent={true}
+                visible={discussModal}
+                // onShow={()=>alert('shown')}
+                onRequestClose={() => {
+                    setDiscussModal(!discussModal);
+                }}>
+                    <View style={styles.ModalView}>
+                        <Pressable onPress={()=>setDiscussModal(!discussModal)} style={styles.backDrop}></Pressable>
+                        <View style={styles.ModalCenterView}>
+                            <View style={styles.modalCloseBarHD}><Pressable style={styles.modalCloseBar} onPress={()=>setDiscussModal(!discussModal)}></Pressable></View>
+                            <View style={styles.modalHead}>
+                                <Ionicons onPress={()=>setDiscussModal(!discussModal)} name="chevron-back" size={24} color={Colors.black} style={{marginLeft:-7}} />
+                                <Pressable onPress={()=>goToDiscussRoom()}>
+                                    <Text style={{color:Colors.primary,fontWeight:'700'}}>Start Discuss</Text>
+                                </Pressable>
+                            </View>
+                            <ScrollView showsVerticalScrollIndicator={false} style={{marginTop:15}}>
+                                
+                                <View style={{marginBottom:25}}>
+                                    <Text style={styles.discussModTit}>Start a Discuss</Text>
+                                    <Text style={styles.discussModSubTit}>Add people to discuss to chat about this post. All discussion would disappear after 24 Hours.</Text>
+                                </View>
+                                <DiscussPeopleList press={()=>alert('good')} my_id={1} model="two" name="Olipx Studio" size="big" handle="olipxstudio" img="" added={false} />
+                                <DiscussPeopleList press={()=>alert('good')} my_id={1} model="two" name="Olipx Studio" size="big" handle="olipxstudio" img="" added={true} />
+                                <DiscussPeopleList press={()=>alert('good')} my_id={1} model="two" name="Olipx Studio" size="big" handle="olipxstudio" img="" added={false} />
+                                <DiscussPeopleList press={()=>alert('good')} my_id={1} model="two" name="Olipx Studio" size="big" handle="olipxstudio" img="" added={false} />
+                                <DiscussPeopleList press={()=>alert('good')} my_id={1} model="two" name="Olipx Studio" size="big" handle="olipxstudio" img="" added={false} />
+                                <DiscussPeopleList press={()=>alert('good')} my_id={1} model="two" name="Olipx Studio" size="big" handle="olipxstudio" img="" added={true} />
+                                <DiscussPeopleList press={()=>alert('good')} my_id={1} model="two" name="Olipx Studio" size="big" handle="olipxstudio" img="" added={false} />
+                                <DiscussPeopleList press={()=>alert('good')} my_id={1} model="two" name="Olipx Studio" size="big" handle="olipxstudio" img="" added={false} />
+                                <DiscussPeopleList press={()=>alert('good')} my_id={1} model="two" name="Olipx Studio" size="big" handle="olipxstudio" img="" added={false} />
+                                <DiscussPeopleList press={()=>alert('good')} my_id={1} model="two" name="Olipx Studio" size="big" handle="olipxstudio" img="" added={true} />
+                                <DiscussPeopleList press={()=>alert('good')} my_id={1} model="two" name="Olipx Studio" size="big" handle="olipxstudio" img="" added={false} />
+                                <DiscussPeopleList press={()=>alert('good')} my_id={1} model="two" name="Olipx Studio" size="big" handle="olipxstudio" img="" added={false} />
+                                <DiscussPeopleList press={()=>alert('good')} my_id={1} model="two" name="Olipx Studio" size="big" handle="olipxstudio" img="" added={false} />
+                                <DiscussPeopleList press={()=>alert('good')} my_id={1} model="two" name="Olipx Studio" size="big" handle="olipxstudio" img="" added={true} />
+                                <DiscussPeopleList press={()=>alert('good')} my_id={1} model="two" name="Olipx Studio" size="big" handle="olipxstudio" img="" added={false} />
+                                <DiscussPeopleList press={()=>alert('good')} my_id={1} model="two" name="Olipx Studio" size="big" handle="olipxstudio" img="" added={false} />
+                                
+                            </ScrollView>
+                        </View>
+                    </View>
+                </Modal>
             </SafeAreaView>
         </View>
     );
@@ -244,6 +303,60 @@ const styles = StyleSheet.create({
     },
     allProductsBtnText: {
         fontSize: 13
+    },
+    
+    ModalView: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'flex-end',
+        backgroundColor: '#00000099',
+        position: 'relative'
+    },
+    backDrop: {
+        width:'100%',
+        height:'20%',
+        position:'absolute',
+        left:0,
+        top:0
+    },
+    ModalCenterView: {
+        backgroundColor: Colors.grayFive,
+        width: '100%',
+        height: '80%',
+        borderTopLeftRadius: 25,
+        borderTopRightRadius: 25,
+        paddingHorizontal: 15,
+    },
+    modalCloseBarHD: {
+        width: '100%',
+        // position: 'absolute',
+        // top: 0,
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingVertical:5,
+    },
+    modalCloseBar: {
+        width: 50,
+        height: 6,
+        borderRadius: 12,
+        backgroundColor: Colors.grayNine,
+    },
+    modalHead: {
+        width: '100%',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        paddingTop: 10,
+    },
+    discussModTit: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        marginBottom: 10
+    },
+    discussModSubTit: {
+        fontSize: 14,
+        color: Colors.black_700
     },
 })
 

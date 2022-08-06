@@ -1,12 +1,14 @@
 import React from 'react';
-import { View, Image, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Image, Text, TouchableOpacity, StyleSheet, Dimensions } from 'react-native';
 import Colors from './Colors';
 
-const DiscussClip = ({ text, press, img, num }) => {
+const {width} = Dimensions.get('window')
+
+const DiscussClip = ({ text, press, img, num, size }) => {
     
     return (
         <TouchableOpacity style={styles.discussClip} onPress={()=>press()}>
-            <View style={styles.dc_Img}>
+            <View style={size == 'sm' ? styles.dc_Img : styles.dc_ImgBig}>
                 {/* <Image style={styles.dc_Photo} /> */}
             </View>
             <View style={styles.dc_MCnt}>
@@ -26,6 +28,12 @@ const styles = StyleSheet.create({
     dc_Img: {
         width: 70,
         height: 70,
+        borderRadius: 50,
+        backgroundColor: Colors.grayFive
+    },
+    dc_ImgBig: {
+        width: ((width - 30) / 4) - 10,
+        height: ((width - 30) / 4) - 10,
         borderRadius: 50,
         backgroundColor: Colors.grayFive
     },

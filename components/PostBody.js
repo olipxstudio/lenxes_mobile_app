@@ -27,7 +27,7 @@ const RemoteImage = ({ uri, desiredWidth }) => {
 
 const {width} = Dimensions.get('window');
 
-const PostBody = ({ position, text, press, img, type }) => {
+const PostBody = ({ position, text, press, img, type, start_discuss }) => {
     const [showTaggedProduct, setShowTaggedProduct] = useState(false)
     
     
@@ -40,7 +40,7 @@ const PostBody = ({ position, text, press, img, type }) => {
                             {/* <Image  style={styles.hdImg_photo} /> */}
                         </View>
                         <View>
-                            <Text  style={styles.hd_name}>olipxstudio</Text>
+                            <Text  style={styles.hd_name}>Olipx Studio <Text style={styles.hd_username}>@olipxstudio</Text></Text>
                             <Text  style={styles.hd_place}>Lekki Penisula</Text>
                         </View>
                     </Pressable>
@@ -73,20 +73,20 @@ const PostBody = ({ position, text, press, img, type }) => {
                 <View style={styles.postActionHolder}>
                     <View style={styles.postActionBtnGrp}>
                         <Pressable style={styles.postAction}>
-                            <Ionicons name="ios-star" size={22} color={Colors.grayFour} />
-                            <Text style={styles.postActionText}>1+8k</Text>
+                            <Ionicons name="ios-heart" size={20} color={Colors.grayEight} />
+                            <Text style={styles.postActionText}>8k</Text>
                         </Pressable>
                         <Pressable style={styles.postAction}>
-                            <Ionicons name="ios-chatbubble" size={22} color={Colors.grayFour} />
+                            <Ionicons name="ios-chatbubble" size={20} color={Colors.grayEight} />
                         </Pressable>
                     </View>
                     <View style={styles.postActionBtnGrp}>
                         <Pressable style={styles.postAction}>
-                            <Ionicons name="arrow-redo-sharp" size={22} color={Colors.grayFour} />
+                            <Ionicons name="arrow-redo-sharp" size={20} color={Colors.grayEight} />
                         </Pressable>
-                        <Pressable style={[styles.postAction, {marginRight:0}]}>
+                        <Pressable onPress={start_discuss} style={[styles.postAction, {marginRight:0}]}>
                             <Text style={[styles.postActionText, {marginLeft:0,marginRight:4}]}>5</Text>
-                            <Ionicons name="chatbubbles" size={22} color={Colors.grayFour} />
+                            <Ionicons name="chatbubbles" size={20} color={Colors.grayEight} />
                         </Pressable>
                     </View>
                 </View>
@@ -129,8 +129,8 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     hd_img: {
-        width: 30,
-        height: 30,
+        width: 35,
+        height: 35,
         backgroundColor: Colors.grayEight,
         borderRadius: 50,
         marginRight: 10,
@@ -144,8 +144,13 @@ const styles = StyleSheet.create({
         resizeMode: 'cover'
     },
     hd_name: {
-        fontSize: 12,
-        fontWeight: '500'
+        fontSize: 13,
+        fontWeight: '500',
+        marginBottom: 2
+    },
+    hd_username: {
+        color: Colors.grayTwelve,
+        fontWeight: '300',
     },
     hd_place: {
         fontSize: 12,
@@ -216,7 +221,7 @@ const styles = StyleSheet.create({
         color: Colors.black_800
     },
     postCaptionCommentStats:{
-        height: 15,
+        height: 17,
     },
     postCaptionCommentStatsText: {
         color: '#787878',

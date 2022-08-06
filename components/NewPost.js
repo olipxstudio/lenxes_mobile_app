@@ -174,6 +174,7 @@ const NewPost = ({ text, press, statusT, size, bac, colour }) => {
                 setModalVisible(!modalVisible);
             }}>
                 <View style={styles.ModalView}>
+                    <Pressable onPress={()=>setModalVisible(!modalVisible)} style={styles.backDropBig}></Pressable>
                     <View style={styles.ModalCenterViewMain}>
                         <View style={styles.modalCloseBarHD}><Pressable style={styles.modalCloseBar} onPress={()=>setModalVisible(!modalVisible)}></Pressable></View>
                         <View style={styles.modalHeadMain}>
@@ -313,6 +314,7 @@ const NewPost = ({ text, press, statusT, size, bac, colour }) => {
                         }}>
                             <HideKeyboard>
                                 <View style={styles.ModalView}>
+                                    <Pressable onPress={()=>setModCom(!modCom)} style={styles.backDrop}></Pressable>
                                     <View style={styles.ModalCenterView}>
                                         <View style={styles.modalCloseBarHD}><Pressable style={styles.modalCloseBar} onPress={()=>setModCom(!modCom)}></Pressable></View>
                                         <View style={styles.modalHead}>
@@ -361,6 +363,7 @@ const NewPost = ({ text, press, statusT, size, bac, colour }) => {
                         }}>
                             <HideKeyboard>
                                 <View style={styles.ModalView}>
+                                    <Pressable onPress={()=>setModLoc(!modLoc)} style={styles.backDrop}></Pressable>
                                     <View style={styles.ModalCenterView}>
                                         <View style={styles.modalCloseBarHD}><Pressable style={styles.modalCloseBar} onPress={()=>setModLoc(!modLoc)}></Pressable></View>
                                         <View style={styles.modalHead}>
@@ -408,6 +411,7 @@ const NewPost = ({ text, press, statusT, size, bac, colour }) => {
                         }}>
                             <HideKeyboard>
                                 <View style={styles.ModalView}>
+                                    <Pressable onPress={()=>setModTag(!modTag)} style={styles.backDrop}></Pressable>
                                     <View style={styles.ModalCenterView}>
                                         <View style={styles.modalCloseBarHD}><Pressable style={styles.modalCloseBar} onPress={()=>setModTag(!modTag)}></Pressable></View>
                                         <View style={styles.modalHead}>
@@ -473,6 +477,7 @@ const NewPost = ({ text, press, statusT, size, bac, colour }) => {
                         }}>
                             <HideKeyboard>
                                 <View style={styles.ModalView}>
+                                    <Pressable onPress={()=>setModLink(!modLink)} style={styles.backDrop}></Pressable>
                                     <View style={styles.ModalCenterView}>
                                         <View style={styles.modalCloseBarHD}><Pressable style={styles.modalCloseBar} onPress={()=>setModLink(!modLink)}></Pressable></View>
                                         <View style={styles.modalHead}>
@@ -586,12 +591,26 @@ const styles = StyleSheet.create({
         backgroundColor: '#00000099',
         position: 'relative'
     },
+    backDropBig: {
+        width:'100%',
+        height:'5%',
+        position:'absolute',
+        left:0,
+        top:0
+    },
     ModalCenterViewMain: {
         backgroundColor: '#fff',
         width: '100%',
         height: '95%',
         borderTopLeftRadius: 25,
         borderTopRightRadius: 25,
+    },
+    backDrop: {
+        width:'100%',
+        height:'40%',
+        position:'absolute',
+        left:0,
+        top:0
     },
     ModalCenterView: {
         backgroundColor: '#fff',

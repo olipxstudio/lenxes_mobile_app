@@ -274,6 +274,7 @@ const Profile = ({ navigation }) => {
                     setModalVisible(!modalVisible);
                 }}>
                     <View style={styles.ModalView}>
+                        <Pressable onPress={()=>setModalVisible(!modalVisible)} style={styles.backDrop}></Pressable>
                         <View style={styles.ModalCenterView}>
                             <View style={styles.modalCloseBarHD}><Pressable style={styles.modalCloseBar} onPress={()=>setModalVisible(!modalVisible)}></Pressable></View>
                             <View style={styles.modalHead}>
@@ -302,6 +303,13 @@ const styles = StyleSheet.create({
         alignItems: 'flex-end',
         backgroundColor: '#00000099',
         position: 'relative'
+    },
+    backDrop: {
+        width:'100%',
+        height:'5%',
+        position:'absolute',
+        left:0,
+        top:0
     },
     ModalCenterView: {
         backgroundColor: '#fff',

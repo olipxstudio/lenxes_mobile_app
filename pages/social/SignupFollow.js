@@ -81,7 +81,7 @@ const SignupFollow = ({ navigation }) => {
                         renderItem={({ item, index }) => {
                             if(item.phoneNumbers && index<30){
                                 return (
-                                    <FollowersListCard press={index} my_id={index} key={index} name={item.name} handle={item.phoneNumbers[0].number} img="" following={false} />
+                                    <FollowersListCard press={index} my_id={index} key={index} name={item.name} handle={false} size="sm" img="" following={false} />
                                 )
                             }
                         }}

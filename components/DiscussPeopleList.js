@@ -4,12 +4,12 @@ import Colors from './Colors';
 const { width } = Dimensions.get('window');
 // import Url from './Url';
 
-const FollowersListCard = ({ press, my_id, name, handle, img, following, size }) => {
-    const [follow_unfollow, setfollow_unfollow] = useState(following);
+const DiscussPeopleList = ({ press, my_id, name, handle, img, added, size }) => {
+    const [add_added, setadd_added] = useState(added);
 
     const addToFollow = (user_follow_id) => {
         // Activate the follow btn
-        // setfollow_unfollow(true);
+        // setadd_added(true);
         // // Send request
         // const xhr = new XMLHttpRequest();
         // const formData = new FormData();
@@ -18,7 +18,7 @@ const FollowersListCard = ({ press, my_id, name, handle, img, following, size })
         // formData.append('userID', my_id);
         // xhr.addEventListener("load", () => {
         //     if (xhr.response !== '1') {
-        //         setfollow_unfollow(false);
+        //         setadd_added(false);
         //     }
         // }, false);
         // xhr.open("POST", Url.action);
@@ -27,7 +27,7 @@ const FollowersListCard = ({ press, my_id, name, handle, img, following, size })
 
     const removeToFollow = (user_follow_id) => {
         // Activate the follow btn
-        // setfollow_unfollow(false);
+        // setadd_added(false);
         // // Send request
         // const xhr = new XMLHttpRequest();
         // const formData = new FormData();
@@ -36,7 +36,7 @@ const FollowersListCard = ({ press, my_id, name, handle, img, following, size })
         // formData.append('userID', my_id);
         // xhr.addEventListener("load", () => {
         //     if (xhr.response !== '1') {
-        //         setfollow_unfollow(true);
+        //         setadd_added(true);
         //     }
         // }, false);
         // xhr.open("POST", Url.action);
@@ -50,26 +50,20 @@ const FollowersListCard = ({ press, my_id, name, handle, img, following, size })
                     {/* <Image source={img} style={styles.fl_pp_img} /> */}
                 </View>
                 <View style={styles.fl_pp_txt}>
-                    <Text style={styles.follow_name}>{name}
-                        {
-                            handle == false ?
-                            null:
-                            <Text style={styles.follow_handle}> @{handle}</Text>
-                        }
-                    </Text>
+                    <Text style={styles.follow_name}>{name} <Text style={styles.follow_handle}>@{handle}</Text></Text>
                     <Text style={[styles.follow_handle, {textTransform:'capitalize',fontSize:12}]}>Web Designer</Text>
                 </View>
             </View>
             <View>
                 {
-                    follow_unfollow !== 'nill' &&
-                        follow_unfollow ?
+                    add_added !== 'nill' &&
+                        add_added ?
                         <Pressable onPress={() => removeToFollow(press)} style={styles.unfl_pp_btn}>
-                            <Text style={styles.unfl_pp_btn_text}>following</Text>
+                            <Text style={styles.unfl_pp_btn_text}>added</Text>
                         </Pressable>
                         :
                         <Pressable onPress={() => addToFollow(press)} style={styles.fl_pp_btn}>
-                            <Text style={styles.fl_pp_btn_text}>Follow</Text>
+                            <Text style={styles.fl_pp_btn_text}>Add</Text>
                         </Pressable>
                 }
 
@@ -162,4 +156,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default FollowersListCard;
+export default DiscussPeopleList;

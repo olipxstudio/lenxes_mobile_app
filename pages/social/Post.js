@@ -228,6 +228,7 @@ const Post = ({ navigation }) => {
                 }}>
                     <HideKeyboard>
                         <View style={styles.ModalView}>
+                            <Pressable onPress={()=>setModCom(!modCom)} style={styles.backDrop}></Pressable>
                             <View style={styles.ModalCenterView}>
                                 <View style={styles.modalCloseBarHD}><Pressable style={styles.modalCloseBar} onPress={()=>setModCom(!modCom)}></Pressable></View>
                                 <View style={styles.modalHead}>
@@ -276,6 +277,7 @@ const Post = ({ navigation }) => {
                 }}>
                     <HideKeyboard>
                         <View style={styles.ModalView}>
+                            <Pressable onPress={()=>setModLoc(!modLoc)} style={styles.backDrop}></Pressable>
                             <View style={styles.ModalCenterView}>
                                 <View style={styles.modalCloseBarHD}><Pressable style={styles.modalCloseBar} onPress={()=>setModLoc(!modLoc)}></Pressable></View>
                                 <View style={styles.modalHead}>
@@ -323,6 +325,7 @@ const Post = ({ navigation }) => {
                 }}>
                     <HideKeyboard>
                         <View style={styles.ModalView}>
+                            <Pressable onPress={()=>setModTag(!modTag)} style={styles.backDrop}></Pressable>
                             <View style={styles.ModalCenterView}>
                                 <View style={styles.modalCloseBarHD}><Pressable style={styles.modalCloseBar} onPress={()=>setModTag(!modTag)}></Pressable></View>
                                 <View style={styles.modalHead}>
@@ -377,6 +380,7 @@ const Post = ({ navigation }) => {
                 }}>
                     <HideKeyboard>
                         <View style={styles.ModalView}>
+                            <Pressable onPress={()=>setModLink(!modLink)} style={styles.backDrop}></Pressable>
                             <View style={styles.ModalCenterView}>
                                 <View style={styles.modalCloseBarHD}><Pressable style={styles.modalCloseBar} onPress={()=>setModLink(!modLink)}></Pressable></View>
                                 <View style={styles.modalHead}>
@@ -432,6 +436,13 @@ const styles = StyleSheet.create({
         alignItems: 'flex-end',
         backgroundColor: '#00000099',
         position: 'relative'
+    },
+    backDrop: {
+        width:'100%',
+        height:'40%',
+        position:'absolute',
+        left:0,
+        top:0
     },
     ModalCenterView: {
         backgroundColor: '#fff',
