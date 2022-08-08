@@ -7,6 +7,7 @@ import NicheFeed from './pages/social/NicheFeed';
 import NicheDetails from './pages/social/NicheDetails';
 import DiscussHome from './pages/social/DiscussHome';
 import DiscussRoom from './pages/social/DiscussRoom';
+import DiscussDetails from './pages/social/DiscussDetails';
 
 import { TransitionPresets } from '@react-navigation/stack';
 
@@ -28,6 +29,7 @@ const SocialAccountsStacks = () => {
             <Stack.Screen name="NicheDetails" component={NicheDetails} />
             <Stack.Screen name="DiscussHome" component={DiscussHome} />
             <Stack.Screen name="DiscussRoom" component={DiscussRoom} />
+            <Stack.Screen name="DiscussDetails" component={DiscussDetails} />
         </Stack.Navigator>
     )
 }

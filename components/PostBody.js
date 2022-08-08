@@ -149,8 +149,7 @@ const styles = StyleSheet.create({
         marginBottom: 2
     },
     hd_username: {
-        color: Colors.grayTwelve,
-        fontWeight: '300',
+        color: Colors.grayEleven,
     },
     hd_place: {
         fontSize: 12,

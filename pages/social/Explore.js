@@ -3,6 +3,7 @@ import { View, Text, SafeAreaView, Modal, Image, StyleSheet, Pressable, Platform
 import Button from '../../components/Button';
 import Colors from '../../components/Colors';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import * as Device from 'expo-device';
 import PostBody from '../../components/PostBody';
 import MasonryList from '@react-native-seoul/masonry-list';
@@ -46,17 +47,9 @@ const Explore = ({ navigation }) => {
             <SafeAreaView style={{flex: 1}}>
                 <View style={{ backgroundColor: '#fff', height: Platform.OS === 'android' ? 50 : 0 }} />
                 <View style={styles.header_cont}>
-                    <View style={styles.pf_hd_username}>
-                        <Image source={require('../../assets/logo/lenxes_logo_bg_millik_black.png')} style={{width:90,height:21.8}} />
-                    </View>
-                    <View style={styles.pf_hd_options}>
-                        <Pressable style={styles.ex_search_trigger}>
-                            <Text style={styles.ex_search_trigger_text}>Search lenxes</Text>
-                        </Pressable>
-                    </View>
-                </View>
-                
-                <View style={styles.main}>
+                    <Pressable style={styles.ex_search_trigger}>
+                        <MaterialCommunityIcons name="account-check-outline" size={20} color={Colors.black} />
+                    </Pressable>
                     <View style={styles.ex_tab_bar}>
                         <Pressable onPress={()=>switchTabs('post')} style={[styles.exTabBtn, active==='post' && styles.active]}>
                             <Text style={[styles.exTabBtnText, active==='post' && styles.active_text]}>Posts</Text>
@@ -65,6 +58,12 @@ const Explore = ({ navigation }) => {
                             <Text style={[styles.exTabBtnText, active==='product' && styles.active_text]}>Products</Text>
                         </Pressable>
                     </View>
+                    <Pressable style={styles.ex_search_trigger}>
+                        <Ionicons name="ios-search" size={20} color={Colors.black} />
+                    </Pressable>
+                </View>
+                
+                <View style={styles.main}>
                     <View style={[styles.postsContainer, {display: active == 'post' ? 'flex' : 'none' }]}>
                         <MasonryList
                             data={fakeData}
@@ -242,7 +241,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        paddingBottom: 15
+        paddingBottom: 15,
     },
     main:{
         width: '100%',
@@ -250,43 +249,27 @@ const styles = StyleSheet.create({
         boxSizing: 'border-box',
         flex: 1
     },
-    pf_hd_options:{
-        flexDirection:'row',
-        alignItems: 'center',
-        width: Platform.OS === 'android' ? 260 : 240,
-    },
-    ex_search_trigger: {
-        backgroundColor: Colors.graySix,
-        width: '100%',
-        paddingVertical: 7,
-        paddingHorizontal: 20,
-        borderRadius: 30
-    },
-    ex_search_trigger_text: {
-        color: Colors.grayTwelve,
-        fontSize: 14
-    },
     ex_tab_bar: {
         flexDirection: 'row',
-        marginBottom: 20,
-        marginTop:5,
-        justifyContent: 'center'
+        justifyContent: 'center',
+        backgroundColor: Colors.graySeven,
+        padding: 3,
+        borderRadius: 9
     },
     exTabBtn: {
         paddingVertical: 7,
-        width: 100,
-        borderRadius: 30,
-        backgroundColor: Colors.primary
+        width: 80,
+        borderRadius: 7,
+        backgroundColor: Colors.white,
     },
     exTabBtnText: {
-        fontSize: 14,
+        fontSize: 12,
         textAlign: 'center',
         fontWeight: '500',
-        color: Colors.white
     },
     active: {
         zIndex: 1,
-        backgroundColor: Colors.graySix,
+        backgroundColor: Colors.graySeven,
     },
     active_text: {
         color: Colors.black

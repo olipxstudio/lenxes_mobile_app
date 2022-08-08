@@ -1,9 +1,11 @@
-import { View, Text, SafeAreaView, Platform, Image, StyleSheet, FlatList } from 'react-native';
+import { View, Text, SafeAreaView, Platform, Image, StyleSheet, FlatList, Dimensions } from 'react-native';
 import React, {useState} from 'react';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import Colors from '../../components/Colors';
 import DiscussClip from '../../components/DiscussClip';
 import Button from '../../components/Button';
+
+const {width} = Dimensions.get('window')
 
 const Niche = ({navigation}) => {
     const [joinedNiches, setJoinedNiches] = useState([{ 'name': 'good'}]);
@@ -171,6 +173,7 @@ const styles = StyleSheet.create({
     joinedNiches: {
         flexDirection:'row',
         flexWrap:'wrap',
+        width: width
     },
     DiscussClip: {
         marginBottom: 15,

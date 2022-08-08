@@ -23,7 +23,7 @@ const DiscussClip = ({ text, press, img, num, size }) => {
 const styles = StyleSheet.create({
     discussClip: {
         position: 'relative',
-        marginRight: 10
+        marginRight: 15
     },
     dc_Img: {
         width: 70,
@@ -32,8 +32,8 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.grayFive
     },
     dc_ImgBig: {
-        width: ((width - 30) / 4) - 10,
-        height: ((width - 30) / 4) - 10,
+        width: ((width - 30) / 4) - 11.5,
+        height: ((width - 30) / 4) - 11.5,
         borderRadius: 50,
         backgroundColor: Colors.grayFive
     },

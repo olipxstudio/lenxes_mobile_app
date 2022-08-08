@@ -7,7 +7,7 @@ import Colors from './components/Colors';
 import ProfileStacks from './ProfileStack';
 import Explore from './pages/social/Explore';
 import Feed from './pages/social/Feed';
-import Post from './pages/social/Post';
+import Cart from './pages/social/Cart';
 import Activities from './pages/social/Activities';
 
 function Icon({ foc, img, text }) {
@@ -41,11 +41,8 @@ const SocialTab = ({ route }) => {
                     <Icon foc={focused} img="ios-search-outline" text="Explore" />
                 ),
             }} />
-            <Tab.Screen name="Post" component={Post} options={{
+            <Tab.Screen name="Cart" component={Cart} options={{
                 tabBarIcon: ({ focused }) => (
-                    // <View style={styles.post}>
-                    //     <Ionicons name="ios-cart-outline" size={25} color={focused ? Colors.primary : '#999'} />
-                    // </View>
                     <Icon foc={focused} img="ios-cart-outline" text="Shopping" />
                 ),
             }} />
