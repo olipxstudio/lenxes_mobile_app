@@ -3,6 +3,7 @@ import React, {useState} from 'react';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import Colors from '../../components/Colors';
 import FollowersListCard from '../../components/FollowersListCard';
+import { AntDesign } from '@expo/vector-icons';
 
 const { width } = Dimensions.get('window')
 
@@ -95,6 +96,13 @@ const NicheDetails = ({navigation}) => {
                                 </Pressable>
                             </View>
                             <View style={styles.addMember}>
+                                <Pressable style={styles.addMemBtn}>
+                                    <View style={{flexDirection:'row',alignItems:'center'}}>
+                                        <AntDesign name="adduser" size={16} color={Colors.black} />
+                                        <Text style={styles.addMemBtnText}>Invite Member to this Niche</Text>
+                                    </View>
+                                    <Ionicons name="ios-chevron-forward" size={16} color={Colors.black} />
+                                </Pressable>
                                 <Pressable style={styles.addMemBtn}>
                                     <View style={{flexDirection:'row',alignItems:'center'}}>
                                         <Ionicons name="ios-person-add-outline" size={16} color={Colors.black} />

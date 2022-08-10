@@ -5,6 +5,7 @@ import Colors from '../../components/Colors';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import PostBody from '../../components/PostBody';
 import { Entypo } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
 
 const RemoteImage = ({ uri, type, desiredWidth }) => {
     const [desiredHeight, setDesiredHeight] = React.useState(0)
@@ -59,12 +60,12 @@ const SingleProfilePost = ({ navigation }) => {
                         <Ionicons name="chevron-back" size={24} color="black" />
                     </Pressable>
                     <View style={styles.pf_hd_options}>
-                        {/* <Pressable style={styles.pf_option_btn}>
-                            <Ionicons name="ellipsis-horizontal-sharp" size={24} color="black" />
-                        </Pressable> */}
                         <TouchableOpacity onPress={()=>setShowTaggedProduct(!showTaggedProduct)} style={styles.fdPh_PtCont}>
                             <Entypo name="price-tag" size={18} color={Colors.black} />
                         </TouchableOpacity>
+                        <Pressable style={styles.pf_option_btn}>
+                            <AntDesign name="adduser" size={24} color="black" />
+                        </Pressable>
                     </View>
                 </View>
                 
@@ -84,14 +85,14 @@ const SingleProfilePost = ({ navigation }) => {
                         ListHeaderComponent={
                             <>
                                 <View style={styles.fdPostHolder}>
-                                    <TouchableOpacity style={styles.body} delayPressIn={200} onPress={()=>press()}>
+                                    <View style={styles.body}>
                                         <View style={styles.head}>
                                             <Pressable  style={styles.hd_det}>
-                                                <View  style={styles.hd_img}>
-                                                    {/* <Image  style={styles.hdImg_photo} /> */}
-                                                </View>
+                                                {/* <View  style={styles.hd_img}>
+                                                    <Image  style={styles.hdImg_photo} />
+                                                </View> */}
                                                 <View>
-                                                    <Text  style={styles.hd_name}>olipxstudio</Text>
+                                                    {/* <Text  style={styles.hd_name}>olipxstudio</Text> */}
                                                     <Text  style={styles.hd_place}>Lekki Penisula</Text>
                                                 </View>
                                             </Pressable>
@@ -152,7 +153,7 @@ const SingleProfilePost = ({ navigation }) => {
                                                 <Text style={styles.postCaptionCommentStatsText}>View all 430 comments</Text>
                                             </Pressable> */}
                                         </View>
-                                    </TouchableOpacity>
+                                    </View>
                                 </View>
                                 
                                 <View style={styles.addComHd}>

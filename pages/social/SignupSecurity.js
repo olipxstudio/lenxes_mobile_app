@@ -26,7 +26,7 @@ const SignupSecurity = ({ navigation }) => {
             <SafeAreaView>
                 <KeyboardAvoidingView
                 behavior={Platform.OS == 'ios' ? 'padding' : 'height'}>
-                    <ScrollView>
+                    <ScrollView showsVerticalScrollIndicator={false}>
                         <View style={{ height: Platform.OS === 'android' ? 50 : 0 }} />
                         <View style={styles.container}>
                             <Image source={require('../../assets/logo/lenxes_logo_bg_millik_black.png')} style={{width:110,height:26.6}} />

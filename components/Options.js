@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { StyleSheet, View, SafeAreaView, Text, Pressable, Image, ActivityIndicator, Platform, Modal } from 'react-native';
 import Colors from './Colors';
 import { Ionicons } from '@expo/vector-icons';
-import Url from './Url';
 
 const Options = ({ options, show, press, own, post, user }) => {
     // const [modal, set_modal] = useState(show);
@@ -27,6 +26,7 @@ const Options = ({ options, show, press, own, post, user }) => {
                                     key={e}
                                     style={styles.opt_hd}
                                 >
+                                    <Ionicons name={item.icon} size={24} color="#000" />
                                     <Text style={styles.opt_txt}>{item.name}</Text>
                                 </Pressable>
                             )
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     qrModalCenterView: {
         backgroundColor: '#fff',
         width: '100%',
-        height: 300,
+        height: 400,
         borderTopLeftRadius: 25,
         borderTopRightRadius: 25,
         paddingVertical: 10,
@@ -62,12 +62,19 @@ const styles = StyleSheet.create({
         width: '100%',
         backgroundColor: Colors.post_border,
         paddingVertical: 15,
-        alignItems: 'center',
         borderRadius: 12,
-        marginBottom: 8
+        marginBottom: 8,
+        borderBottomColor: Colors.graySeven,
+        borderBottomWidth: 0.5,
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingLeft: 8
     },
     opt_txt: {
-        textTransform:'capitalize'
+        textTransform:'capitalize',
+        fontSize: 15,
+        fontWeight: '300',
+        marginLeft: 25
     },
     close_options_bac: {
         width: '100%',

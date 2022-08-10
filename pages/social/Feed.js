@@ -129,9 +129,9 @@ const Feed = ({ navigation }) => {
                                 return (
                                     <>
                                         <ScrollView showsHorizontalScrollIndicator={false} contentContainerStyle={styles.productHD} horizontal>
-                                            <FeedProductBody type="scroll" />
-                                            <FeedProductBody type="scroll" />
-                                            <FeedProductBody type="scroll" />
+                                            <FeedProductBody type="scroll" press={()=>navigation.navigate("SingleProduct")} />
+                                            <FeedProductBody type="scroll" press={()=>navigation.navigate("SingleProduct")} />
+                                            <FeedProductBody type="scroll" press={()=>navigation.navigate("SingleProduct")} />
                                             <TouchableOpacity style={styles.allProductsBtn}>
                                                 <Text style={styles.allProductsBtnText}>View all</Text>
                                                 <Ionicons name="chevron-forward" size={18} color={Colors.black_600} />

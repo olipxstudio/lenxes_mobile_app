@@ -7,6 +7,9 @@ import PostBody from '../../components/PostBody';
 import ProfileChecklist from '../../components/ProfileChecklist';
 import MasonryList from '@react-native-seoul/masonry-list';
 import NewPost from '../../components/NewPost';
+import Options from '../../components/Options';
+import QRCode from 'react-native-qrcode-svg';
+import { BarCodeScanner } from 'expo-barcode-scanner';
 
 const {width} = Dimensions.get('window');
 
@@ -52,6 +55,11 @@ const Profile = ({ navigation }) => {
     const [active, setActive] = useState('grid'); // grid, tag, play, bookmark
     const [modalVisible, setModalVisible] = useState(false);
     const [checklistVisible, setChecklistVisible] = useState(false);
+    const [sh_opt, set_sh_opt] = useState(false);
+    const [qr_vis, set_qr_vis] = useState(false);
+    const [scanned, setScanned] = useState(false);
+    const [listRef, setListRef] = useState();
+    const [scroll_up, set_scroll_up] = useState(false);
     
     const imageMap = {
         one: require('../../assets/img/one.jpg'),
@@ -69,6 +77,90 @@ const Profile = ({ navigation }) => {
         thirteen: require('../../assets/img/thirteen.jpg'),
         fourteen: require('../../assets/img/fourteen.jpg'),
         fifteen: require('../../assets/img/fifteen.jpg')
+    }
+    
+    const handleScrollTop = ({ nativeEvent }) => {
+        if (nativeEvent.contentOffset.y > 30) {
+            set_scroll_up(true);
+        } else {
+            set_scroll_up(false);
+        }
+    }
+    
+    const scrollToTop = () => {
+        // listRef.scrollToOffset({ offset: 0, animated: true });
+        // set_scroll_up(false);
+    }
+    
+    // const getItemLayout = (data, index) => {
+    //     let calc = width + 50;
+    //     return { length: calc, offset: calc * index, index }
+    // }
+    
+    const handleBarCodeScanned = ({ type, data }) => {
+        setScanned(true);
+        let cut = data.split("-");
+        let followUser = cut[cut.length - 1];
+        // set_qr_vis(false);
+        // set_following_qr(true);
+        // set_qr_follow_alert(true);
+        // Send request
+        // const xhr = new XMLHttpRequest();
+        // const formData = new FormData();
+        // formData.append('follow', 'yes');
+        // formData.append('userFollowID', followUser);
+        // formData.append('userID', loggedin_user_id);
+        // xhr.addEventListener("load", () => {
+        //   if (xhr.response == '1') {
+        //     set_following_qr(false);
+        //     setTimeout(() => {
+        //         set_qr_follow_alert(false);
+        //     }, 1500);
+        //     reloadDetails(owner_id, loggedin_user_id);
+        //   }
+        // }, false);
+        // xhr.open("POST", Url.action);
+        // xhr.send(formData);
+    };
+    
+    const options = [
+        {
+            'name': 'Settings',
+            'icon': 'ios-settings-outline',
+            'action': () => gotoSettings()
+        },
+        {
+            'name': 'Orders & more',
+            'icon': 'ios-wallet-outline',
+            'action': () => feedBack()
+        },
+        {
+            'name': 'Business Account',
+            'icon': 'ios-business-outline',
+            'action': () => sharePost()
+        },
+        {
+            'name': 'Invite Friends',
+            'icon': 'ios-person-add-outline',
+            'action': () => sharePost()
+        },
+        {
+            'name': 'QR Code',
+            'icon': 'ios-qr-code-outline',
+            'action': () => showQr()
+        }
+    ];
+    const closeOption = () => {
+        set_sh_opt(false);
+    }
+    
+    const gotoSettings = () => {
+        set_sh_opt(false);
+        navigation.navigate("Settings");
+    }
+    const showQr = () => {
+        set_sh_opt(false);
+        set_qr_vis(true);
     }
     
     return (
@@ -91,7 +183,7 @@ const Profile = ({ navigation }) => {
                                 colour={Colors.white}
                             />
                         }
-                        <Pressable style={styles.pf_option_btn}>
+                        <Pressable onPress={()=>set_sh_opt(true)} style={styles.pf_option_btn}>
                             <Ionicons name="ellipsis-horizontal-sharp" size={24} color="black" />
                         </Pressable>
                     </View>
@@ -103,8 +195,8 @@ const Profile = ({ navigation }) => {
                         data={data}
                         showsVerticalScrollIndicator={false}
                         // getItemLayout={(data, index) => getItemLayout(data, index)}
-                        // ref={(ref) => setListRef(ref)}
-                        // onMomentumScrollEnd={(nativeEvent) => handleScrollTop(nativeEvent)}
+                        innerRef={(ref) => setListRef(ref)}
+                        onMomentumScrollEnd={(nativeEvent) => handleScrollTop(nativeEvent)}
                         removeClippedSubviews={true}
                         initialNumToRender={10}
                         // onEndReached={() => loadMoreFeed(user_id)}
@@ -234,14 +326,14 @@ const Profile = ({ navigation }) => {
                             )
                         }}
                         ListFooterComponent={
-                            <View style={styles.scrollTop}>
+                            <Pressable onPress={() => scrollToTop()} style={styles.scrollTop}>
                                 {
                                     data != '' &&
                                     <View style={styles.scrollTopInner}>
                                         <Ionicons name="arrow-up" size={18} color={Colors.black_600} />
                                     </View>
                                 }
-                            </View>
+                            </Pressable>
                         }
                     />
                     
@@ -288,7 +380,72 @@ const Profile = ({ navigation }) => {
                 </Modal>
                 
                 
+                <Modal
+                animationType="slide"
+                transparent={true}
+                visible={qr_vis}
+                onRequestClose={() => {
+                    set_qr_vis(!qr_vis);
+                }}
+                >
+                    <View style={styles.qrModalView}>
+                        <View style={styles.qrModalCenterView}>
+
+                        <View style={styles.qr_code_top}>
+                            <Pressable style={styles.qr_code_icon_hd} onPress={() => set_qr_vis(false)}>
+                                <Ionicons name="close-outline" size={24} color={Colors.black} style={styles.qr_code_icon} />
+                            </Pressable>
+                            <Pressable style={styles.qr_code_icon_hd}>
+                                <Ionicons name="share-social-outline" size={24} color={Colors.black} style={styles.qr_code_icon} />
+                            </Pressable>
+                        </View>
+                        <View style={styles.qr_code_hd}>
+                            {
+                            scanned ?
+                                <>
+                                    <QRCode
+                                        value={'follow=yes&7y778327g-'}
+                                        // value={Url.action + 'follow=yes&7y778327g-' + loggedin_user_id}
+                                        // logo={require('../../assets/images/app-icon-150.png')}
+                                        logoSize={70}
+                                        size={width - 50}
+                                        color='#000' // FEB23E
+                                        logoBackgroundColor='transparent'
+                                        style={styles.qr_code}
+                                    />
+                                    <Text style={styles.qr_code_text}>@olipsphil</Text>
+                                </>
+                                :
+                                <View style={styles.qr_scanner_hd}>
+                                    <BarCodeScanner
+                                        onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
+                                        style={styles.barcode}
+                                    />
+                                    {/* <Ionicons name="scan-outline" size={380} color="#ccc" style={styles.qr_outline} /> */}
+                                    <View>
+                                        <Text style={{ fontSize: 14, color: '#000', marginTop: 5 }}>Point to QR Code</Text>
+                                    </View>
+                                </View>
+                            }
+                        </View>
+                        {
+                            scanned ?
+                            <Pressable onPress={() => setScanned(false)} style={styles.qr_code_bottom}>
+                                <Ionicons name="ios-camera-outline" size={24} color="#000" style={styles.qr_code_bottom_icon} />
+                                <Text style={styles.qr_code_bt_text}>Scan QR Code</Text>
+                            </Pressable>
+                            :
+                            <Pressable onPress={() => setScanned(true)} style={{ paddingBottom: 0, marginBottom: 50, alignItems: 'center' }}>
+                                <Ionicons name="qr-code-outline" size={30} color="#000" />
+                            </Pressable>
+                        }
+                        </View>
+                    </View>
+                </Modal>
+                
+                
                 <NewPost />
+                <Options options={options} show={sh_opt} press={() => closeOption()} />
             </SafeAreaView>
         </View>
     );
@@ -542,7 +699,86 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 50
-    }
+    },
+    qrModalView: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'flex-end',
+        backgroundColor: '#00000099'
+    },
+    qrModalCenterView: {
+        backgroundColor: '#fff',
+        width: '100%',
+        height: '90%',
+        borderTopLeftRadius: 25,
+        borderTopRightRadius: 25,
+        paddingVertical: 10,
+        justifyContent: 'space-between',
+        padding: 15,
+        alignItems: 'center'
+    },
+    qr_code_top: {
+        width: width - 40,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginBottom: 20,
+        marginTop: 5
+    },
+    qr_code_icon_hd: {
+        width: 30,
+        height: 30
+    },
+    qr_code_icon: {
+        width: 25,
+        height: 25,
+    },
+    qr_code_hd: {
+        width: width - 50,
+        height: width,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    qr_code: {
+  
+    },
+    qr_code_text: {
+        fontSize: Colors.no22,
+        textAlign: 'center',
+        textTransform: 'uppercase',
+        fontWeight: '700',
+        marginTop: 10
+    },
+    qr_code_bottom: {
+        width: '100%',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingBottom: 50
+    },
+    qr_code_bottom_icon: {
+        width: 30,
+        height: 30,
+        marginRight: 10,
+    },
+    qr_code_bt_text: {
+        fontSize: 16
+    },
+    qr_scanner_hd: {
+        width: '100%',
+        height: '100%',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    barcode: {
+        width: '100%',
+        height: '100%'
+    },
+    qr_outline: {
+        position: 'absolute',
+        left: 0,
+        top: 0
+    },
 })
 
 
