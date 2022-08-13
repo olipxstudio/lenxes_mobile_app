@@ -1,5 +1,5 @@
 import React, {useState, useRef} from 'react';
-import { Text, TouchableOpacity, StyleSheet, View, ScrollView, Pressable, Modal, Image, Platform, Dimensions, TextInput, Alert, Linking } from 'react-native';
+import { Text, TouchableOpacity, StyleSheet, View, ScrollView, Pressable, Modal, Image, Platform, Dimensions, TextInput, Alert, Linking, KeyboardAvoidingView, SafeAreaView } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import Colors from './Colors';
 import Button from './Button';
@@ -174,59 +174,66 @@ const NewPost = ({ text, press, statusT, size, bac, colour }) => {
                 setModalVisible(!modalVisible);
             }}>
                 <View style={styles.ModalView}>
-                    <Pressable onPress={()=>setModalVisible(!modalVisible)} style={styles.backDropBig}></Pressable>
-                    <View style={styles.ModalCenterViewMain}>
-                        <View style={styles.modalCloseBarHD}><Pressable style={styles.modalCloseBar} onPress={()=>setModalVisible(!modalVisible)}></Pressable></View>
-                        <View style={styles.modalHeadMain}>
-                            <Ionicons onPress={()=>setModalVisible(!modalVisible)} name="chevron-back" size={24} color={Colors.black} style={{marginLeft:-7}} />
-                            <Button
-                                text="Publish"
-                                press={()=>navigation.navigate("---")}
-                                status={false}
-                                size="small"
-                                bac={Colors.primary}
-                                colour={Colors.white}
-                            />
-                        </View>
-                        <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{justifyContent:'flex-start'}}>
-                            <View style={styles.main}>
-                                
-                                <View style={styles.extraAddition}>
-                                    <View style={styles.exBtnHD}>
-                                        <View style={styles.exDet}>
-                                            <Text style={styles.commentPermissionText}>Everyone can comment</Text>
-                                        </View>
-                                        <Pressable onPress={()=>setModCom(!modCom)} style={styles.exBtn}>
-                                            <Ionicons name="md-earth" size={20} color={Colors.black} />
-                                        </Pressable>
-                                    </View>
-                                    <View style={styles.exBtnHD}>
-                                        <View style={styles.exDet}>
-                                            <Text style={styles.locationText}>{postLocation}</Text>
-                                        </View>
-                                        <Pressable onPress={()=>setModLoc(!modLoc)} style={styles.exBtn}>
-                                            <Ionicons name="location-sharp" size={20} color={Colors.black} />
-                                        </Pressable>
-                                    </View>
-                                    <View style={styles.exBtnHD}>
-                                        <View style={styles.exDet}>
-                                            <TaggedPost size="partial" press={()=>alert('done')} show={showTaggedProduct} />
-                                        </View>
-                                        <Pressable onPress={()=>setModTag(!modTag)} style={styles.exBtn}>
-                                            <Ionicons name="ios-pricetag" size={20} color={Colors.black} />
-                                        </Pressable>
-                                    </View>
-                                    <View style={styles.exBtnHD}>
-                                        <View style={styles.exDet}>
-                                            <View style={styles.exDetLinkDet}>
-                                                <Text style={styles.exDetLinkDetText}>Weddings</Text>
+                <HideKeyboard>
+                    <KeyboardAvoidingView behavior={Platform.OS == 'ios' ? 'padding' : 'height'} style={{flex:1}}>
+                        <Pressable onPress={()=>setModalVisible(!modalVisible)} style={styles.backDropBig}></Pressable>
+                        <View style={styles.ModalCenterViewMain}>
+                            <View style={styles.modalCloseBarHD}><Pressable style={styles.modalCloseBar} onPress={()=>setModalVisible(!modalVisible)}></Pressable></View>
+                            <View style={styles.modalHeadMain}>
+                                <Ionicons onPress={()=>setModalVisible(!modalVisible)} name="chevron-back" size={24} color={Colors.black} style={{marginLeft:-7}} />
+                                <Button
+                                    text="Publish"
+                                    press={()=>navigation.navigate("---")}
+                                    status={false}
+                                    size="small"
+                                    bac={Colors.primary}
+                                    colour={Colors.white}
+                                />
+                            </View>
+                            <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={{justifyContent:'flex-start'}}>
+                                <View style={styles.main}>
+                                    
+                                    <View style={styles.extraAddition}>
+                                        <View style={styles.exBtnHD}>
+                                            <View style={styles.exDet}>
+                                                <Text style={styles.commentPermissionText}>Everyone can comment</Text>
                                             </View>
+                                            <Pressable onPress={()=>setModCom(!modCom)} style={styles.exBtn}>
+                                                <Ionicons name="md-earth" size={20} color={Colors.black} />
+                                            </Pressable>
                                         </View>
-                                        <Pressable onPress={()=>setModLink(!modLink)} style={styles.exBtn}>
-                                            <Ionicons name="ios-link" size={20} color={Colors.black} />
-                                        </Pressable>
+                                        <View style={styles.exBtnHD}>
+                                            <View style={styles.exDet}>
+                                                <Text style={styles.locationText}>{postLocation}</Text>
+                                            </View>
+                                            <Pressable onPress={()=>setModLoc(!modLoc)} style={styles.exBtn}>
+                                                <Ionicons name="location-sharp" size={20} color={Colors.black} />
+                                            </Pressable>
+                                        </View>
+                                        <View style={styles.exBtnHD}>
+                                            <View style={styles.exDet}>
+                                                <TaggedPost size="partial" press={()=>alert('done')} show={showTaggedProduct} />
+                                            </View>
+                                            <Pressable onPress={()=>setModTag(!modTag)} style={styles.exBtn}>
+                                                <Ionicons name="ios-pricetag" size={20} color={Colors.black} />
+                                            </Pressable>
+                                        </View>
+                                        <View style={styles.exBtnHD}>
+                                            <View style={styles.exDet}>
+                                                <View style={styles.exDetLinkDet}>
+                                                    <Text style={styles.exDetLinkDetText}>Weddings</Text>
+                                                </View>
+                                            </View>
+                                            <Pressable onPress={()=>setModLink(!modLink)} style={styles.exBtn}>
+                                                <Ionicons name="ios-link" size={20} color={Colors.black} />
+                                            </Pressable>
+                                        </View>
                                     </View>
+                                    
                                 </View>
+                            </ScrollView>
+                            
+                            <SafeAreaView>
                                 <View style={styles.ptInput}>
                                     <View>
                                         <View style={styles.ptIpBtnInnerHD}>
@@ -294,241 +301,243 @@ const NewPost = ({ text, press, statusT, size, bac, colour }) => {
                                         <TextInput style={styles.ptInputField} multiline={true} placeholder="Say something, type here..." />
                                     </View>
                                 </View>
+                            </SafeAreaView>
+                            
+                            <View style={{flex: 1, display: isVisible ? 'flex' : 'none'}}>
+                                {
+                                    media_uri != '' && media_type == 'image' &&
+                                    <ImageCropPicker img={media_uri} show={isVisible} press={()=>onToggleModal()} croppedPhoto={(uriM)=>PhotoChoosen(uriM)} />
+                                }
                             </View>
-                        </ScrollView>
-                        <View style={{flex: 1, display: isVisible ? 'flex' : 'none'}}>
-                            {
-                                media_uri != '' && media_type == 'image' &&
-                                <ImageCropPicker img={media_uri} show={isVisible} press={()=>onToggleModal()} croppedPhoto={(uriM)=>PhotoChoosen(uriM)} />
-                            }
-                        </View>
-                        
-                        <Modal
-                        animationType="slide"
-                        statusBarTranslucent={true}
-                        transparent={true}
-                        visible={modCom}
-                        // onShow={()=>alert('shown')}
-                        onRequestClose={() => {
-                            setModCom(!modCom);
-                        }}>
-                            <HideKeyboard>
-                                <View style={styles.ModalView}>
-                                    <Pressable onPress={()=>setModCom(!modCom)} style={styles.backDrop}></Pressable>
-                                    <View style={styles.ModalCenterView}>
-                                        <View style={styles.modalCloseBarHD}><Pressable style={styles.modalCloseBar} onPress={()=>setModCom(!modCom)}></Pressable></View>
-                                        <View style={styles.modalHead}>
-                                            <Ionicons onPress={()=>setModCom(!modCom)} name="chevron-back" size={24} color={Colors.black} style={{marginLeft:-7}} />
-                                        </View>
-                                        <View style={{marginTop:15}}>
-                                            <View>
-                                                <Text style={styles.commentModTit}>Who can comment?</Text>
-                                                <Text style={styles.commentModSubTit}>Pick who can comment on this Post.</Text>
+                            
+                            <Modal
+                            animationType="slide"
+                            statusBarTranslucent={true}
+                            transparent={true}
+                            visible={modCom}
+                            // onShow={()=>alert('shown')}
+                            onRequestClose={() => {
+                                setModCom(!modCom);
+                            }}>
+                                <HideKeyboard>
+                                    <View style={styles.ModalView}>
+                                        <Pressable onPress={()=>setModCom(!modCom)} style={styles.backDrop}></Pressable>
+                                        <View style={styles.ModalCenterView}>
+                                            <View style={styles.modalCloseBarHD}><Pressable style={styles.modalCloseBar} onPress={()=>setModCom(!modCom)}></Pressable></View>
+                                            <View style={styles.modalHead}>
+                                                <Ionicons onPress={()=>setModCom(!modCom)} name="chevron-back" size={24} color={Colors.black} style={{marginLeft:-7}} />
                                             </View>
-                                            <Pressable onPress={()=>setModCom(!modCom)} style={styles.commentModAction}>
-                                                <View style={styles.commentModActionIcon}>
-                                                    <Ionicons name="ios-earth-outline" size={24} color={Colors.white} />
-                                                    <Ionicons name="checkmark-circle" size={15} color={Colors.black} style={styles.commentModActionCheck} />
-                                                </View>
-                                                <Text style={styles.commentModActionText}>Everyone</Text>
-                                            </Pressable>
-                                            <Pressable onPress={()=>setModCom(!modCom)} style={styles.commentModAction}>
-                                                <View style={styles.commentModActionIcon}>
-                                                    <MaterialCommunityIcons name="account-check-outline" size={24} color={Colors.white} />
-                                                    <Ionicons name="checkmark-circle" size={15} color={Colors.black} style={styles.commentModActionCheck} />
-                                                </View>
-                                                <Text style={styles.commentModActionText}>People you Follow</Text>
-                                            </Pressable>
-                                            <Pressable onPress={()=>setModCom(!modCom)} style={styles.commentModAction}>
-                                                <View style={styles.commentModActionIcon}>
-                                                    <MaterialCommunityIcons name="account-cancel-outline" size={24} color={Colors.white} />
-                                                    <Ionicons name="checkmark-circle" size={15} color={Colors.black} style={styles.commentModActionCheck} />
-                                                </View>
-                                                <Text style={styles.commentModActionText}>No one</Text>
-                                            </Pressable>
-                                        </View>
-                                    </View>
-                                </View>
-                            </HideKeyboard>
-                        </Modal>
-                        
-                        <Modal
-                        animationType="slide"
-                        statusBarTranslucent={true}
-                        transparent={true}
-                        visible={modLoc}
-                        // onShow={()=>alert('shown')}
-                        onRequestClose={() => {
-                            setModLoc(!modLoc);
-                        }}>
-                            <HideKeyboard>
-                                <View style={styles.ModalView}>
-                                    <Pressable onPress={()=>setModLoc(!modLoc)} style={styles.backDrop}></Pressable>
-                                    <View style={styles.ModalCenterView}>
-                                        <View style={styles.modalCloseBarHD}><Pressable style={styles.modalCloseBar} onPress={()=>setModLoc(!modLoc)}></Pressable></View>
-                                        <View style={styles.modalHead}>
-                                            <Ionicons onPress={()=>setModLoc(!modLoc)} name="chevron-back" size={24} color={Colors.black} style={{marginLeft:-7}} />
-                                        </View>
-                                        <View style={styles.modInputBar}>
-                                            <TextInput style={styles.modInput} placeholder="Post Location / What's Happening" value={postLocation} onChangeText={(text)=>setPostLocation(text)} />
-                                            <Button
-                                                text="Done"
-                                                press={()=>setModLoc(!modLoc)}
-                                                status={false}
-                                                size="small"
-                                                bac={Colors.primary}
-                                                colour={Colors.white}
-                                            />
-                                        </View>
-                                        <View style={{marginTop:15}}>
-                                            
-                                            <View style={styles.samphead}>
-                                                <Pressable  style={styles.samphd_det}>
-                                                    <View  style={styles.samphd_img}>
-                                                    </View>
-                                                    <View>
-                                                        <Text  style={styles.samphd_name}>olipxstudio</Text>
-                                                        <Text  style={styles.samphd_place}>{postLocation}</Text>
-                                                    </View>
-                                                </Pressable>
-                                            </View>
-                                            <View style={styles.sampBody}></View>
-                                            
-                                        </View>
-                                    </View>
-                                </View>
-                            </HideKeyboard>
-                        </Modal>
-                        
-                        <Modal
-                        animationType="slide"
-                        statusBarTranslucent={true}
-                        transparent={true}
-                        visible={modTag}
-                        // onShow={()=>alert('shown')}
-                        onRequestClose={() => {
-                            setModTag(!modTag);
-                        }}>
-                            <HideKeyboard>
-                                <View style={styles.ModalView}>
-                                    <Pressable onPress={()=>setModTag(!modTag)} style={styles.backDrop}></Pressable>
-                                    <View style={styles.ModalCenterView}>
-                                        <View style={styles.modalCloseBarHD}><Pressable style={styles.modalCloseBar} onPress={()=>setModTag(!modTag)}></Pressable></View>
-                                        <View style={styles.modalHead}>
-                                            <Ionicons onPress={()=>setModTag(!modTag)} name="chevron-back" size={24} color={Colors.black} style={{marginLeft:-7}} />
-                                        </View>
-                                        <View style={styles.modInputBar}>
-                                            <TextInput style={styles.modInput} placeholder="Search Product Title" />
-                                            <Button
-                                                text="Find"
-                                                press={()=>alert("---")}
-                                                status={false}
-                                                size="small"
-                                                bac={Colors.primary}
-                                                colour={Colors.white}
-                                            />
-                                        </View>
-                                        {
-                                            searchedProducts == '' ?
-                                            <View style={styles.emptyMod}>
-                                                <Image source={require('../assets/img/Products.png')} style={{width: 150,height:118.1}} />
-                                                <Text style={styles.empModTit}>No Search Result</Text>
-                                                <Text style={styles.empModText}>Serach for Products in your Store to tag to this Post. Tagged Product would show alongside Post in Feed and Product View.</Text>
-                                            </View>
-                                            :
-                                            <>
+                                            <View style={{marginTop:15}}>
                                                 <View>
-                                                    <Text>Select a Product</Text>
+                                                    <Text style={styles.commentModTit}>Who can comment?</Text>
+                                                    <Text style={styles.commentModSubTit}>Pick who can comment on this Post.</Text>
                                                 </View>
-                                                <ScrollView showsVerticalScrollIndicator={false} style={{marginTop:15}} contentContainerStyle={{flexDirection:'row',flexWrap:'wrap'}}>
-                                                    
-                                                    <TouchableOpacity style={styles.FindTagbody} onPress={()=>press()}>
-                                                        <View style={styles.FindTagimgHd}>
-                                                            {/* <Image style={styles.FindTagphoto} /> */}
-                                                        </View>
-                                                        <View style={{flexShrink:1}}>
-                                                            <Text style={styles.FindTagtit} numberOfLines={1}>Garanimals 365 Kid Boys Player Baby Boy Set</Text>
-                                                            <View style={styles.FindTagsubHd}>
-                                                                <Text style={styles.FindTagsubTit}>N13,000</Text>
-                                                                <Text style={[styles.FindTagsubTit, {color: Colors.grayTen,marginLeft:25}]}>new</Text>
-                                                            </View>
-                                                        </View>
-                                                        <View style={styles.arrow}>
-                                                            <Ionicons name="ios-pricetag" size={22} color={Colors.grayFour} />
-                                                        </View>
-                                                    </TouchableOpacity>
-                                                    
-                                                </ScrollView>
-                                            </>
-                                        }
-                                    </View>
-                                </View>
-                            </HideKeyboard>
-                        </Modal>
-                        
-                        <Modal
-                        animationType="slide"
-                        statusBarTranslucent={true}
-                        transparent={true}
-                        visible={modLink}
-                        // onShow={()=>alert('shown')}
-                        onRequestClose={() => {
-                            setModLink(!modLink);
-                        }}>
-                            <HideKeyboard>
-                                <View style={styles.ModalView}>
-                                    <Pressable onPress={()=>setModLink(!modLink)} style={styles.backDrop}></Pressable>
-                                    <View style={styles.ModalCenterView}>
-                                        <View style={styles.modalCloseBarHD}><Pressable style={styles.modalCloseBar} onPress={()=>setModLink(!modLink)}></Pressable></View>
-                                        <View style={styles.modalHead}>
-                                            <Ionicons onPress={()=>setModLink(!modLink)} name="chevron-back" size={24} color={Colors.black} style={{marginLeft:-7}} />
-                                        </View>
-                                        <View style={styles.modInputBar}>
-                                            <TextInput style={styles.modInput} placeholder="Add a new linking word" />
-                                            <Button
-                                                text="ADD"
-                                                press={()=>alert("---")}
-                                                status={false}
-                                                size="small"
-                                                bac={Colors.primary}
-                                                colour={Colors.white}
-                                            />
-                                        </View>
-                                        <View>
-                                            <Text>Select a Linking Word</Text>
-                                        </View>
-                                        {
-                                            linkingWords == '' ?
-                                            <View style={styles.emptyMod}>
-                                                <Image source={require('../assets/img/Share_link.png')} style={{width: 150,height:118.1}} />
-                                                <Text style={styles.empModTit}>No Previous Linking Word</Text>
-                                                <Text style={styles.empModText}>Enter a word to link multiple Posts e.g. Weddings can be used to linked all wedding Post, previous Words would be shown here.</Text>
+                                                <Pressable onPress={()=>setModCom(!modCom)} style={styles.commentModAction}>
+                                                    <View style={styles.commentModActionIcon}>
+                                                        <Ionicons name="ios-earth-outline" size={24} color={Colors.white} />
+                                                        <Ionicons name="checkmark-circle" size={15} color={Colors.black} style={styles.commentModActionCheck} />
+                                                    </View>
+                                                    <Text style={styles.commentModActionText}>Everyone</Text>
+                                                </Pressable>
+                                                <Pressable onPress={()=>setModCom(!modCom)} style={styles.commentModAction}>
+                                                    <View style={styles.commentModActionIcon}>
+                                                        <MaterialCommunityIcons name="account-check-outline" size={24} color={Colors.white} />
+                                                        <Ionicons name="checkmark-circle" size={15} color={Colors.black} style={styles.commentModActionCheck} />
+                                                    </View>
+                                                    <Text style={styles.commentModActionText}>People you Follow</Text>
+                                                </Pressable>
+                                                <Pressable onPress={()=>setModCom(!modCom)} style={styles.commentModAction}>
+                                                    <View style={styles.commentModActionIcon}>
+                                                        <MaterialCommunityIcons name="account-cancel-outline" size={24} color={Colors.white} />
+                                                        <Ionicons name="checkmark-circle" size={15} color={Colors.black} style={styles.commentModActionCheck} />
+                                                    </View>
+                                                    <Text style={styles.commentModActionText}>No one</Text>
+                                                </Pressable>
                                             </View>
-                                            :
-                                            <ScrollView showsVerticalScrollIndicator={false} style={{marginTop:15}} contentContainerStyle={{flexDirection:'row',flexWrap:'wrap'}}>
-                                                <Pressable style={styles.linkingWord}>
-                                                    <Text style={styles.linkingWordTxt}>Weddings</Text>
-                                                </Pressable>
-                                                <Pressable style={styles.linkingWord}>
-                                                    <Text style={styles.linkingWordTxt}>Traditional</Text>
-                                                </Pressable>
-                                                <Pressable style={styles.linkingWord}>
-                                                    <Text style={styles.linkingWordTxt}>Engagement</Text>
-                                                </Pressable>
-                                                <Pressable style={styles.linkingWord}>
-                                                    <Text style={styles.linkingWordTxt}>Studio</Text>
-                                                </Pressable>
-                                                <Pressable style={styles.linkingWord}>
-                                                    <Text style={styles.linkingWordTxt}>Portrait</Text>
-                                                </Pressable>
-                                            </ScrollView>
-                                        }
+                                        </View>
                                     </View>
-                                </View>
-                            </HideKeyboard>
-                        </Modal>
-                        
-                    </View>
+                                </HideKeyboard>
+                            </Modal>
+                            
+                            <Modal
+                            animationType="slide"
+                            statusBarTranslucent={true}
+                            transparent={true}
+                            visible={modLoc}
+                            // onShow={()=>alert('shown')}
+                            onRequestClose={() => {
+                                setModLoc(!modLoc);
+                            }}>
+                                <HideKeyboard>
+                                    <View style={styles.ModalView}>
+                                        <Pressable onPress={()=>setModLoc(!modLoc)} style={styles.backDrop}></Pressable>
+                                        <View style={styles.ModalCenterView}>
+                                            <View style={styles.modalCloseBarHD}><Pressable style={styles.modalCloseBar} onPress={()=>setModLoc(!modLoc)}></Pressable></View>
+                                            <View style={styles.modalHead}>
+                                                <Ionicons onPress={()=>setModLoc(!modLoc)} name="chevron-back" size={24} color={Colors.black} style={{marginLeft:-7}} />
+                                            </View>
+                                            <View style={styles.modInputBar}>
+                                                <TextInput style={styles.modInput} placeholder="Post Location / What's Happening" value={postLocation} onChangeText={(text)=>setPostLocation(text)} />
+                                                <Button
+                                                    text="Done"
+                                                    press={()=>setModLoc(!modLoc)}
+                                                    status={false}
+                                                    size="small"
+                                                    bac={Colors.primary}
+                                                    colour={Colors.white}
+                                                />
+                                            </View>
+                                            <View style={{marginTop:15}}>
+                                                
+                                                <View style={styles.samphead}>
+                                                    <Pressable  style={styles.samphd_det}>
+                                                        <View  style={styles.samphd_img}>
+                                                        </View>
+                                                        <View>
+                                                            <Text  style={styles.samphd_name}>olipxstudio</Text>
+                                                            <Text  style={styles.samphd_place}>{postLocation}</Text>
+                                                        </View>
+                                                    </Pressable>
+                                                </View>
+                                                <View style={styles.sampBody}></View>
+                                                
+                                            </View>
+                                        </View>
+                                    </View>
+                                </HideKeyboard>
+                            </Modal>
+                            
+                            <Modal
+                            animationType="slide"
+                            statusBarTranslucent={true}
+                            transparent={true}
+                            visible={modTag}
+                            // onShow={()=>alert('shown')}
+                            onRequestClose={() => {
+                                setModTag(!modTag);
+                            }}>
+                                <HideKeyboard>
+                                    <View style={styles.ModalView}>
+                                        <Pressable onPress={()=>setModTag(!modTag)} style={styles.backDrop}></Pressable>
+                                        <View style={styles.ModalCenterView}>
+                                            <View style={styles.modalCloseBarHD}><Pressable style={styles.modalCloseBar} onPress={()=>setModTag(!modTag)}></Pressable></View>
+                                            <View style={styles.modalHead}>
+                                                <Ionicons onPress={()=>setModTag(!modTag)} name="chevron-back" size={24} color={Colors.black} style={{marginLeft:-7}} />
+                                            </View>
+                                            <View style={styles.modInputBar}>
+                                                <TextInput style={styles.modInput} placeholder="Search Product Title" />
+                                                <Button
+                                                    text="Find"
+                                                    press={()=>alert("---")}
+                                                    status={false}
+                                                    size="small"
+                                                    bac={Colors.primary}
+                                                    colour={Colors.white}
+                                                />
+                                            </View>
+                                            {
+                                                searchedProducts == '' ?
+                                                <View style={styles.emptyMod}>
+                                                    <Image source={require('../assets/img/Products.png')} style={{width: 150,height:118.1}} />
+                                                    <Text style={styles.empModTit}>No Search Result</Text>
+                                                    <Text style={styles.empModText}>Serach for Products in your Store to tag to this Post. Tagged Product would show alongside Post in Feed and Product View.</Text>
+                                                </View>
+                                                :
+                                                <>
+                                                    <View>
+                                                        <Text>Select a Product</Text>
+                                                    </View>
+                                                    <ScrollView showsVerticalScrollIndicator={false} style={{marginTop:15}} contentContainerStyle={{flexDirection:'row',flexWrap:'wrap'}}>
+                                                        
+                                                        <TouchableOpacity style={styles.FindTagbody} onPress={()=>press()}>
+                                                            <View style={styles.FindTagimgHd}>
+                                                                {/* <Image style={styles.FindTagphoto} /> */}
+                                                            </View>
+                                                            <View style={{flexShrink:1}}>
+                                                                <Text style={styles.FindTagtit} numberOfLines={1}>Garanimals 365 Kid Boys Player Baby Boy Set</Text>
+                                                                <View style={styles.FindTagsubHd}>
+                                                                    <Text style={styles.FindTagsubTit}>N13,000</Text>
+                                                                    <Text style={[styles.FindTagsubTit, {color: Colors.grayTen,marginLeft:25}]}>new</Text>
+                                                                </View>
+                                                            </View>
+                                                            <View style={styles.arrow}>
+                                                                <Ionicons name="ios-pricetag" size={22} color={Colors.grayFour} />
+                                                            </View>
+                                                        </TouchableOpacity>
+                                                        
+                                                    </ScrollView>
+                                                </>
+                                            }
+                                        </View>
+                                    </View>
+                                </HideKeyboard>
+                            </Modal>
+                            
+                            <Modal
+                            animationType="slide"
+                            statusBarTranslucent={true}
+                            transparent={true}
+                            visible={modLink}
+                            // onShow={()=>alert('shown')}
+                            onRequestClose={() => {
+                                setModLink(!modLink);
+                            }}>
+                                <HideKeyboard>
+                                    <View style={styles.ModalView}>
+                                        <Pressable onPress={()=>setModLink(!modLink)} style={styles.backDrop}></Pressable>
+                                        <View style={styles.ModalCenterView}>
+                                            <View style={styles.modalCloseBarHD}><Pressable style={styles.modalCloseBar} onPress={()=>setModLink(!modLink)}></Pressable></View>
+                                            <View style={styles.modalHead}>
+                                                <Ionicons onPress={()=>setModLink(!modLink)} name="chevron-back" size={24} color={Colors.black} style={{marginLeft:-7}} />
+                                            </View>
+                                            <View style={styles.modInputBar}>
+                                                <TextInput style={styles.modInput} placeholder="Add a new linking word" />
+                                                <Button
+                                                    text="ADD"
+                                                    press={()=>alert("---")}
+                                                    status={false}
+                                                    size="small"
+                                                    bac={Colors.primary}
+                                                    colour={Colors.white}
+                                                />
+                                            </View>
+                                            <View>
+                                                <Text>Select a Linking Word</Text>
+                                            </View>
+                                            {
+                                                linkingWords == '' ?
+                                                <View style={styles.emptyMod}>
+                                                    <Image source={require('../assets/img/Share_link.png')} style={{width: 150,height:118.1}} />
+                                                    <Text style={styles.empModTit}>No Previous Linking Word</Text>
+                                                    <Text style={styles.empModText}>Enter a word to link multiple Posts e.g. Weddings can be used to linked all wedding Post, previous Words would be shown here.</Text>
+                                                </View>
+                                                :
+                                                <ScrollView showsVerticalScrollIndicator={false} style={{marginTop:15}} contentContainerStyle={{flexDirection:'row',flexWrap:'wrap'}}>
+                                                    <Pressable style={styles.linkingWord}>
+                                                        <Text style={styles.linkingWordTxt}>Weddings</Text>
+                                                    </Pressable>
+                                                    <Pressable style={styles.linkingWord}>
+                                                        <Text style={styles.linkingWordTxt}>Traditional</Text>
+                                                    </Pressable>
+                                                    <Pressable style={styles.linkingWord}>
+                                                        <Text style={styles.linkingWordTxt}>Engagement</Text>
+                                                    </Pressable>
+                                                    <Pressable style={styles.linkingWord}>
+                                                        <Text style={styles.linkingWordTxt}>Studio</Text>
+                                                    </Pressable>
+                                                    <Pressable style={styles.linkingWord}>
+                                                        <Text style={styles.linkingWordTxt}>Portrait</Text>
+                                                    </Pressable>
+                                                </ScrollView>
+                                            }
+                                        </View>
+                                    </View>
+                                </HideKeyboard>
+                            </Modal>
+                            
+                        </View>
+                    </KeyboardAvoidingView>
+                    </HideKeyboard>
                 </View>
             </Modal>
         </>
@@ -741,7 +750,9 @@ const styles = StyleSheet.create({
     },
     ptInput: {
         flexDirection: 'row',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        paddingHorizontal: 15,
+        paddingBottom: 10
     },
     ptIpBtnInnerHD: {
         backgroundColor: Colors.black_050,

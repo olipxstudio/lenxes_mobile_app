@@ -26,12 +26,14 @@ const Settings = ({navigation}) => {
                     <View style={styles.main}>
                         <View>
                             <Pressable
+                                onPress={()=>navigation.navigate("CreateBusiness")}
                                 style={styles.opt_hd}
                             >
                                 <Ionicons name="ios-business-outline" size={20} color="#000" />
                                 <Text style={styles.opt_txt}>Create a Business</Text>
                             </Pressable>
                             <Pressable
+                                onPress={()=>navigation.navigate("Invite")}
                                 style={styles.opt_hd}
                             >
                                 <Ionicons name="ios-mail-outline" size={20} color="#000" />

@@ -132,17 +132,17 @@ const Profile = ({ navigation }) => {
         {
             'name': 'Orders & more',
             'icon': 'ios-wallet-outline',
-            'action': () => feedBack()
+            'action': () => alert("Yeah")
         },
         {
             'name': 'Business Account',
             'icon': 'ios-business-outline',
-            'action': () => sharePost()
+            'action': () => gotoBusiness()
         },
         {
             'name': 'Invite Friends',
             'icon': 'ios-person-add-outline',
-            'action': () => sharePost()
+            'action': () => gotoInvite()
         },
         {
             'name': 'QR Code',
@@ -157,6 +157,14 @@ const Profile = ({ navigation }) => {
     const gotoSettings = () => {
         set_sh_opt(false);
         navigation.navigate("Settings");
+    }
+    const gotoInvite = () => {
+        set_sh_opt(false);
+        navigation.navigate("Invite");
+    }
+    const gotoBusiness = () => {
+        set_sh_opt(false);
+        navigation.navigate("CreateBusiness");
     }
     const showQr = () => {
         set_sh_opt(false);
@@ -176,7 +184,7 @@ const Profile = ({ navigation }) => {
                             profileDone == '' &&
                             <Button
                                 text="Complete"
-                                press={()=>navigation.navigate("---")}
+                                press={()=>navigation.navigate("EditProfile")}
                                 status={false}
                                 size="small"
                                 bac={Colors.primary}
@@ -284,10 +292,10 @@ const Profile = ({ navigation }) => {
                                 :
                                 <>
                                 <View style={styles.pf_action_bar}>
-                                    <Pressable style={[styles.pfActionBtn, {backgroundColor:Colors.graySeven}]}>
+                                    <Pressable onPress={()=>navigation.navigate("EditProfile")} style={[styles.pfActionBtn, {backgroundColor:Colors.graySeven}]}>
                                         <Text style={styles.pfActionBtnText}>Edit Profile</Text>
                                     </Pressable>
-                                    <Pressable style={[styles.pfActionBtn, {backgroundColor:Colors.primary}]}>
+                                    <Pressable onPress={()=>navigation.navigate("CreateBusiness")} style={[styles.pfActionBtn, {backgroundColor:Colors.primary}]}>
                                         <Text style={[styles.pfActionBtnText, {color:Colors.white}]}>Create {siteType}</Text>
                                     </Pressable>
                                 </View>

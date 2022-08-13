@@ -97,7 +97,7 @@ const NicheFeed = ({navigation}) => {
                                 </TouchableOpacity> */}
                                 <TextInput style={styles.addComInput} placeholder='Ask a question?' />
                                 <TouchableOpacity style={styles.addComBtn}>
-                                    <Ionicons name="ios-help" size={18} color={Colors.white} />
+                                    <Ionicons name="ios-help" size={22} color={Colors.white} />
                                 </TouchableOpacity>
                             </View>
                             <ScrollView showsHorizontalScrollIndicator={false} style={{marginBottom:20,marginTop:10}} horizontal>
@@ -315,15 +315,15 @@ const styles = StyleSheet.create({
         width: '100%',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        borderWidth: 1,
-        borderColor: Colors.black_075,
-        borderRadius: 30,
+        borderWidth: 0.5,
+        borderColor: Colors.primary,
+        borderRadius: 50,
         padding: 3,
         marginVertical: 15
     },
     addComAddImg: {
-        width: 33,
-        height: 33,
+        width: 32,
+        height: 32,
         backgroundColor: Colors.black_050,
         justifyContent: 'center',
         alignItems: 'center',
@@ -337,7 +337,7 @@ const styles = StyleSheet.create({
     addComBtn: {
         width: 33,
         height: 33,
-        backgroundColor: Colors.primary,
+        backgroundColor: Colors.black,
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 50

@@ -158,7 +158,7 @@ const SingleProfilePost = ({ navigation }) => {
                                 
                                 <View style={styles.addComHd}>
                                     <TouchableOpacity style={styles.addComAddImg}>
-                                        <Ionicons name="image" size={18} color={Colors.black_500} />
+                                        <Ionicons name="image" size={20} color={Colors.black_500} />
                                     </TouchableOpacity>
                                     <TextInput style={styles.addComInput} placeholder='Type a comment...' />
                                     <TouchableOpacity style={styles.addComBtn}>
@@ -339,15 +339,15 @@ const styles = StyleSheet.create({
         width: '100%',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        borderWidth: 1,
-        borderColor: Colors.black_075,
-        borderRadius: 30,
+        borderWidth: 0.5,
+        borderColor: Colors.primary,
+        borderRadius: 50,
         padding: 3,
         marginBottom: 15
     },
     addComAddImg: {
-        width: 33,
-        height: 33,
+        width: 32,
+        height: 32,
         backgroundColor: Colors.black_050,
         justifyContent: 'center',
         alignItems: 'center',
@@ -361,7 +361,7 @@ const styles = StyleSheet.create({
     addComBtn: {
         width: 33,
         height: 33,
-        backgroundColor: Colors.primary,
+        backgroundColor: Colors.black,
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 50
@@ -537,7 +537,7 @@ const styles = StyleSheet.create({
         height: 27,
     },
     cmDetHd: {
-        backgroundColor: Colors.grayOne,
+        backgroundColor: Colors.grayTwo,
         marginLeft: 10,
         paddingTop: 3,
         paddingHorizontal: 3,
@@ -570,10 +570,10 @@ const styles = StyleSheet.create({
     },
     cmCaption: {
         lineHeight: 20,
-        fontSize: 14,
+        fontSize: 13.5,
         color: Colors.black_800,
-        marginHorizontal: 6,
-        marginTop: 4,
+        marginHorizontal: 10,
+        marginTop: 6,
     },
     cmPhoto: {
         // borderRadius
@@ -581,9 +581,9 @@ const styles = StyleSheet.create({
     cmFt: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        paddingHorizontal: 6,
+        paddingHorizontal: 10,
         marginTop: 6,
-        marginBottom: 6
+        marginBottom: 10
     },
     cmHr: {
         fontSize: 11,

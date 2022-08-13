@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Keyboard, View, Text, SafeAreaView, Image, StyleSheet, Pressable, Platform, Dimensions, TouchableOpacity, TextInput, Alert, Linking, Modal, ScrollView, FlatList } from 'react-native';
-import Button from '../../components/Button';
 import Colors from '../../components/Colors';
 import CartCard from '../../components/CartCard';
 import Ionicons from '@expo/vector-icons/Ionicons';
@@ -47,8 +46,10 @@ const Cart = ({ navigation }) => {
                         </Pressable>
                     </View>
                     <View>
-                        {/* <Ionicons name="ios-search" size={20} color={Colors.black} /> */}
-                        <Text>Cred</Text>
+                        {/* <Text>Cred</Text> */}
+                        <Pressable style={styles.scrollDown}>
+                            <Ionicons name="arrow-down" size={16} color={Colors.black} />
+                        </Pressable>
                     </View>
                 </View>
                 
@@ -80,6 +81,18 @@ const Cart = ({ navigation }) => {
                                 <CartCard />
                             )
                         }}
+                        ListFooterComponent={
+                            <View style={styles.footer}>
+                                <Text style={styles.footText}><Text style={styles.footTextBold}>NOTE:</Text> Merchat for eachitem you add to cart would receive a request to provide delivery fee to your location before you can make payment for that item.</Text>
+                                <View style={styles.footAction}>
+                                    <Text style={styles.footDiscount}>Save N268.5</Text>
+                                    <TouchableOpacity style={styles.btn} onPress={()=>alert("Good")}>
+                                        <Text style={styles.btn_text}>Buy Now - Pay N53,281.5</Text>
+                                    </TouchableOpacity>
+                                    <Text style={styles.footStoreCredit}>Store Credit N1,500</Text>
+                                </View>
+                            </View>
+                        }
                     />
                 </View>
             </SafeAreaView>
@@ -135,6 +148,14 @@ const styles = StyleSheet.create({
     active_text: {
         color: Colors.black
     },
+    scrollDown: {
+        backgroundColor: Colors.graySix,
+        width: 30,
+        height: 30,
+        borderRadius: 50,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
     main:{
         width: '100%',
         // minHeight: '100%',
@@ -142,6 +163,45 @@ const styles = StyleSheet.create({
         paddingHorizontal: 15,
         paddingBottom: 10,
     },
+    footer: {
+        marginBottom: 70,
+        marginTop: 25
+    },
+    footText: {
+        fontSize: 12,
+        lineHeight: 17,
+        color: Colors.grayTwelve
+    },
+    footTextBold: {
+        fontWeight: '700'
+    },
+    btn: {
+        width: '100%',
+        height: 48,
+        backgroundColor: '#000',
+        borderRadius: 20,
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginTop: 10
+    },
+    btn_text: {
+        color: '#fff',
+        fontSize: 16,
+        fontWeight: '800',
+    },
+    footAction: {
+        marginTop: 25
+    },
+    footDiscount: {
+        color: Colors.primary,
+        textAlign: 'center',
+        fontWeight: '700'
+    },
+    footStoreCredit: {
+        fontSize: 12,
+        textAlign: 'center',
+        marginTop: 5
+    }
 })
 
 

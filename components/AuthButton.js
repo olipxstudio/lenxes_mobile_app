@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
         borderRadius: 50,
         justifyContent: 'center',
         alignItems: 'center',
-        marginLeft: (width / 2) - 117, // Half button width plus margin left of 30
+        // marginLeft: (width / 2) - 117, // Half button width plus margin left of 30
         marginTop: 20
     },
     disabled: {

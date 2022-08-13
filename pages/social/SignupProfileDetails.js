@@ -97,8 +97,8 @@ const SignupProfileDetails = ({ navigation }) => {
                                         <Text style={styles.pf_pt_btn_txt}>Choose a photo</Text>
                                     </Pressable>
                                     
-                                    <Text>or</Text>
-                                    <Text>Import photo from</Text>
+                                    <Text style={{marginBottom:5}}>or</Text>
+                                    <Text>Import from:</Text>
                                     <View style={styles.pf_import}>
                                         <Pressable style={styles.pf_import_btn} onPress={() => changePhoto()}>
                                             <Ionicons name="logo-facebook" size={22} color="#4267B2" />

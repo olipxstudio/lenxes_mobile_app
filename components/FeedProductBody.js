@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
         // backgroundColor: Colors.black_025,
         marginRight: 10,
         borderRadius: 22,
-        borderWidth: 1,
+        borderWidth: 0.5,
         borderColor: Colors.primary
     },
     postPhotoScroll: {

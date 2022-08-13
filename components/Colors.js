@@ -21,6 +21,7 @@ export default {
     grayTen: '#989898',
     grayEleven: '#9F9F9F',
     grayTwelve: '#595959',
+    grayThirteen: '#b1b1b1',
     
     orange: '#f48225',
     yellow: '#fbf3d5',
