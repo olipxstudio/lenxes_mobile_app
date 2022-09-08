@@ -61,8 +61,9 @@ const Feed = ({ navigation }) => {
                     </View>
                     <View style={styles.hd_head_options}>
                         {/* <Ionicons onPress={()=>alert('good')} name="play" size={24} color={Colors.black} style={styles.hdJiveBtn} /> */}
-                        <MaterialCommunityIcons onPress={()=>navigation.navigate('Niche')} name="bullseye-arrow" size={24} color={Colors.black} />
-                        <Ionicons onPress={()=>alert('good')} name="notifications-outline" size={24} color={Colors.black} style={styles.hdJiveBtn} />
+                        <Ionicons onPress={()=>alert('good')} name="ios-chatbubbles-outline" size={24} color={Colors.black} style={styles.hdJiveBtn} />
+                        {/* <MaterialCommunityIcons onPress={()=>navigation.navigate('Niche')} name="bullseye-arrow" size={24} color={Colors.black} /> */}
+                        <Ionicons onPress={()=>alert('good')} name="ios-notifications-outline" size={24} color={Colors.black} style={styles.hdJiveBtn} />
                     </View>
                 </View>
                 
@@ -237,7 +238,8 @@ const styles = StyleSheet.create({
     },
     discuss: {
         marginTop: 10,
-        marginBottom: 25
+        marginBottom: 25,
+        display: 'none'
     },
     scrollTop: {
         width: '100%',
@@ -289,7 +291,7 @@ const styles = StyleSheet.create({
         marginLeft: 15
     },
     productHD: {
-        marginBottom: 20,
+        marginBottom: 0,
         alignItems: 'center'
     },
     allProductsBtn: {

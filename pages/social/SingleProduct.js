@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, SafeAreaView, Platform, StyleSheet, Dimensions, ScrollView, TouchableOpacity, TextInput, Pressable } from 'react-native';
+import { View, Text, SafeAreaView, Platform, StyleSheet, Dimensions, ScrollView, TouchableOpacity, TextInput, Pressable, Image } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Colors from '../../components/Colors';
@@ -59,7 +59,7 @@ const SingleProduct = ({navigation}) => {
                         <Text style={styles.sku}>SKU 0001</Text>
                     </View>
                     <View style={styles.pdPhotoHd}>
-                        
+                        <Image source={{uri:'https://shop.trell.co/media/catalog/product/B/E/BEWAKOOF705910-11_30092021_1.jpg?auto=webp&format=pjpg&width=600&quality=100'}} style={{width:'100%',height: 500}}/>
                     </View>
                     <View style={styles.actions}>
                         <View style={styles.actThumbs}>
@@ -314,10 +314,11 @@ const styles = StyleSheet.create({
     },
     pdPhotoHd: {
         width: '100%',
-        height: 350,
+        height: 500,
         backgroundColor: Colors.grayEight,
         borderRadius: 16,
-        marginTop: 5
+        marginTop: 5,
+        overflow: 'hidden'
     },
     actions: {
         flexDirection: 'row',

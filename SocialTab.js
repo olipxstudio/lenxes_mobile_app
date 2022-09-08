@@ -12,7 +12,7 @@ import Activities from './pages/social/Activities';
 
 function Icon({ foc, img, text }) {
     return (
-        <View style={{ alignItems: 'center', justifyContent: 'center', top: 5 }}>
+        <View style={{ alignItems: 'center', justifyContent: 'center', top: 2 }}>
             <Ionicons name={img} size={25} color={foc ? Colors.primary : '#999'} />
             <Text style={{ fontSize: Platform.OS === 'android' ? 8 : 8, color: foc ? Colors.primary : '#999', marginBottom: 5 }}>{text}</Text>
         </View>
@@ -53,7 +53,37 @@ const SocialTab = ({ route }) => {
             }} />
             <Tab.Screen name="ProfileStacks" component={ProfileStacks} options={{
                 tabBarIcon: ({ focused }) => (
-                    <Icon foc={focused} img="person-circle-outline" text="Profile" />
+                    // <Icon foc={focused} img="person-circle-outline" text="Profile" />
+                    <View style={
+                        {
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            top: 2,
+                        }
+                    }>
+                        <View style={
+                            {
+                                width: 25,
+                                height: 25,
+                                borderRadius: 50,
+                                borderWidth: 1.5,
+                                borderColor: focused ? Colors.primary : '#999',
+                                padding: 1.5
+                            }
+                        }>
+                            <View style={
+                                {
+                                    width: '100%',
+                                    height: '100%',
+                                    borderRadius: 50,
+                                    backgroundColor: '#ccc'
+                                }
+                            }>
+                                
+                            </View>
+                        </View>
+                        <Text style={{ fontSize: Platform.OS === 'android' ? 8 : 8, color: focused ? Colors.primary : '#999', marginBottom: 5, marginTop: 1 }}>Profile</Text>
+                    </View>
                 ),
             }} />
         </Tab.Navigator>

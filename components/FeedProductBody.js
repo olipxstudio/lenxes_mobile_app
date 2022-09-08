@@ -10,7 +10,6 @@ const {width} = Dimensions.get('window');
 const FeedProductBody = ({ position, text, press, img, type }) => {
     const [showTaggedProduct, setShowTaggedProduct] = useState(false)
     
-    
     return (
         <View style={[styles.fdPostHolder, type == 'scroll' ? styles.fdPostHolderScroll : styles.fdPostHolderFit]}>
             <TouchableOpacity style={styles.body} delayPressIn={200} onPress={()=>press()}>
@@ -48,7 +47,7 @@ const styles = StyleSheet.create({
         marginRight: 10,
         borderRadius: 22,
         borderWidth: 0.5,
-        borderColor: Colors.primary
+        borderColor: Colors.black_150
     },
     postPhotoScroll: {
         width: (width / 2) - 20,
