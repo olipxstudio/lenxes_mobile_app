@@ -13,6 +13,8 @@ import SingleProduct from './pages/social/SingleProduct';
 import EditProfile from './pages/social/EditProfile';
 import Invite from './pages/social/Invite';
 import CreateBusiness from './pages/social/CreateBusiness';
+import PostsFeed from './pages/social/PostsFeed';
+import Post from './pages/social/Post';
 
 import { TransitionPresets } from '@react-navigation/stack';
 
@@ -40,6 +42,8 @@ const SocialAccountsStacks = () => {
             <Stack.Screen name="EditProfile" component={EditProfile} />
             <Stack.Screen name="Invite" component={Invite} />
             <Stack.Screen name="CreateBusiness" component={CreateBusiness} />
+            <Stack.Screen name="PostsFeed" component={PostsFeed} />
+            <Stack.Screen name="Post" component={Post} />
         </Stack.Navigator>
     )
 }

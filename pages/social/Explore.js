@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, SafeAreaView, Modal, Image, StyleSheet, Pressable, Platform, Dimensions, Alert } from 'react-native';
+import { View, Text, SafeAreaView, Modal, Image, StyleSheet, Pressable, Platform, Dimensions, Alert, TextInput, ScrollView, TouchableOpacity } from 'react-native';
 import Button from '../../components/Button';
 import Colors from '../../components/Colors';
 import Ionicons from '@expo/vector-icons/Ionicons';
@@ -8,6 +8,8 @@ import * as Device from 'expo-device';
 import PostBody from '../../components/PostBody';
 import MasonryList from '@react-native-seoul/masonry-list';
 import FeedProductBody from '../../components/FeedProductBody';
+import FeedPeople from '../../components/FeedPeople';
+import Accounts from '../../components/Accounts';
 
 const {width} = Dimensions.get('window');
 
@@ -16,24 +18,49 @@ const Explore = ({ navigation }) => {
     const [img_filled, set_img_filled] = useState(false);
     const [img_uri, set_img_uri] = useState('');
     const [modalVisible, setModalVisible] = useState(false);
+    const [searchVisible, setSearchModal] = useState(false);
     const [active, setActive] = useState('post'); // post, product
     
     const fakeData = [
         {
             'name':'oke',
-            'type':'img'
+            'type':'img',
+            'height':120
         },
         {
             'name':'pius',
-            'type':'text'
+            'type':'text',
+            'height':190
         },
         {
             'name':'peace',
-            'type':'img'
+            'type':'img',
+            'height':150
         },
         {
             'name':'peter',
-            'type':'img'
+            'type':'img',
+            'height':170
+        },
+        {
+            'name':'john',
+            'type':'img',
+            'height':130
+        },
+        {
+            'name':'rufus',
+            'type':'img',
+            'height':160
+        },
+        {
+            'name':'james',
+            'type':'img',
+            'height':180
+        },
+        {
+            'name':'okon',
+            'type':'img',
+            'height':140
         }
     ]
     
@@ -47,24 +74,30 @@ const Explore = ({ navigation }) => {
             <SafeAreaView style={{flex: 1}}>
                 <View style={{ backgroundColor: '#fff', height: Platform.OS === 'android' ? 50 : 0 }} />
                 <View style={styles.header_cont}>
-                    <Pressable style={styles.ex_search_trigger}>
+                    {/* <Pressable style={styles.ex_search_trigger}>
                         <MaterialCommunityIcons name="account-check-outline" size={20} color={Colors.black} />
-                    </Pressable>
-                    <View style={styles.ex_tab_bar}>
-                        <Pressable onPress={()=>switchTabs('post')} style={[styles.exTabBtn, active==='post' && styles.active]}>
-                            <Text style={[styles.exTabBtnText, active==='post' && styles.active_text]}>Posts</Text>
-                        </Pressable>
-                        <Pressable onPress={()=>switchTabs('product')} style={[styles.exTabBtn, active==='product' && styles.active]}>
-                            <Text style={[styles.exTabBtnText, active==='product' && styles.active_text]}>Products</Text>
-                        </Pressable>
+                    </Pressable> */}
+                    <View style={styles.searchHD}>
+                        <Ionicons name="ios-search" size={16} color={Colors.grayEleven} />
+                        <TextInput style={styles.searchInput} placeholder='Search Lenxes' placeholderTextColor={Colors.grayEleven} />
                     </View>
-                    <Pressable style={styles.ex_search_trigger}>
-                        <Ionicons name="ios-search" size={20} color={Colors.black} />
+                    <Ionicons onPress={()=>setSearchModal(!searchVisible)} name="location-sharp" size={22} color={Colors.black} />
+                    <Pressable onPress={()=>active == 'post' ? switchTabs('product') : switchTabs('post') } style={styles.exTabBtn}>
+                        {
+                            active == 'product' ?
+                            <>
+                            <Ionicons name="ios-chevron-back" size={16} color={Colors.black} style={{marginLeft:-3}} />
+                            <Text style={styles.exTabBtnText}>Explore</Text>
+                            </>
+                            :
+                            <Text style={styles.exTabBtnText}>Products</Text>
+                        }
                     </Pressable>
                 </View>
                 
                 <View style={styles.main}>
                     <View style={[styles.postsContainer, {display: active == 'post' ? 'flex' : 'none' }]}>
+                        
                         <MasonryList
                             data={fakeData}
                             showsVerticalScrollIndicator={false}
@@ -78,44 +111,99 @@ const Explore = ({ navigation }) => {
                             // onRefresh={() => getItems(owner_id)}
                             // refreshing={loading}
                             ListHeaderComponent={
-                                <Pressable onPress={() => alert("NA")} style={styles.ptz_hd}>
-                                    <View style={styles.ptz_det}>
-                                        <Text style={styles.ptz_det_txt}>These people are in your line of industry.</Text>
+                                <>
+                                    <ScrollView showsHorizontalScrollIndicator={false} horizontal>
+                                        <FeedPeople />
+                                        <FeedPeople />
+                                        <FeedPeople />
+                                        <FeedPeople />
+                                        <FeedPeople />
+                                        <FeedPeople />
+                                    </ScrollView>
+                                    
+                                    <View style={{marginTop: 20}}>
+                                        <Text style={styles.secTitle}>Careers</Text>
+                                        <View style={{flexDirection: 'row',flexWrap: 'wrap',justifyContent: 'space-between',marginTop:10}}>
+                                            <Accounts />
+                                            <Accounts />
+                                            <Accounts />
+                                            <Accounts />
+                                        </View>
+                                        <Text style={styles.more_link}>Show more</Text>
                                     </View>
-                                    <View style={styles.ptz_imgs_cont}>
-                                        <View style={[styles.ptz_img_hd, styles.num1]}>
-                                            {/* <Image style={styles.ptz_img} source={{ uri: Url.profile_photo + 'no-photo-available.jpg' }} /> */}
-                                        </View>
-                                        <View style={[styles.ptz_img_hd, styles.num2]}>
-                                            {/* <Image style={styles.ptz_img} source={{ uri: Url.profile_photo + 'no-photo-available.jpg' }} /> */}
-                                        </View>
-                                        <View style={[styles.ptz_img_hd, styles.num3]}>
-                                            {/* <Image style={styles.ptz_img} source={{ uri: Url.profile_photo + 'no-photo-available.jpg' }} /> */}
-                                        </View>
-                                        <View style={[styles.ptz_img_hd, styles.num4]}>
-                                            {/* <Image style={styles.ptz_img} source={{ uri: Url.profile_photo + 'no-photo-available.jpg' }} /> */}
-                                        </View>
-                                        <View style={[styles.ptz_img_hd, styles.num5]}>
-                                            {/* <Image style={styles.ptz_img} source={{ uri: Url.profile_photo + 'no-photo-available.jpg' }} /> */}
-                                        </View>
-                                        <View style={[styles.ptz_img_hd, styles.num6]}>
-                                            {/* <Image style={styles.ptz_img} source={{ uri: Url.profile_photo + 'no-photo-available.jpg' }} /> */}
-                                        </View>
-                                        <View style={[styles.ptz_img_hd, styles.num7]}>
-                                            {/* <Image style={styles.ptz_img} source={{ uri: Url.profile_photo + 'no-photo-available.jpg' }} /> */}
-                                        </View>
+                                    
+                                    <View style={{marginTop: 20}}>
+                                        <Text style={styles.secTitle}>Events</Text>
+                                        <ScrollView style={{marginTop:10}} showsHorizontalScrollIndicator={false} horizontal>
+                                            <View style={styles.evMain}>
+                                                <View style={styles.evImg}>
+                                                    <View style={styles.evThumb}></View>
+                                                </View>
+                                                <Text style={styles.evTitle}>Annual Celebration of Songs</Text>
+                                                <Text style={styles.evDate}>Sun, Dec 28, 3:00PM</Text>
+                                            </View>
+                                            <View style={styles.evMain}>
+                                                <View style={styles.evImg}>
+                                                    <View style={styles.evThumb}></View>
+                                                </View>
+                                                <Text style={styles.evTitle}>Annual Celebration of Songs</Text>
+                                                <Text style={styles.evDate}>Sun, Dec 28, 3:00PM</Text>
+                                            </View>
+                                            <View style={styles.evMain}>
+                                                <View style={styles.evImg}>
+                                                    <View style={styles.evThumb}></View>
+                                                </View>
+                                                <Text style={styles.evTitle}>Annual Celebration of Songs</Text>
+                                                <Text style={styles.evDate}>Sun, Dec 28, 3:00PM</Text>
+                                            </View>
+                                        </ScrollView>
                                     </View>
-                                </Pressable>
+                                    
+                                    <View style={{marginTop: 20, marginBottom: 10}}>
+                                        <Text style={styles.secTitle}>Suggestions</Text>
+                                    </View>
+                                    
+                                    {/* OUT FOR NOW */}
+                                    {/* OUT FOR NOW */}
+                                    <Pressable onPress={() => alert("NA")} style={styles.ptz_hd}>
+                                        <View style={styles.ptz_det}>
+                                            <Text style={styles.ptz_det_txt}>These people are in your line of industry.</Text>
+                                        </View>
+                                        <View style={styles.ptz_imgs_cont}>
+                                            <View style={[styles.ptz_img_hd, styles.num1]}>
+                                                {/* <Image style={styles.ptz_img} source={{ uri: Url.profile_photo + 'no-photo-available.jpg' }} /> */}
+                                            </View>
+                                            <View style={[styles.ptz_img_hd, styles.num2]}>
+                                                {/* <Image style={styles.ptz_img} source={{ uri: Url.profile_photo + 'no-photo-available.jpg' }} /> */}
+                                            </View>
+                                            <View style={[styles.ptz_img_hd, styles.num3]}>
+                                                {/* <Image style={styles.ptz_img} source={{ uri: Url.profile_photo + 'no-photo-available.jpg' }} /> */}
+                                            </View>
+                                            <View style={[styles.ptz_img_hd, styles.num4]}>
+                                                {/* <Image style={styles.ptz_img} source={{ uri: Url.profile_photo + 'no-photo-available.jpg' }} /> */}
+                                            </View>
+                                            <View style={[styles.ptz_img_hd, styles.num5]}>
+                                                {/* <Image style={styles.ptz_img} source={{ uri: Url.profile_photo + 'no-photo-available.jpg' }} /> */}
+                                            </View>
+                                            <View style={[styles.ptz_img_hd, styles.num6]}>
+                                                {/* <Image style={styles.ptz_img} source={{ uri: Url.profile_photo + 'no-photo-available.jpg' }} /> */}
+                                            </View>
+                                            <View style={[styles.ptz_img_hd, styles.num7]}>
+                                                {/* <Image style={styles.ptz_img} source={{ uri: Url.profile_photo + 'no-photo-available.jpg' }} /> */}
+                                            </View>
+                                        </View>
+                                    </Pressable>
+                                </>
                             }
-                            numColumns={2}
+                            numColumns={3}
                             keyExtractor={(item) => item.name}
                             style={{justifyContent: 'space-between'}}
                             renderItem={({ item, index }) => {
                                 return (
-                                    <Pressable key={index} style={styles.post} onPress={()=>setModalVisible(!modalVisible)}>
+                                    <Pressable key={index} style={[styles.post, {height: item.height }]} onPress={()=>setModalVisible(!modalVisible)}>
                                         {/* <Image source={{ uri: img_uri }} resizeMode='contain' style={styles.postPhoto} /> */}
-                                        <Text style={{color:Colors.grayNine,margin:15}}>{Device.brand}, {Device.deviceName}, {Device.modelName}</Text>
-                                        <Ionicons name="play" size={18} color={Colors.primary} style={styles.vidTag} />
+                                        {/* <Text style={{color:Colors.grayNine,margin:15}}>{Device.brand}, {Device.deviceName}, {Device.modelName}</Text>
+                                        <Ionicons name="play" size={18} color={Colors.primary} style={styles.vidTag} /> */}
                                     </Pressable>
                                 )
                             }}
@@ -162,6 +250,44 @@ const Explore = ({ navigation }) => {
                     </View>
                 </View>
                 
+                {/* --------- LOCATION SEARCH MODAL ---------- */}
+                <Modal
+                animationType="slide"
+                statusBarTranslucent={true}
+                transparent={true}
+                visible={searchVisible}
+                // onShow={()=>alert('shown')}
+                onRequestClose={() => {
+                    setSearchModal(!searchVisible);
+                }}>
+                    <View style={styles.ModalView}>
+                        <View style={styles.ModalCenterViewFull}>
+                            <View style={styles.modalCloseBarHD}><Pressable style={styles.modalCloseBar} onPress={()=>setSearchModal(!searchVisible)}></Pressable></View>
+                            <View style={styles.modalHead}>
+                                <Ionicons onPress={()=>setSearchModal(!searchVisible)} name="chevron-back" size={24} color={Colors.black} style={{marginLeft:-7}} />
+                            </View>
+                            <View style={[styles.searchHD, {width: '100%'}]}>
+                                <Ionicons name="ios-search" size={16} color={Colors.grayEleven} />
+                                <TextInput style={styles.searchInput} placeholder='Searching for?' placeholderTextColor={Colors.grayEleven} />
+                            </View>
+                            <View style={{flexDirection: 'row',justifyContent: 'space-between',marginTop: 7}}>
+                                <View style={[styles.searchHD, {width: '49%'}]}>
+                                    <TextInput style={styles.searchInput} placeholder='In what State?' placeholderTextColor={Colors.grayEleven} />
+                                </View>
+                                <View style={[styles.searchHD, {width: '49%'}]}>
+                                    <TextInput style={styles.searchInput} placeholder='At what City?' placeholderTextColor={Colors.grayEleven} />
+                                </View>
+                            </View>
+                            <TouchableOpacity
+                                style={styles.btn}
+                                onPress={()=>press()}
+                            >
+                                <Text style={styles.btn_text_small}>Search</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </Modal>
+                
                 
                 <Modal
                 animationType="slide"
@@ -206,6 +332,13 @@ const styles = StyleSheet.create({
         borderTopRightRadius: 25,
         paddingHorizontal: 15,
     },
+    ModalCenterViewFull: {
+        backgroundColor: '#fff',
+        width: '100%',
+        height: '100%',
+        paddingHorizontal: 15,
+        paddingTop: 15
+    },
     modalCloseBarHD: {
         width: '100%',
         // position: 'absolute',
@@ -227,8 +360,36 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         paddingVertical: 10
     },
+    btn: {
+        borderRadius: 50,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: Colors.primary,
+        padding: 7,
+        marginTop: 10
+    },
+    btn_text_small: {
+        fontSize: 12,
+        fontWeight: '600',
+        marginHorizontal: 7,
+        color: Colors.white
+    },
+    // MODAL STYLES ENDS HERE
     
-    
+    // SEARCH ------------------------ //
+    searchHD: {
+        width: 230,
+        height: 32,
+        backgroundColor: Colors.black_050,
+        flexDirection: 'row',
+        alignItems: 'center',
+        borderRadius: 30,
+        paddingHorizontal: 10
+    },
+    searchInput: {
+        marginLeft: 5,
+        paddingRight: 10
+    },
     
     
     container:{
@@ -249,37 +410,29 @@ const styles = StyleSheet.create({
         boxSizing: 'border-box',
         flex: 1
     },
-    ex_tab_bar: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        backgroundColor: Colors.graySeven,
-        padding: 3,
-        borderRadius: 9
-    },
     exTabBtn: {
         paddingVertical: 7,
         width: 80,
-        borderRadius: 7,
-        backgroundColor: Colors.white,
+        borderRadius: 16,
+        backgroundColor: Colors.graySeven,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     exTabBtnText: {
         fontSize: 12,
         textAlign: 'center',
         fontWeight: '500',
     },
-    active: {
-        zIndex: 1,
-        backgroundColor: Colors.graySeven,
-    },
-    active_text: {
-        color: Colors.black
-    },
+    
+    
     postsContainer: {
         flex: 1
     },
     productsContainer: {
         flex: 1
     },
+    
     // SUGGESTED PEOPLE STYLES
     ptz_hd: {
         width: '100%',
@@ -290,7 +443,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         height: 117,
-        marginBottom: 10
+        marginBottom: 10,
+        display: 'none'
     },
     ptz_img_hd: {
         backgroundColor: Colors.grayNine,
@@ -371,13 +525,55 @@ const styles = StyleSheet.create({
         width: '65%',
         overflow: 'hidden'
     },
+    
+    // EXPLORE ---------------------------- //
+    secTitle: {
+        fontSize: 17,
+        fontWeight: '600'
+    },
+    more_link: {
+        color: Colors.secondary,
+        fontSize: 13
+    },
+    
+    // EVENT ------------------------------ //
+    evMain: {
+        width: (width / 2) - 30,
+        marginRight: 7,
+    },
+    evImg: {
+        width: '100%',
+        height: 150,
+        backgroundColor: Colors.graySeven,
+        borderRadius: 14,
+        position: 'relative'
+    },
+    evThumb: {
+        position: 'absolute',
+        top: 5,
+        left: 5,
+        width: 25,
+        height: 25,
+        backgroundColor: Colors.grayNine,
+        borderRadius: 30
+    },
+    evTitle: {
+        fontWeight: '700',
+        marginTop: 7
+    },
+    evDate: {
+        color: Colors.grayEleven,
+        marginTop: 7,
+        fontWeight: '400',
+        fontSize: 13
+    },
+    
     // POST BODY STYLES
     post: {
-        width: (width / 2) - 20,
-        borderRadius: 22,
-        height: 200,
+        width: (width / 3) - 13,
+        borderRadius: 14,
+        marginBottom: 4,
         backgroundColor: Colors.grayEight,
-        marginBottom: 10,
         position: 'relative'
     },
     textPost: {

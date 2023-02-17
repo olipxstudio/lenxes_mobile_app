@@ -10,6 +10,7 @@ import FeedPeople from '../../components/FeedPeople';
 import FeedProductBody from '../../components/FeedProductBody';
 import NewPost from '../../components/NewPost';
 import DiscussPeopleList from '../../components/DiscussPeopleList';
+import Club from '../../components/Club';
 
 const {width} = Dimensions.get('window');
 
@@ -22,24 +23,26 @@ const Feed = ({ navigation }) => {
     const [active, setActive] = useState('post'); // post, product
     const [discussModal, setDiscussModal] = useState(false);
     
-    
-    
     const fakeData = [
         {
-            'name':'oke',
-            'type':'img'
-        },
-        {
-            'name':'pius',
-            'type':'text'
+            'name':'okay',
+            'title': 'Social gethering and it\'s applications, this is it'
         },
         {
             'name':'peace',
-            'type':'img'
+            'title': 'Social gethering and it\'s applications'
         },
         {
-            'name':'peter',
-            'type':'img'
+            'name':'john',
+            'title': 'Technical Club'
+        },
+        {
+            'name':'pius',
+            'title': 'Agenda for Peter Obi Campaign'
+        },
+        {
+            'name':'okoro',
+            'title': 'Non violence group for country restructuring'
         }
     ]
     
@@ -60,10 +63,7 @@ const Feed = ({ navigation }) => {
                         <Image source={require('../../assets/logo/lenxes_logo_bg_millik_black.png')} style={{width:90,height:21.8}} />
                     </View>
                     <View style={styles.hd_head_options}>
-                        {/* <Ionicons onPress={()=>alert('good')} name="play" size={24} color={Colors.black} style={styles.hdJiveBtn} /> */}
-                        <Ionicons onPress={()=>alert('good')} name="ios-chatbubbles-outline" size={24} color={Colors.black} style={styles.hdJiveBtn} />
-                        {/* <MaterialCommunityIcons onPress={()=>navigation.navigate('Niche')} name="bullseye-arrow" size={24} color={Colors.black} /> */}
-                        <Ionicons onPress={()=>alert('good')} name="ios-notifications-outline" size={24} color={Colors.black} style={styles.hdJiveBtn} />
+                        <Ionicons onPress={()=>navigation.navigate("PostsFeed")} name="play" size={22} color={Colors.black} style={styles.hdJiveBtn} />
                     </View>
                 </View>
                 
@@ -81,17 +81,93 @@ const Feed = ({ navigation }) => {
                         // onRefresh={() => getItems(owner_id)}
                         // refreshing={loading}
                         ListHeaderComponent={
-                            <ScrollView showsHorizontalScrollIndicator={false} style={styles.discuss} horizontal>
-                                <DiscussClip text="Discover" press={()=>alert('Okay')} img="" size="sm" num="12" />
-                                <DiscussClip text="Discover" press={()=>alert('Okay')} img="" size="sm" num="24" />
-                                <DiscussClip text="Discover" press={()=>alert('Okay')} img="" size="sm" num="6" />
-                                <DiscussClip text="Discover" press={()=>alert('Okay')} img="" size="sm" num="33" />
-                                <DiscussClip text="Discover" press={()=>alert('Okay')} img="" size="sm" num="8" />
-                                <DiscussClip text="Discover" press={()=>alert('Okay')} img="" size="sm" num="17" />
-                                <DiscussClip text="Discover" press={()=>alert('Okay')} img="" size="sm" num="4" />
-                                <DiscussClip text="Discover" press={()=>alert('Okay')} img="" size="sm" num="28" />
-                                <DiscussClip text="Discover" press={()=>alert('Okay')} img="" size="sm" num="14" />
-                            </ScrollView>
+                            <>
+                                <ScrollView showsHorizontalScrollIndicator={false} style={styles.feed_videos} contentContainerStyle={{alignItems: 'center'}} horizontal>
+                                    <View style={styles.vidHD}>
+                                        <View style={styles.vidIndentity}>
+                                            <View style={styles.vidOwner}></View>
+                                            {/* <Ionicons name="play" size={13} color={Colors.primary} /> */}
+                                        </View>
+                                        {/* <Image /> */}
+                                    </View>
+                                    <View style={styles.vidHD}>
+                                        <View style={styles.vidIndentity}>
+                                            <View style={styles.vidOwner}></View>
+                                            <Ionicons name="play" size={13} color={Colors.primary} />
+                                        </View>
+                                        {/* <Image /> */}
+                                    </View>
+                                    <View style={styles.vidHD}>
+                                        <View style={styles.vidIndentity}>
+                                            <View style={styles.vidOwner}></View>
+                                            {/* <Ionicons name="play" size={13} color={Colors.primary} /> */}
+                                        </View>
+                                        {/* <Image /> */}
+                                    </View>
+                                    <View style={styles.vidHD}>
+                                        <View style={styles.vidIndentity}>
+                                            <View style={styles.vidOwner}></View>
+                                            <Ionicons name="play" size={13} color={Colors.primary} />
+                                        </View>
+                                        {/* <Image /> */}
+                                    </View>
+                                    <TouchableOpacity onPress={()=>navigation.navigate("PostsFeed")} style={styles.allProductsBtn}>
+                                        <Text style={styles.allProductsBtnText}>View all</Text>
+                                        <Ionicons name="chevron-forward" size={18} color={Colors.black_600} />
+                                    </TouchableOpacity>
+                                </ScrollView>
+                                <View style={styles.joined_clubs}>
+                                    <View style={styles.jcHD}>
+                                        <View style={styles.jcImg}>
+                                            <View style={styles.jcAlert}>
+                                                <Text style={styles.jcAlertText}>2</Text>
+                                            </View>
+                                            {/* <Image /> */}
+                                        </View>
+                                        <Text style={styles.jcTit} numberOfLines={1}>Social gathering club</Text>
+                                    </View>
+                                    <View style={styles.jcHD}>
+                                        <View style={styles.jcImg}>
+                                            {/* <View style={styles.jcAlert}>
+                                                <Text style={styles.jcAlertText}>2</Text>
+                                            </View> */}
+                                            {/* <Image /> */}
+                                        </View>
+                                        <Text style={styles.jcTit} numberOfLines={1}>Social gathering club</Text>
+                                    </View>
+                                    <View style={styles.jcHD}>
+                                        <View style={styles.jcImg}>
+                                            {/* <View style={styles.jcAlert}>
+                                                <Text style={styles.jcAlertText}>2</Text>
+                                            </View> */}
+                                            {/* <Image /> */}
+                                        </View>
+                                        <Text style={styles.jcTit} numberOfLines={1}>Social gathering club</Text>
+                                    </View>
+                                    <View style={styles.jcHD}>
+                                        <View style={styles.jcImg}>
+                                            <View style={styles.jcAlert}>
+                                                <Text style={styles.jcAlertText}>10</Text>
+                                            </View>
+                                            {/* <Image /> */}
+                                        </View>
+                                        <Text style={styles.jcTit} numberOfLines={1}>Social gathering club</Text>
+                                    </View>
+                                    <View style={styles.jcHD}>
+                                        <View style={styles.jcImg}>
+                                            {/* <View style={styles.jcAlert}>
+                                                <Text style={styles.jcAlertText}>10</Text>
+                                            </View> */}
+                                            {/* <Image /> */}
+                                        </View>
+                                        <Text style={styles.jcTit} numberOfLines={1}>Social gathering club</Text>
+                                    </View>
+                                </View>
+                                <View style={styles.dividerLine}></View>
+                                <View style={styles.suggestedTitle}>
+                                    <Text style={styles.suggestedTitleText}>Suggested Clubs</Text>
+                                </View>
+                            </>
                         }
                         ListEmptyComponent={
                             <View style={styles.emptyHD}>
@@ -129,7 +205,7 @@ const Feed = ({ navigation }) => {
                             if(index == 2){
                                 return (
                                     <>
-                                        <ScrollView showsHorizontalScrollIndicator={false} contentContainerStyle={styles.productHD} horizontal>
+                                        {/* <ScrollView showsHorizontalScrollIndicator={false} contentContainerStyle={styles.productHD} horizontal>
                                             <FeedProductBody type="scroll" press={()=>navigation.navigate("SingleProduct")} />
                                             <FeedProductBody type="scroll" press={()=>navigation.navigate("SingleProduct")} />
                                             <FeedProductBody type="scroll" press={()=>navigation.navigate("SingleProduct")} />
@@ -138,72 +214,23 @@ const Feed = ({ navigation }) => {
                                                 <Ionicons name="chevron-forward" size={18} color={Colors.black_600} />
                                             </TouchableOpacity>
                                         </ScrollView>
-                                        <PostBody key={index} start_discuss={()=>startDiscuss(item.name)} press={()=>alert('Okay')} position={index} type={item.type} />
+                                        <PostBody key={index} img={item.img} start_discuss={()=>startDiscuss(item.name)} press={()=>alert('Okay')} position={index} type={item.type} /> */}
                                     </>
                                 )
                             }
                             return (
-                                <PostBody key={index} start_discuss={()=>startDiscuss(item.name)} press={()=>alert('Okay')} position={index} type={item.type} />
+                                <Club key={index} press={()=>alert('Okay')} title={item.title} />
                             )
                         }}
                         ListFooterComponent={
                             <View style={styles.scrollTop}>
                                 <View style={styles.scrollTopInner}>
-                                    <Ionicons name="ios-add-circle-outline" size={18} color={Colors.black_600} />
+                                    <Ionicons name="arrow-up" size={18} color={Colors.black_500} />
                                 </View>
                             </View>
                         }
                     />
                 </View>
-                
-                <NewPost />
-                
-                <Modal
-                animationType="slide"
-                statusBarTranslucent={true}
-                transparent={true}
-                visible={discussModal}
-                // onShow={()=>alert('shown')}
-                onRequestClose={() => {
-                    setDiscussModal(!discussModal);
-                }}>
-                    <View style={styles.ModalView}>
-                        <Pressable onPress={()=>setDiscussModal(!discussModal)} style={styles.backDrop}></Pressable>
-                        <View style={styles.ModalCenterView}>
-                            <View style={styles.modalCloseBarHD}><Pressable style={styles.modalCloseBar} onPress={()=>setDiscussModal(!discussModal)}></Pressable></View>
-                            <View style={styles.modalHead}>
-                                <Ionicons onPress={()=>setDiscussModal(!discussModal)} name="chevron-back" size={24} color={Colors.black} style={{marginLeft:-7}} />
-                                <Pressable onPress={()=>goToDiscussRoom()}>
-                                    <Text style={{color:Colors.primary,fontWeight:'700'}}>Start Discuss</Text>
-                                </Pressable>
-                            </View>
-                            <ScrollView showsVerticalScrollIndicator={false} style={{marginTop:15}}>
-                                
-                                <View style={{marginBottom:25}}>
-                                    <Text style={styles.discussModTit}>Start a Discuss</Text>
-                                    <Text style={styles.discussModSubTit}>Add people to discuss to chat about this post. All discussion would disappear after 24 Hours.</Text>
-                                </View>
-                                <DiscussPeopleList press={()=>alert('good')} my_id={1} model="two" name="Olipx Studio" size="big" handle="olipxstudio" img="" added={false} />
-                                <DiscussPeopleList press={()=>alert('good')} my_id={1} model="two" name="Olipx Studio" size="big" handle="olipxstudio" img="" added={true} />
-                                <DiscussPeopleList press={()=>alert('good')} my_id={1} model="two" name="Olipx Studio" size="big" handle="olipxstudio" img="" added={false} />
-                                <DiscussPeopleList press={()=>alert('good')} my_id={1} model="two" name="Olipx Studio" size="big" handle="olipxstudio" img="" added={false} />
-                                <DiscussPeopleList press={()=>alert('good')} my_id={1} model="two" name="Olipx Studio" size="big" handle="olipxstudio" img="" added={false} />
-                                <DiscussPeopleList press={()=>alert('good')} my_id={1} model="two" name="Olipx Studio" size="big" handle="olipxstudio" img="" added={true} />
-                                <DiscussPeopleList press={()=>alert('good')} my_id={1} model="two" name="Olipx Studio" size="big" handle="olipxstudio" img="" added={false} />
-                                <DiscussPeopleList press={()=>alert('good')} my_id={1} model="two" name="Olipx Studio" size="big" handle="olipxstudio" img="" added={false} />
-                                <DiscussPeopleList press={()=>alert('good')} my_id={1} model="two" name="Olipx Studio" size="big" handle="olipxstudio" img="" added={false} />
-                                <DiscussPeopleList press={()=>alert('good')} my_id={1} model="two" name="Olipx Studio" size="big" handle="olipxstudio" img="" added={true} />
-                                <DiscussPeopleList press={()=>alert('good')} my_id={1} model="two" name="Olipx Studio" size="big" handle="olipxstudio" img="" added={false} />
-                                <DiscussPeopleList press={()=>alert('good')} my_id={1} model="two" name="Olipx Studio" size="big" handle="olipxstudio" img="" added={false} />
-                                <DiscussPeopleList press={()=>alert('good')} my_id={1} model="two" name="Olipx Studio" size="big" handle="olipxstudio" img="" added={false} />
-                                <DiscussPeopleList press={()=>alert('good')} my_id={1} model="two" name="Olipx Studio" size="big" handle="olipxstudio" img="" added={true} />
-                                <DiscussPeopleList press={()=>alert('good')} my_id={1} model="two" name="Olipx Studio" size="big" handle="olipxstudio" img="" added={false} />
-                                <DiscussPeopleList press={()=>alert('good')} my_id={1} model="two" name="Olipx Studio" size="big" handle="olipxstudio" img="" added={false} />
-                                
-                            </ScrollView>
-                        </View>
-                    </View>
-                </Modal>
             </SafeAreaView>
         </View>
     );
@@ -236,26 +263,103 @@ const styles = StyleSheet.create({
     hdJiveBtn: {
         marginLeft: 30
     },
-    discuss: {
+    
+    // FEED POSTS ------------------- //
+    feed_videos: {
         marginTop: 10,
         marginBottom: 25,
-        display: 'none'
     },
+    vidHD: {
+        width: width / 3 - 20,
+        height: 160,
+        backgroundColor: Colors.grayEight,
+        borderRadius: 16,
+        marginRight: 7
+    },
+    vidIndentity: {
+        padding: 5,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center'
+    },
+    vidOwner: {
+        width: 25,
+        height: 25,
+        backgroundColor: Colors.grayNine,
+        borderRadius: 100
+    },
+    
+    // JOINED CLUB ------------------------- //
+    joined_clubs: {
+        width: '100%',
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+    },
+    jcHD: {
+        width: (width / 4) - 23,
+        marginRight: 15,
+        marginBottom: 15
+    },
+    jcImg: {
+        height: (width / 4) - 23,
+        width: '100%',
+        backgroundColor: Colors.grayEight,
+        borderRadius: 100,
+        position: 'relative'
+    },
+    jcAlert: {
+        position: 'absolute',
+        right: 5,
+        top: 5,
+        backgroundColor: Colors.red,
+        width: 14,
+        height: 14,
+        borderRadius: 100,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    jcAlertText: {
+        color: Colors.white,
+        fontSize: 10,
+        fontWeight: '700'
+    },
+    jcTit: {
+        fontSize: 14
+    },
+    
+    // DIVIDER LINE ------------------------- //
+    dividerLine:{
+        width: '100%',
+        height: 1,
+        backgroundColor: Colors.grayEight,
+        marginVertical: 10
+    },
+    
+    // CLUBS ------------------------- //
+    suggestedTitle: {
+        marginTop: 10,
+        marginBottom: 15
+    },
+    suggestedTitleText: {
+        fontWeight: '600',
+        fontSize: 16
+    },
+    
+    
     scrollTop: {
         width: '100%',
         height: 50,
-        marginBottom:15,
+        marginBottom:5,
         justifyContent: 'center',
-        alignItems: 'center',
-        display: 'none'
+        alignItems: 'center'
     },
     scrollTopInner: {
-        width: 30,
-        height: 30,
-        backgroundColor: Colors.black_025,
+        width: 28,
+        height: 28,
+        backgroundColor: Colors.graySix,
         justifyContent: 'center',
         alignItems: 'center',
-        borderRadius: 50
+        borderRadius: 50,
     },
     empDetails: {
         width: '100%',
@@ -307,59 +411,6 @@ const styles = StyleSheet.create({
         fontSize: 13
     },
     
-    ModalView: {
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'flex-end',
-        backgroundColor: '#00000099',
-        position: 'relative'
-    },
-    backDrop: {
-        width:'100%',
-        height:'20%',
-        position:'absolute',
-        left:0,
-        top:0
-    },
-    ModalCenterView: {
-        backgroundColor: Colors.grayFive,
-        width: '100%',
-        height: '80%',
-        borderTopLeftRadius: 25,
-        borderTopRightRadius: 25,
-        paddingHorizontal: 15,
-    },
-    modalCloseBarHD: {
-        width: '100%',
-        // position: 'absolute',
-        // top: 0,
-        justifyContent: 'center',
-        alignItems: 'center',
-        paddingVertical:5,
-    },
-    modalCloseBar: {
-        width: 50,
-        height: 6,
-        borderRadius: 12,
-        backgroundColor: Colors.grayNine,
-    },
-    modalHead: {
-        width: '100%',
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        paddingTop: 10,
-    },
-    discussModTit: {
-        fontSize: 20,
-        fontWeight: 'bold',
-        marginBottom: 10
-    },
-    discussModSubTit: {
-        fontSize: 14,
-        color: Colors.black_700
-    },
 })
 
 

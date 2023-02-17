@@ -53,7 +53,7 @@ const PostBody = ({ position, text, press, img, type, start_discuss }) => {
                                 <Entypo name="price-tag" size={11} color={Colors.black} />
                             </TouchableOpacity>
                         </View>
-                        <TaggedPost size="partial" press={()=>alert('done')} show={showTaggedProduct} />
+                        <TaggedPost size="partial" position={true} press={()=>alert('done')} show={showTaggedProduct} />
                     </View>
                     <View style={{marginLeft:45}}>
                         <View style={{marginVertical: 5}}>
@@ -65,14 +65,14 @@ const PostBody = ({ position, text, press, img, type, start_discuss }) => {
                                 :
                                 <View style={styles.postPhoto}>
                                     {/* PHOTO AND VIDEO */}
-                                    {/* <RemoteImage uri={'https://images.pexels.com/photos/12987587/pexels-photo-12987587.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2'} desiredWidth={width - 30} /> */}
+                                    <RemoteImage uri={img} desiredWidth={width - 75} />
                                     {/* 9476187 */}
                                     {/* 9476188 */}
                                     {/* 12987587 */}
                                     {/* 6129989 */}
                                     {/* 6129992 */}
                                     {/* 4946918 */}
-                                    <Image source={img} style={styles.postPhotoImg} />
+                                    {/* <Image source={img} style={styles.postPhotoImg} /> */}
                                     <View style={styles.vidPlay}>
                                         <TouchableOpacity style={styles.vidPlayBtn} onPress={()=>alert('good')}>
                                             <Ionicons name="play" size={18} color={Colors.white} />
@@ -178,7 +178,7 @@ const styles = StyleSheet.create({
     },
     postPhoto: {
         width: '100%',
-        height: 300, // 500 With Sample Image
+        // height: 300, // 500 With Sample Image
         backgroundColor: Colors.grayEight,
         borderRadius: 16,
         // marginVertical: 5,

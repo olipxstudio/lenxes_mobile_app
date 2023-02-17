@@ -5,13 +5,13 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 
 const {width} = Dimensions.get('window');
 
-const TaggedPost = ({ size, press, show, img, num }) => {
+const TaggedPost = ({ size, position, press, show, img, num }) => {
     
     return (
         <>
         {
             show &&
-            <TouchableOpacity style={[styles.body, {width: size==='full'?'100%':(width-78)}]} onPress={()=>press()}>
+            <TouchableOpacity style={[styles.body, {width: size==='full'?'100%':(width-78), position: position ? 'absolute' : 'relative', left: position ? 40 : 0}]} onPress={()=>press()}>
                 <View style={styles.imgHd}>
                     {/* <Image style={styles.photo} /> */}
                 </View>
@@ -34,9 +34,7 @@ const TaggedPost = ({ size, press, show, img, num }) => {
 
 const styles = StyleSheet.create({
     body: {
-        position: 'absolute',
         top: 0,
-        left: 40,
         backgroundColor: Colors.white,
         borderRadius: 16,
         paddingHorizontal: 3,

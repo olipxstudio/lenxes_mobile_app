@@ -27,17 +27,17 @@ const FeedPeople = ({ userID, name, username, img }) => {
 
 const styles = StyleSheet.create({
     card: {
-        width: 130,
+        width: 105,
         backgroundColor: Colors.black_050,
         borderRadius: 22,
-        padding: 15,
+        padding: 7,
         justifyContent: 'center',
         alignItems: 'center',
-        marginRight: 10,
+        marginRight: 7,
     },
     cdPhotoHD: {
-        width: 75,
-        height: 75,
+        width: 60,
+        height: 60,
         backgroundColor: Colors.white,
         borderRadius: 50,
     },
@@ -47,14 +47,14 @@ const styles = StyleSheet.create({
         resizeMode: 'cover'
     },
     cdName: {
-        fontSize: 14,
-        fontWeight: '700',
+        fontSize: 13,
+        fontWeight: '600',
         marginTop: 8
     },
     cdUsername: {
         fontSize: 12,
         marginBottom: 8,
-        color: Colors.black_800
+        color: Colors.black_600
     },
 })
 

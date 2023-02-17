@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     qrModalCenterView: {
         backgroundColor: '#fff',
         width: '100%',
-        height: 400,
+        height: 470,
         borderTopLeftRadius: 25,
         borderTopRightRadius: 25,
         paddingVertical: 10,

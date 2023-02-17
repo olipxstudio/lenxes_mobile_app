@@ -13,8 +13,8 @@ import Activities from './pages/social/Activities';
 function Icon({ foc, img, text }) {
     return (
         <View style={{ alignItems: 'center', justifyContent: 'center', top: 2 }}>
-            <Ionicons name={img} size={25} color={foc ? Colors.primary : '#999'} />
-            <Text style={{ fontSize: Platform.OS === 'android' ? 8 : 8, color: foc ? Colors.primary : '#999', marginBottom: 5 }}>{text}</Text>
+            <Ionicons name={img} size={25} color={foc ? Colors.primary : '#bbb'} />
+            <Text style={{ fontSize: Platform.OS === 'android' ? 8 : 8, color: foc ? Colors.primary : '#999', marginBottom: 5, fontWeight: '600' }}>{text}</Text>
         </View>
     )
 }
@@ -33,22 +33,22 @@ const SocialTab = ({ route }) => {
         >
             <Tab.Screen name="Feed" component={Feed} options={{
                 tabBarIcon: ({ focused }) => (
-                    <Icon foc={focused} img="md-home-outline" text="Timeline" />
+                    <Icon foc={focused} img="chatbubbles" text="Clubs" />
                 ),
             }} />
             <Tab.Screen name="Explore" component={Explore} options={{
                 tabBarIcon: ({ focused }) => (
-                    <Icon foc={focused} img="ios-search-outline" text="Explore" />
+                    <Icon foc={focused} img="ios-search-circle" text="Explore" />
                 ),
             }} />
             <Tab.Screen name="Cart" component={Cart} options={{
                 tabBarIcon: ({ focused }) => (
-                    <Icon foc={focused} img="ios-cart-outline" text="Shopping" />
+                    <Icon foc={focused} img="ios-cart" text="Shopping" />
                 ),
             }} />
             <Tab.Screen name="Activities" component={Activities} options={{
                 tabBarIcon: ({ focused }) => (
-                    <Icon foc={focused} img="chatbubbles-outline" text="Activity" />
+                    <Icon foc={focused} img="notifications" text="Activity" />
                 ),
             }} />
             <Tab.Screen name="ProfileStacks" component={ProfileStacks} options={{
